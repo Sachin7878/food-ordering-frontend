@@ -13,6 +13,7 @@ export class AuthService {
   private token: string;
   private authStatusListener = new Subject<boolean>();
   private tokenTimer: any;
+  private isAdmin = false;
   // private userId: string;
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -27,6 +28,10 @@ export class AuthService {
 
   getIsAuth() {
     return this.isAuthenticated;
+  }
+
+  getIsAdmin() {
+    return this.isAdmin;
   }
 
   // getUserId() {
@@ -71,20 +76,21 @@ export class AuthService {
       )
       .subscribe(
         (response) => {
+          console.log(response);
           const token = response.token;
           this.token = token;
           if (this.token) {
             const expiresInDuration = response.expiresIn;
             this.setAuthTimer(expiresInDuration);
             this.isAuthenticated = true;
-            //            this.userId = response.userId;
+            //this.userId = response.userId;
             this.authStatusListener.next(true);
             const now = new Date();
             const expirationDate = new Date(
               now.getTime() + expiresInDuration * 1000
             );
             this.saveAuthData(token, expirationDate);
-            this.router.navigate(['/']);
+            this.router.navigate(['/hotels']);
           }
         },
         (error) => {
@@ -151,4 +157,6 @@ export class AuthService {
       //  userId: userId,
     };
   }
+
+  private getRoleFromResp() {}
 }
