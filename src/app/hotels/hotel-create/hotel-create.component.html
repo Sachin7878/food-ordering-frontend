@@ -1,0 +1,29 @@
+<mat-card>
+  <!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
+  <form (submit)="onSubmit(hotelForm)" #hotelForm="ngForm">
+    <mat-form-field>
+      <input
+        matInput
+        name="hotelName"
+        ngModel
+        type="text"
+        placeholder="Hotel Name"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        name="mobileNo"
+        ngModel
+        type="text"
+        placeholder="Mobile No"
+        required
+        maxlength="10"
+        minlength="10"
+      />
+    </mat-form-field>
+    <button mat-raised-button color="accent" type="submit">Create Hotel</button>
+  </form>
+</mat-card>
