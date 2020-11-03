@@ -7,6 +7,8 @@ import { AuthRegistrationData } from './auth-registration-data.model';
 
 const BANKEND_URL = 'http://localhost:8080/api';
 
+export const ROLE_ADMIN = 'admin';
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private isAuthenticated = false;
@@ -70,7 +72,7 @@ export class AuthService {
       password: password,
     };
     this.http
-      .post<{ token: string; expiresIn: number; userId: string }>(
+      .post<{ token: string; expiresIn: number; role: string }>(
         BANKEND_URL + '/login',
         authData
       )
@@ -83,6 +85,12 @@ export class AuthService {
             const expiresInDuration = response.expiresIn;
             this.setAuthTimer(expiresInDuration);
             this.isAuthenticated = true;
+            const roleCheck = response.role;
+            console.log(roleCheck);
+            if (roleCheck === ROLE_ADMIN) {
+              this.isAdmin = true;
+            }
+            console.log(this.isAdmin);
             //this.userId = response.userId;
             this.authStatusListener.next(true);
             const now = new Date();
@@ -122,6 +130,7 @@ export class AuthService {
     this.authStatusListener.next(false);
     this.router.navigate(['/']);
     this.clearAuthData();
+    this.isAdmin = false;
     //this.userId = null;
     clearTimeout(this.tokenTimer);
   }
