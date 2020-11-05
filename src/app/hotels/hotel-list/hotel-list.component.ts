@@ -16,13 +16,11 @@ export class HotelListComponent implements OnInit, OnDestroy {
   constructor(private hotelService: HotelService) {}
 
   ngOnInit() {
-    console.log('in ng on init of hotel list before isLoading');
     this.isLoading = true;
     this.hotelService.fetchAllHotels();
     this.hotelSub = this.hotelService
       .getHotelUpdateListener()
       .subscribe((hotelData) => {
-        console.log('in ng on init of hotel list');
         this.isLoading = false;
         this.hotelsList = hotelData.hotels;
       });
