@@ -10,6 +10,47 @@ import { HotelService } from '../hotel.service';
 export class HotelCreateComponent implements OnInit {
   constructor(private hotelService: HotelService) {}
 
+  country = 'India';
+
+  states = [
+    'Andhra Pradesh',
+    'Arunachal Pradesh',
+    'Assam',
+    'Bihar',
+    'Chhattisgarh',
+    'Goa',
+    'Gujarat',
+    'Haryana',
+    'Himachal Pradesh',
+    'Jammu and Kashmir',
+    'Jharkhand',
+    'Karnataka',
+    'Kerala',
+    'Madhya Pradesh',
+    'Maharashtra',
+    'Manipur',
+    'Meghalaya',
+    'Mizoram',
+    'Nagaland',
+    'Odisha',
+    'Punjab',
+    'Rajasthan',
+    'Sikkim',
+    'Tamil Nadu',
+    'Telangana',
+    'Tripura',
+    'Uttarakhand',
+    'Uttar Pradesh',
+    'West Bengal',
+    'Andaman and Nicobar Islands',
+    'Chandigarh',
+    'Dadra and Nagar Haveli',
+    'Daman and Diu',
+    'Delhi',
+    'Lakshadweep',
+    'Puducherry',
+  ];
+
   ngOnInit(): void {}
 
   onSubmit(form: NgForm) {
@@ -18,7 +59,13 @@ export class HotelCreateComponent implements OnInit {
     }
     this.hotelService.createHotelWithoutAddress(
       form.value.hotelName,
-      form.value.mobileNo
+      form.value.mobileNo,
+      form.value.addressLine1,
+      form.value.addressLine2,
+      form.value.city,
+      form.value.state,
+      form.value.country,
+      form.value.pincode
     );
   }
 }

@@ -9,6 +9,7 @@
         type="text"
         placeholder="Hotel Name"
         required
+        autocapitalize="words"
       />
     </mat-form-field>
 
@@ -24,6 +25,70 @@
         minlength="10"
       />
     </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        name="addressLine1"
+        ngModel
+        type="text"
+        placeholder="Address Line 1"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        name="addressLine2"
+        ngModel
+        type="text"
+        placeholder="Address Line 2"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        name="city"
+        ngModel
+        type="text"
+        placeholder="City"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>State</mat-label>
+      <mat-select ngModel name="state">
+        <mat-option *ngFor="let state of states" [value]="state">
+          {{ state }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        name="country"
+        [(ngModel)]="country"
+        type="text"
+        placeholder="Country"
+        required
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        matInput
+        name="pincode"
+        ngModel
+        type="text"
+        placeholder="PIN Code"
+        required
+      />
+    </mat-form-field>
+
     <button mat-raised-button color="accent" type="submit">Create Hotel</button>
   </form>
 </mat-card>
