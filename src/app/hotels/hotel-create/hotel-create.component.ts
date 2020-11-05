@@ -57,7 +57,7 @@ export class HotelCreateComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    this.hotelService.createHotelWithoutAddress(
+    this.hotelService.createHotel(
       form.value.hotelName,
       form.value.mobileNo,
       form.value.addressLine1,

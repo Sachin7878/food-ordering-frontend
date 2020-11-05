@@ -1,15 +1,21 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Hotel } from './hotel.model';
+import { map } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 
-const BANKEND_URL = 'http://localhost:8080/api';
+const BACKEND_URL = 'http://localhost:8080/api';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HotelService {
+  private hotels: Hotel[];
+  private hotelsUpdated = new Subject<{ hotels: Hotel[] }>();
+
   constructor(private http: HttpClient) {}
 
-  createHotelWithoutAddress(
+  createHotel(
     hotelName: string,
     mobileNo: string,
     addressLine1: string,
@@ -31,7 +37,7 @@ export class HotelService {
         pincode: pincode,
       },
     };
-    this.http.post(BANKEND_URL + '/createhotel', hotelRegData).subscribe(
+    this.http.post(BACKEND_URL + '/createhotel', hotelRegData).subscribe(
       (result) => {
         console.log(result);
       },
@@ -39,5 +45,38 @@ export class HotelService {
         console.log(error);
       }
     );
+  }
+
+  fetchAllHotels() {
+    this.http
+      .get<Hotel[]>(BACKEND_URL + '/gethotels')
+      .pipe(
+        map((hotelData) => {
+          return {
+            hotels: hotelData.map((hotel) => {
+              return {
+                id: hotel.id,
+                hotelName: hotel.hotelName,
+                mobileNo: hotel.mobileNo,
+                address: hotel.address,
+              };
+            }),
+          };
+        })
+      )
+      .subscribe((transformedHotelData) => {
+        this.hotels = transformedHotelData.hotels;
+        this.hotelsUpdated.next({
+          hotels: [...this.hotels],
+        });
+      });
+  }
+
+  getHotelArray() {
+    return this.hotels;
+  }
+
+  getHotelUpdateListener() {
+    return this.hotelsUpdated.asObservable();
   }
 }

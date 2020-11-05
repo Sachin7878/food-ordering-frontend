@@ -58,7 +58,7 @@ export class AuthService {
       (successUser) => {
         console.log(successUser);
         this.authStatusListener.next(true);
-        this.router.navigate(['/']);
+        this.router.navigate(['/login']);
       },
       (error) => {
         this.authStatusListener.next(false);
