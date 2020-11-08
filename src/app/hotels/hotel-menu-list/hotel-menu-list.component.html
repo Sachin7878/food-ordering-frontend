@@ -1,1 +1,4 @@
-<h4>{{ selectedHotel.hotelName }}</h4>
+<mat-spinner style="margin: auto" *ngIf="isLoading"></mat-spinner>
+<div *ngIf="!isLoading">
+  <h4>{{ selectedHotel.hotelName | async }}</h4>
+</div>

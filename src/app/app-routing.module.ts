@@ -5,6 +5,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { HotelCreateComponent } from './hotels/hotel-create/hotel-create.component';
 import { HotelListComponent } from './hotels/hotel-list/hotel-list.component';
 import { HotelMenuItemComponent } from './hotels/hotel-menu-item/hotel-menu-item.component';
+import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list.component';
 import { HotelsComponent } from './hotels/hotels.component';
 
 const routes: Routes = [
@@ -13,6 +14,8 @@ const routes: Routes = [
   { path: 'hotelList', component: HotelListComponent },
   { path: 'hotelCreate', component: HotelCreateComponent },
   { path: 'hotelItem', component: HotelMenuItemComponent },
+  { path: 'hotel/:hotelId', component: HotelMenuListComponent },
+
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),

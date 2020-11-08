@@ -12,7 +12,7 @@ mat-card {
   justify-content: space-between;
   margin-top: 2rem;
   max-width: 30%;
-  min-width: 25%;
+  min-width: 200px;
 }
 
 #list-holder {

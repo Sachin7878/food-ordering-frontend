@@ -2,7 +2,9 @@ export interface Hotel {
   id: number;
   hotelName: string;
   mobileNo: number;
-  menuItems?: [{ id: number; itemName: string; itemPrice: number }];
+  menuItems?: [
+    { mId: number; itemName: string; itemPrice: number; available: boolean }
+  ];
   address?: {
     id: number;
     addressLine1: string;
