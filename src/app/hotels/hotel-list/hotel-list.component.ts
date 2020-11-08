@@ -26,6 +26,10 @@ export class HotelListComponent implements OnInit, OnDestroy {
       });
   }
 
+  openHotel(hotel) {
+    console.log(hotel.id);
+  }
+
   ngOnDestroy() {
     this.hotelSub.unsubscribe();
   }
