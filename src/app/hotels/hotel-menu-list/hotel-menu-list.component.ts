@@ -11,7 +11,6 @@ import { MenuItem } from '../menu-item.model';
   styleUrls: ['./hotel-menu-list.component.css'],
 })
 export class HotelMenuListComponent implements OnInit, OnDestroy {
-  quantity = 1;
   isLoading = false;
   private selectHotelSub: Subscription;
   selectedHotel: Hotel;
@@ -51,12 +50,7 @@ export class HotelMenuListComponent implements OnInit, OnDestroy {
     });
   }
 
-  decreaseQuantity() {
-    this.quantity -= 1;
-  }
-  increaseQuantity() {
-    this.quantity += 1;
-  }
+  addToCart() {}
 
   ngOnDestroy() {
     this.selectHotelSub.unsubscribe();

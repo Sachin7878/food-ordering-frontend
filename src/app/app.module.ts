@@ -12,7 +12,6 @@ import { HotelCreateComponent } from './hotels/hotel-create/hotel-create.compone
 import { FormsModule } from '@angular/forms';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { HotelListComponent } from './hotels/hotel-list/hotel-list.component';
-import { HotelMenuItemComponent } from './hotels/hotel-menu-item/hotel-menu-item.component';
 import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list.component';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list
     HotelsComponent,
     HotelCreateComponent,
     HotelListComponent,
-    HotelMenuItemComponent,
     HotelMenuListComponent,
   ],
   imports: [
