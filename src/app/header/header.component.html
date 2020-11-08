@@ -4,6 +4,11 @@
   </span>
   <span class="spacer"></span>
   <ul>
+    <li>
+      <a mat-button routerLink="/hotelList" routerLinkActive="mat-accent"
+        >Hotel List</a
+      >
+    </li>
     <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent"
         >Login</a
@@ -19,6 +24,7 @@
         >Create Hotel</a
       >
     </li>
+
     <li *ngIf="userIsAuthenticated">
       <button mat-button (click)="onLogout()">Logout</button>
     </li>

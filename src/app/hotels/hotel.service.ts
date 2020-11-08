@@ -4,6 +4,7 @@ import { Hotel } from './hotel.model';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { error } from 'protractor';
 
 const BACKEND_URL = 'http://localhost:8080/api';
 
@@ -14,6 +15,7 @@ export class HotelService {
   private selectedHotel: Hotel;
   private hotels: Hotel[];
   private hotelsUpdated = new Subject<{ hotels: Hotel[] }>();
+  private selectedHotelUpdated = new Subject<{ hotel: Hotel }>();
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -79,16 +81,33 @@ export class HotelService {
   }
 
   getHotelById(id) {
-    this.http.get(BACKEND_URL + '/gethotelId/' + id).subscribe(
-      (resHotel: Hotel) => {
-        this.selectedHotel = resHotel;
-        console.log(this.selectedHotel);
-        //this.router.navigate(['/hotel/' + id]);
-      },
-      (error) => {
-        console.log(error.message);
-      }
-    );
+    this.http
+      .get<Hotel>(BACKEND_URL + '/gethotelId/' + id)
+      // .pipe(
+      //   map((hotelData) => {
+      //     return {
+      //       hotels: hotelData.map((hotel) => {
+      //         return {
+      //           id: hotel.id,
+      //           hotelName: hotel.hotelName,
+      //           mobileNo: hotel.mobileNo,
+      //           address: hotel.address,
+      //         };
+      //       }),
+      //     };
+      //   })
+      // )
+      .subscribe(
+        (hotelData) => {
+          this.selectedHotel = hotelData;
+          this.selectedHotelUpdated.next({
+            hotel: this.selectedHotel,
+          });
+        },
+        (error) => {
+          console.log(error.message);
+        }
+      );
   }
 
   getHotelArray() {
@@ -97,6 +116,10 @@ export class HotelService {
 
   getHotelUpdateListener() {
     return this.hotelsUpdated.asObservable();
+  }
+
+  getSelectedHotelUpdateListener() {
+    return this.selectedHotelUpdated.asObservable();
   }
 
   getSelectedHotel() {
