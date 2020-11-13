@@ -19,6 +19,7 @@ import { ErrorComponent } from './error-page/error.component';
   declarations: [
     AppComponent,
     HeaderComponent,
+    ErrorComponent,
     HotelCreateComponent,
     HotelListComponent,
     HotelMenuListComponent,

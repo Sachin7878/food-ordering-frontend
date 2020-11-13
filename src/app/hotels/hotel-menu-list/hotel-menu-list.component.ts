@@ -16,6 +16,7 @@ export class HotelMenuListComponent implements OnInit, OnDestroy {
   selectedHotel: Hotel;
   menuItemsForSelectedHotel: MenuItem[];
   hotelIdString: String;
+  hotelNameString: String;
   addressString: String;
   constructor(
     public route: ActivatedRoute,
@@ -33,6 +34,7 @@ export class HotelMenuListComponent implements OnInit, OnDestroy {
           .subscribe((selectedHotelData) => {
             this.isLoading = false;
             this.selectedHotel = selectedHotelData.hotel;
+            this.hotelNameString = this.selectedHotel.hotelName;
             this.menuItemsForSelectedHotel = this.selectedHotel.menuItems;
             this.addressString =
               this.selectedHotel.address.addressLine1 +

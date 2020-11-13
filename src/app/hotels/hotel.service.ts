@@ -96,17 +96,12 @@ export class HotelService {
       //     };
       //   })
       // )
-      .subscribe(
-        (hotelData) => {
-          this.selectedHotel = hotelData;
-          this.selectedHotelUpdated.next({
-            hotel: this.selectedHotel,
-          });
-        },
-        (error) => {
-          console.log(error.message);
-        }
-      );
+      .subscribe((hotelData) => {
+        this.selectedHotel = hotelData;
+        this.selectedHotelUpdated.next({
+          hotel: this.selectedHotel,
+        });
+      });
   }
 
   getHotelArray() {

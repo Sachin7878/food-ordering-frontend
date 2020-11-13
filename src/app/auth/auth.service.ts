@@ -78,7 +78,6 @@ export class AuthService {
       )
       .subscribe(
         (response) => {
-          console.log(response);
           const token = response.token;
           this.token = token;
           if (this.token) {
@@ -86,11 +85,9 @@ export class AuthService {
             this.setAuthTimer(expiresInDuration);
             this.isAuthenticated = true;
             const roleCheck = response.role;
-            console.log(roleCheck);
             if (roleCheck === ROLE_ADMIN) {
               this.isAdmin = true;
             }
-            console.log(this.isAdmin);
             //this.userId = response.userId;
             this.authStatusListener.next(true);
             const now = new Date();
@@ -98,7 +95,7 @@ export class AuthService {
               now.getTime() + expiresInDuration * 1000
             );
             this.saveAuthData(token, expirationDate);
-            this.router.navigate(['/hotels']);
+            this.router.navigate(['/']);
           }
         },
         (error) => {
