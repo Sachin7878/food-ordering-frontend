@@ -7,18 +7,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularMaterialModule } from './angular-material.module';
-import { HotelsComponent } from './hotels/hotels.component';
 import { HotelCreateComponent } from './hotels/hotel-create/hotel-create.component';
 import { FormsModule } from '@angular/forms';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { HotelListComponent } from './hotels/hotel-list/hotel-list.component';
 import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list.component';
+import { ErrorInterceptor } from './error-interceptor';
+import { ErrorComponent } from './error-page/error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    HotelsComponent,
     HotelCreateComponent,
     HotelListComponent,
     HotelMenuListComponent,
@@ -33,7 +33,9 @@ import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
+  entryComponents: [ErrorComponent],
 })
 export class AppModule {}

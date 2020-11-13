@@ -4,7 +4,6 @@ import { Hotel } from './hotel.model';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
-import { error } from 'protractor';
 
 const BACKEND_URL = 'http://localhost:8080/api';
 

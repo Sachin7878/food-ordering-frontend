@@ -37,7 +37,7 @@ export class HotelMenuListComponent implements OnInit, OnDestroy {
             this.addressString =
               this.selectedHotel.address.addressLine1 +
               (this.selectedHotel.address.addressLine2
-                ? this.selectedHotel.address.addressLine2
+                ? ', ' + this.selectedHotel.address.addressLine2
                 : '') +
               ', ' +
               this.selectedHotel.address.city +
