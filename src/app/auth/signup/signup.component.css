@@ -1,4 +1,4 @@
-mat-card {
+/* mat-card {
   width: 70%;
   margin-right: auto;
   margin-left: auto;
@@ -7,8 +7,15 @@ mat-card {
 
 mat-form-field {
   width: 100%;
-}
+} */
 
 mat-spinner {
   margin: auto;
+}
+.main-div mat-card {
+  padding: 0px;
+  overflow: hidden;
+}
+.signup-form {
+  padding: 20px;
 }

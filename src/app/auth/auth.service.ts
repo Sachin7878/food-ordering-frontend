@@ -16,6 +16,8 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
   private tokenTimer: any;
   private isAdmin = false;
+  private isLoading = false;
+  private isLoadingListener = new Subject<boolean>();
   // private userId: string;
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -24,8 +26,16 @@ export class AuthService {
     return this.authStatusListener;
   }
 
+  getIsLoadingListener() {
+    return this.isLoadingListener;
+  }
+
   getToken() {
     return this.token;
+  }
+
+  getIsLoading() {
+    return this.isLoading;
   }
 
   getIsAuth() {

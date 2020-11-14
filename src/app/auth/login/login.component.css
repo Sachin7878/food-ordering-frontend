@@ -15,6 +15,7 @@ mat-spinner {
 
 .main-div mat-card {
   padding: 0px;
+  overflow: hidden;
 }
 .login-form {
   padding: 20px;

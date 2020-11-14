@@ -6,9 +6,10 @@ import { AngularMaterialModule } from '../angular-material.module';
 import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
+import { AuthCardComponent } from './auth-card/auth-card.component';
 
 @NgModule({
-  declarations: [LoginComponent, SignupComponent],
+  declarations: [LoginComponent, SignupComponent, AuthCardComponent],
   imports: [
     AngularMaterialModule,
     FormsModule,

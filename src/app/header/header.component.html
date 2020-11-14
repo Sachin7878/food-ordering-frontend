@@ -5,15 +5,21 @@
   <span class="spacer"></span>
   <ul>
     <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/auth/card" routerLinkActive="mat-accent"
+        >Authorize</a
+      >
+    </li>
+    <!-- <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent"
         >Login</a
       >
     </li>
+
     <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/auth/signup" routerLinkActive="mat-accent"
         >Sign Up</a
       >
-    </li>
+    </li> -->
     <li *ngIf="userIsAuthenticated">
       <a mat-button routerLink="/hotelCreate" routerLinkActive="mat-accent"
         >Create Hotel</a
