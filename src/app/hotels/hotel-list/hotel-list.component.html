@@ -1,6 +1,16 @@
 <mat-spinner *ngIf="isLoading"></mat-spinner>
-<div id="list-holder">
-  <mat-card *ngFor="let hotel of hotelsList">
+<div
+  id="list-holder"
+  fxFlex="100"
+  fxLayout.xs="column"
+  fxLayoutAlign="space-evenly"
+  fxLayoutGap="1rem"
+>
+  <mat-card
+    *ngFor="let hotel of hotelsList"
+    fxFlex.gt-sm="30%"
+    fxFlex.xs="100%"
+  >
     <mat-card-header>
       <mat-card-title>{{ hotel.hotelName }}</mat-card-title>
       <mat-card-subtitle>{{ hotel.mobileNo }}</mat-card-subtitle>

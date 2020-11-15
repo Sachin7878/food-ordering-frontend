@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
-import { LoginComponent } from './auth/login/login.component';
 import { HotelCreateComponent } from './hotels/hotel-create/hotel-create.component';
 import { HotelListComponent } from './hotels/hotel-list/hotel-list.component';
 import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list.component';

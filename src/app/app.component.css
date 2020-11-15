@@ -1,4 +1,7 @@
 main {
-  width: 80%;
+  /* width: 80%; */
   margin: 1rem auto;
+}
+app-header {
+  width: 100%;
 }
