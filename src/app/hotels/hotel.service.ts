@@ -43,6 +43,7 @@ export class HotelService {
     this.http.post(BACKEND_URL + '/createhotel', hotelRegData).subscribe(
       (result) => {
         console.log(result);
+        this.router.navigate(['/']);
       },
       (error) => {
         console.log(error);

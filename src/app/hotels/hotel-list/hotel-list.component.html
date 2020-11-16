@@ -1,24 +1,28 @@
-<mat-spinner *ngIf="isLoading"></mat-spinner>
-<div
-  id="list-holder"
-  fxFlex="100"
-  fxLayout.xs="column"
-  fxLayoutAlign="space-evenly"
-  fxLayoutGap="1rem"
->
-  <mat-card
-    *ngFor="let hotel of hotelsList"
-    fxFlex.gt-sm="30%"
-    fxFlex.xs="100%"
+<div fxFlex fxLayout="column">
+  <div fxFlex fxLayout fxFill fxLayoutAlign="center center">
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+  </div>
+  <div
+    id="list-holder"
+    fxFlex="100"
+    fxLayout.xs="column"
+    fxLayoutAlign="space-evenly"
+    fxLayoutGap="1rem"
   >
-    <mat-card-header>
-      <mat-card-title>{{ hotel.hotelName }}</mat-card-title>
-      <mat-card-subtitle>{{ hotel.mobileNo }}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-actions>
-      <button type="button" (click)="openHotel(hotel.id)" mat-button>
-        ORDER NOW
-      </button>
-    </mat-card-actions>
-  </mat-card>
+    <mat-card
+      *ngFor="let hotel of hotelsList"
+      fxFlex.gt-sm="30%"
+      fxFlex.xs="100%"
+    >
+      <mat-card-header>
+        <mat-card-title>{{ hotel.hotelName }}</mat-card-title>
+        <mat-card-subtitle>{{ hotel.mobileNo }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-actions>
+        <button type="button" (click)="openHotel(hotel.id)" mat-button>
+          ORDER NOW
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>

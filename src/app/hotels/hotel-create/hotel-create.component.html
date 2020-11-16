@@ -1,95 +1,111 @@
-<mat-card>
-  <!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
-  <h3 style="text-align: center">Create Hotel</h3>
-  <form (submit)="onSubmit(hotelForm)" #hotelForm="ngForm">
-    <mat-form-field>
-      <input
-        matInput
-        name="hotelName"
-        ngModel
-        type="text"
-        placeholder="Hotel Name"
-        required
-        autocapitalize="words"
-      />
-    </mat-form-field>
+<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card
+    fxFlex.xs="100"
+    fxFlex.gt-xs="45"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+  >
+    <!-- <mat-spinner *ngIf="isLoading"></mat-spinner> -->
+    <mat-card-title style="text-align: center">Create Hotel</mat-card-title>
+    <form
+      (submit)="onSubmit(hotelForm)"
+      #hotelForm="ngForm"
+      fxFlex="100"
+      fxFlexFill
+      fxLayout="column"
+      fxLayoutAlign="center center"
+    >
+      <mat-form-field fxFlexFill>
+        <input
+          matInput
+          name="hotelName"
+          ngModel
+          type="text"
+          placeholder="Hotel Name"
+          required
+          autocapitalize="words"
+        />
+      </mat-form-field>
 
-    <mat-form-field>
-      <input
-        matInput
-        name="mobileNo"
-        ngModel
-        type="text"
-        placeholder="Mobile No"
-        required
-        maxlength="10"
-        minlength="10"
-      />
-    </mat-form-field>
+      <mat-form-field fxFlexFill>
+        <input
+          matInput
+          name="mobileNo"
+          ngModel
+          type="text"
+          placeholder="Mobile No"
+          required
+          maxlength="10"
+          minlength="10"
+        />
+      </mat-form-field>
 
-    <mat-form-field>
-      <input
-        matInput
-        name="addressLine1"
-        ngModel
-        type="text"
-        placeholder="Address Line 1"
-        required
-      />
-    </mat-form-field>
+      <mat-form-field fxFlexFill>
+        <input
+          matInput
+          name="addressLine1"
+          ngModel
+          type="text"
+          placeholder="Address Line 1"
+          required
+        />
+      </mat-form-field>
 
-    <mat-form-field>
-      <input
-        matInput
-        name="addressLine2"
-        ngModel
-        type="text"
-        placeholder="Address Line 2"
-      />
-    </mat-form-field>
+      <mat-form-field fxFlexFill>
+        <input
+          matInput
+          name="addressLine2"
+          ngModel
+          type="text"
+          placeholder="Address Line 2"
+        />
+      </mat-form-field>
 
-    <mat-form-field>
-      <input
-        matInput
-        name="city"
-        ngModel
-        type="text"
-        placeholder="City"
-        required
-      />
-    </mat-form-field>
+      <mat-form-field fxFlexFill>
+        <input
+          matInput
+          name="city"
+          ngModel
+          type="text"
+          placeholder="City"
+          required
+        />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>State</mat-label>
-      <mat-select ngModel name="state">
-        <mat-option *ngFor="let state of states" [value]="state">
-          {{ state }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field appearance="fill" fxFlexFill>
+        <mat-label>State</mat-label>
+        <mat-select ngModel name="state">
+          <mat-option *ngFor="let state of states" [value]="state">
+            {{ state }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <mat-form-field>
-      <input
-        matInput
-        name="country"
-        [(ngModel)]="country"
-        type="text"
-        placeholder="Country"
-        required
-      />
-    </mat-form-field>
+      <mat-form-field fxFlexFill>
+        <input
+          matInput
+          name="country"
+          [(ngModel)]="country"
+          type="text"
+          placeholder="Country"
+          required
+        />
+      </mat-form-field>
 
-    <mat-form-field>
-      <input
-        matInput
-        name="pincode"
-        ngModel
-        type="text"
-        placeholder="PIN Code"
-        required
-      />
-    </mat-form-field>
+      <mat-form-field fxFlexFill>
+        <input
+          matInput
+          name="pincode"
+          ngModel
+          type="text"
+          placeholder="PIN Code"
+          required
+        />
+      </mat-form-field>
 
-    <button mat-raised-button color="accent" type="submit">Create Hotel</button>
-  </form>
-</mat-card>
+      <button mat-raised-button color="accent" type="submit">
+        Create Hotel
+      </button>
+    </form>
+  </mat-card>
+</div>
