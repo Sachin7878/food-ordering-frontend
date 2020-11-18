@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
 import { AuthLoginData } from './auth-login-data.model';
 import { AuthRegistrationData } from './auth-registration-data.model';
+import * as fromRoot from '../app.reducer';
+import * as UI from '../shared/ui.actions';
+import * as Auth from './auth.actions';
+import { Store } from '@ngrx/store';
 
 const BANKEND_URL = 'http://localhost:8080/api';
 
@@ -11,36 +14,40 @@ export const ROLE_ADMIN = 'admin';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private isAuthenticated = false;
+  //private isAuthenticated = false;
   private token: string;
-  private authStatusListener = new Subject<boolean>();
+  //private authStatusListener = new Subject<boolean>();
   private tokenTimer: any;
   private isAdmin = false;
-  private isLoading = false;
-  private isLoadingListener = new Subject<boolean>();
+  // private isLoading = false;
+  // private isLoadingListener = new Subject<boolean>();
   // private userId: string;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private store: Store<fromRoot.State>
+  ) {}
 
-  getAuthStatusListener() {
-    return this.authStatusListener;
-  }
+  // getAuthStatusListener() {
+  //   return this.authStatusListener;
+  // }
 
-  getIsLoadingListener() {
-    return this.isLoadingListener;
-  }
+  // getIsLoadingListener() {
+  //   return this.isLoadingListener;
+  // }
 
   getToken() {
     return this.token;
   }
 
-  getIsLoading() {
-    return this.isLoading;
-  }
+  // getIsLoading() {
+  //   return this.isLoading;
+  // }
 
-  getIsAuth() {
-    return this.isAuthenticated;
-  }
+  // getIsAuth() {
+  //   return this.isAuthenticated;
+  // }
 
   getIsAdmin() {
     return this.isAdmin;
@@ -64,14 +71,16 @@ export class AuthService {
       mobileNo: mobileNo,
       password: password,
     };
+    this.store.dispatch(new UI.StartLoading());
     this.http.post(BANKEND_URL + '/register', authData).subscribe(
-      (successUser) => {
-        console.log(successUser);
-        this.authStatusListener.next(true);
-        this.router.navigate(['/login']);
+      () => {
+        this.store.dispatch(new UI.StopLoading());
+        this.login(authData.email, authData.password);
+        this.router.navigate(['/']);
       },
-      (error) => {
-        this.authStatusListener.next(false);
+      () => {
+        this.store.dispatch(new UI.StopLoading());
+        this.store.dispatch(new Auth.SetUnauthenticated());
       }
     );
   }
@@ -81,6 +90,7 @@ export class AuthService {
       email: email,
       password: password,
     };
+    this.store.dispatch(new UI.StartLoading());
     this.http
       .post<{ token: string; expiresIn: number; role: string }>(
         BANKEND_URL + '/login',
@@ -93,13 +103,13 @@ export class AuthService {
           if (this.token) {
             const expiresInDuration = response.expiresIn;
             this.setAuthTimer(expiresInDuration);
-            this.isAuthenticated = true;
+
             const roleCheck = response.role;
             if (roleCheck === ROLE_ADMIN) {
               this.isAdmin = true;
             }
-            //this.userId = response.userId;
-            this.authStatusListener.next(true);
+            this.store.dispatch(new UI.StopLoading());
+            this.store.dispatch(new Auth.SetAuthenticated());
             const now = new Date();
             const expirationDate = new Date(
               now.getTime() + expiresInDuration * 1000
@@ -108,9 +118,10 @@ export class AuthService {
             this.router.navigate(['/']);
           }
         },
-        (error) => {
+        () => {
+          this.store.dispatch(new UI.StopLoading());
           console.log('Invalid Credentials');
-          this.authStatusListener.next(false);
+          this.store.dispatch(new Auth.SetUnauthenticated());
         }
       );
   }
@@ -124,17 +135,15 @@ export class AuthService {
     const expiresIn = authInfo.expirationDate.getTime() - now.getTime();
     if (expiresIn > 0) {
       this.token = authInfo.token;
-      this.isAuthenticated = true;
       //    this.userId = authInfo.userId;
-      this.authStatusListener.next(true);
+      this.store.dispatch(new Auth.SetAuthenticated());
       this.setAuthTimer(expiresIn / 1000);
     }
   }
 
   logout() {
     this.token = null;
-    this.isAuthenticated = false;
-    this.authStatusListener.next(false);
+    this.store.dispatch(new Auth.SetUnauthenticated());
     this.router.navigate(['/']);
     this.clearAuthData();
     this.isAdmin = false;
@@ -173,6 +182,4 @@ export class AuthService {
       //  userId: userId,
     };
   }
-
-  private getRoleFromResp() {}
 }

@@ -1,0 +1,26 @@
+<mat-nav-list>
+  <a
+    mat-list-item
+    routerLink="/auth/card"
+    (click)="onClose()"
+    *ngIf="!(isAuth$ | async)"
+  >
+    <mat-icon>face</mat-icon>
+    <span class="nav-caption">Authorize</span>
+  </a>
+  <a
+    mat-list-item
+    routerLink="/hotelCreate"
+    (click)="onClose()"
+    *ngIf="isAuth$ | async"
+  >
+    <mat-icon>restaurant</mat-icon>
+    <span class="nav-caption">Create Hotel</span>
+  </a>
+  <mat-list-item>
+    <button mat-icon-button (click)="onLogout()" *ngIf="isAuth$ | async">
+      <mat-icon>eject</mat-icon>
+      <span class="nav-caption">Logout</span>
+    </button>
+  </mat-list-item>
+</mat-nav-list>

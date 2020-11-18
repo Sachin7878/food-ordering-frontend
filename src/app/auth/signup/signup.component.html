@@ -1,11 +1,9 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
   <mat-card fxFlex="100">
     <!-- <h3 style="text-align: center">Sign Up</h3> -->
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
     <form
       (submit)="onSignup(signupForm)"
       #signupForm="ngForm"
-      *ngIf="!isLoading"
       fxLayoutAlign="stretch"
       fxLayout="column"
       class="signup-form"
@@ -79,7 +77,6 @@
         mat-raised-button
         color="accent"
         type="submit"
-        *ngIf="!isLoading"
       >
         Sign Up
       </button>

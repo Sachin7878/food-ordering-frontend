@@ -1,6 +1,5 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
   <mat-card fxFlex="100">
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
     <!-- <mat-toolbar
       *ngIf="!isLoading"
       color="primary"
@@ -10,7 +9,6 @@
     <form
       (submit)="onLogin(loginForm)"
       #loginForm="ngForm"
-      *ngIf="!isLoading"
       fxLayoutAlign="stretch"
       fxLayout="column"
       class="login-form"
@@ -50,7 +48,6 @@
         mat-raised-button
         color="accent"
         type="submit"
-        *ngIf="!isLoading"
       >
         Login
       </button>

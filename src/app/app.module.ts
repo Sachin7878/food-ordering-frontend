@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './header/header.component';
+// import { HeaderComponent } from './header/header.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularMaterialModule } from './angular-material.module';
 import { HotelCreateComponent } from './hotels/hotel-create/hotel-create.component';
@@ -15,11 +15,17 @@ import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list
 import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error-page/error.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './app.reducer';
+import { HeaderComponent } from './navigation/header/header.component';
+import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    // HeaderComponent,
     HeaderComponent,
+    SidenavListComponent,
     ErrorComponent,
     HotelCreateComponent,
     HotelListComponent,
@@ -33,6 +39,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HttpClientModule,
     AngularMaterialModule,
     FlexLayoutModule,
+    StoreModule.forRoot(reducers),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
