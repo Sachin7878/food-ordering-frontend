@@ -4,6 +4,7 @@ import { Hotel } from './hotel.model';
 import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { MenuItem } from './menu-item.model';
 
 const BACKEND_URL = 'http://localhost:8080';
 
@@ -83,7 +84,7 @@ export class HotelService {
 
   getHotelById(id) {
     this.http
-      .get<Hotel>(BACKEND_URL + '/gethotelId/' + id)
+      .get<{ content: MenuItem[] }>(BACKEND_URL + '/hotels/' + id + '/menu')
       // .pipe(
       //   map((hotelData) => {
       //     return {
@@ -99,7 +100,9 @@ export class HotelService {
       //   })
       // )
       .subscribe((hotelData) => {
-        this.selectedHotel = hotelData;
+        this.selectedHotel = this.hotels.find((hotel) => hotel.id == id);
+        this.selectedHotel.menuItems = hotelData.content;
+        // this.selectedHotel = hotelData;
         this.selectedHotelUpdated.next({
           hotel: this.selectedHotel,
         });
