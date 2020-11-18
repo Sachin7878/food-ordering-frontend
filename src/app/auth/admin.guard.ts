@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
-  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
@@ -14,7 +13,7 @@ import { take } from 'rxjs/operators';
 import * as fromRoot from '../app.reducer';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(private store: Store<fromRoot.State>) {}
 
   canActivate(
@@ -25,6 +24,6 @@ export class AuthGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    return this.store.select(fromRoot.getIsAuth).pipe(take(1));
+    return this.store.select(fromRoot.getIsAdmin).pipe(take(1));
   }
 }

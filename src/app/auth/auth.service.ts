@@ -18,7 +18,7 @@ export class AuthService {
   private token: string;
   //private authStatusListener = new Subject<boolean>();
   private tokenTimer: any;
-  private isAdmin = false;
+  // private isAdmin = false;
   // private isLoading = false;
   // private isLoadingListener = new Subject<boolean>();
   // private userId: string;
@@ -49,9 +49,9 @@ export class AuthService {
   //   return this.isAuthenticated;
   // }
 
-  getIsAdmin() {
-    return this.isAdmin;
-  }
+  // getIsAdmin() {
+  //   return this.isAdmin;
+  // }
 
   // getUserId() {
   //   return this.userId;
@@ -106,7 +106,8 @@ export class AuthService {
 
             const roleCheck = response.role;
             if (roleCheck === ROLE_ADMIN) {
-              this.isAdmin = true;
+              // this.isAdmin = true;
+              this.store.dispatch(new Auth.SetAdminTrue());
             }
             this.store.dispatch(new UI.StopLoading());
             this.store.dispatch(new Auth.SetAuthenticated());
@@ -146,7 +147,8 @@ export class AuthService {
     this.store.dispatch(new Auth.SetUnauthenticated());
     this.router.navigate(['/']);
     this.clearAuthData();
-    this.isAdmin = false;
+    this.store.dispatch(new Auth.SetAdminFalse());
+    // this.isAdmin = false;
     //this.userId = null;
     clearTimeout(this.tokenTimer);
   }

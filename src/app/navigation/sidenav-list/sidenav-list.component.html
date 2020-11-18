@@ -12,7 +12,7 @@
     mat-list-item
     routerLink="/hotelCreate"
     (click)="onClose()"
-    *ngIf="isAuth$ | async"
+    *ngIf="isAdmin$ | async"
   >
     <mat-icon>restaurant</mat-icon>
     <span class="nav-caption">Create Hotel</span>

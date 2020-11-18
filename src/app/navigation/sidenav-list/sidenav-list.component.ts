@@ -8,12 +8,13 @@ import * as fromRoot from '../../app.reducer';
 @Component({
   selector: 'app-sidenav-list',
   templateUrl: './sidenav-list.component.html',
-  styleUrls: ['./sidenav-list.component.css']
+  styleUrls: ['./sidenav-list.component.css'],
 })
 export class SidenavListComponent implements OnInit {
   @Output() closeSidenav = new EventEmitter<void>();
   isAuth$: Observable<boolean>;
-  authSubscription: Subscription;
+  isAdmin$: Observable<boolean>;
+  // authSubscription: Subscription;
 
   constructor(
     private authService: AuthService,
@@ -22,6 +23,7 @@ export class SidenavListComponent implements OnInit {
 
   ngOnInit() {
     this.isAuth$ = this.store.select(fromRoot.getIsAuth);
+    this.isAdmin$ = this.store.select(fromRoot.getIsAdmin);
   }
 
   onClose() {
