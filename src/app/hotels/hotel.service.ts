@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 
-const BACKEND_URL = 'http://localhost:8080/api';
+const BACKEND_URL = 'http://localhost:8080';
 
 @Injectable({
   providedIn: 'root',
@@ -40,9 +40,9 @@ export class HotelService {
         pincode: pincode,
       },
     };
-    this.http.post(BACKEND_URL + '/createhotel', hotelRegData).subscribe(
+    this.http.post(BACKEND_URL + '/hotels', hotelRegData).subscribe(
       (result) => {
-        console.log(result);
+        console.log(result + ' hotel with the details added successfully');
         this.router.navigate(['/']);
       },
       (error) => {
@@ -53,11 +53,12 @@ export class HotelService {
 
   fetchAllHotels() {
     this.http
-      .get<Hotel[]>(BACKEND_URL + '/gethotels')
+      .get<{ content: Hotel[] }>(BACKEND_URL + '/hotels')
       .pipe(
         map((hotelData) => {
+          console.log(hotelData);
           return {
-            hotels: hotelData.map((hotel) => {
+            hotels: hotelData.content.map((hotel) => {
               return {
                 id: hotel.id,
                 hotelName: hotel.hotelName,

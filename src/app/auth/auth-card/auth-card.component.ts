@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import * as fromRoot from '../../app.reducer';
 
 @Component({
   selector: 'app-auth-card',
@@ -6,7 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./auth-card.component.css'],
 })
 export class AuthCardComponent implements OnInit {
-  constructor() {}
+  isLoading$: Observable<boolean>;
+  constructor(private store: Store<fromRoot.State>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isLoading$ = this.store.select(fromRoot.getIsLoading);
+  }
 }

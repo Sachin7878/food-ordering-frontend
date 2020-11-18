@@ -6,9 +6,13 @@
   <div fxFlex="100" fxLayout fxLayoutAlign="flex-end">
     <ul fxLayout fxLayoutGap="space-between">
       <li *ngIf="!userIsAuthenticated">
-        <a mat-button routerLink="/auth/card" routerLinkActive="mat-accent"
-          >Authorize</a
+        <button
+          mat-button
+          routerLink="/auth/card"
+          routerLinkActive="mat-accent"
         >
+          Authorize
+        </button>
       </li>
       <!-- <li *ngIf="!userIsAuthenticated">
       <a mat-button routerLink="/auth/login" routerLinkActive="mat-accent"
@@ -22,9 +26,13 @@
       >
     </li> -->
       <li *ngIf="userIsAuthenticated">
-        <a mat-button routerLink="/hotelCreate" routerLinkActive="mat-accent"
-          >Create Hotel</a
+        <button
+          mat-button
+          routerLink="/hotelCreate"
+          routerLinkActive="mat-accent"
         >
+          Create Hotel
+        </button>
       </li>
 
       <li *ngIf="userIsAuthenticated">
