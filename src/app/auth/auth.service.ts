@@ -115,7 +115,7 @@ export class AuthService {
             const expirationDate = new Date(
               now.getTime() + expiresInDuration * 1000
             );
-            this.saveAuthData(token, expirationDate);
+            this.saveAuthData(token, expirationDate, roleCheck);
             this.router.navigate(['/']);
           }
         },
@@ -128,6 +128,7 @@ export class AuthService {
   }
 
   autoAuthUser() {
+    this.store.dispatch(new UI.StartLoading());
     const authInfo = this.getAuthData();
     if (!authInfo) {
       return;
@@ -137,9 +138,14 @@ export class AuthService {
     if (expiresIn > 0) {
       this.token = authInfo.token;
       //    this.userId = authInfo.userId;
+      let roleCheck = authInfo.role;
+      if (roleCheck == ROLE_ADMIN) {
+        this.store.dispatch(new Auth.SetAdminTrue());
+      }
       this.store.dispatch(new Auth.SetAuthenticated());
       this.setAuthTimer(expiresIn / 1000);
     }
+    this.store.dispatch(new UI.StopLoading());
   }
 
   logout() {
@@ -159,28 +165,32 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date) {
+  private saveAuthData(token: string, expirationDate: Date, role: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('expDate', expirationDate.toISOString());
+    localStorage.setItem('role', role);
     //  localStorage.setItem('userId', userId);
   }
 
   private clearAuthData() {
     localStorage.removeItem('token');
     localStorage.removeItem('expDate');
+    localStorage.removeItem('role');
     // localStorage.removeItem('userId');
   }
 
   private getAuthData() {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expDate');
+    const role = localStorage.getItem('role');
     //  const userId = localStorage.getItem('userId');
-    if (!token || !expirationDate) {
+    if (!token || !expirationDate || !role) {
       return;
     }
     return {
       token: token,
       expirationDate: new Date(expirationDate),
+      role: role,
       //  userId: userId,
     };
   }

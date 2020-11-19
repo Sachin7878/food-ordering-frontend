@@ -1,9 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';
 import { MenuItem } from '../menu-item.model';
+import { Store } from '@ngrx/store';
+import * as fromRoot from '../../app.reducer';
 
 @Component({
   selector: 'app-hotel-menu-list',
@@ -11,7 +13,8 @@ import { MenuItem } from '../menu-item.model';
   styleUrls: ['./hotel-menu-list.component.css'],
 })
 export class HotelMenuListComponent implements OnInit, OnDestroy {
-  isLoading = false;
+  // isLoading = false;
+  isLoading$: Observable<boolean>;
   private selectHotelSub: Subscription;
   selectedHotel: Hotel;
   menuItemsForSelectedHotel: MenuItem[];
@@ -20,19 +23,21 @@ export class HotelMenuListComponent implements OnInit, OnDestroy {
   addressString: String;
   constructor(
     public route: ActivatedRoute,
-    private hotelService: HotelService
+    private hotelService: HotelService,
+    private store: Store<fromRoot.State>
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('hotelId')) {
         this.hotelIdString = paramMap.get('hotelId');
-        this.isLoading = true;
+        this.isLoading$ = this.store.select(fromRoot.getIsLoading);
+        // this.isLoading = true;
         this.hotelService.getHotelById(this.hotelIdString);
         this.selectHotelSub = this.hotelService
           .getSelectedHotelUpdateListener()
           .subscribe((selectedHotelData) => {
-            this.isLoading = false;
+            // this.isLoading = false;
             this.selectedHotel = selectedHotelData.hotel;
             this.hotelNameString = this.selectedHotel.hotelName;
             this.menuItemsForSelectedHotel = this.selectedHotel.menuItems;

@@ -5,6 +5,9 @@ import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { MenuItem } from './menu-item.model';
+import * as fromRoot from '../app.reducer';
+import * as UI from '../shared/ui.actions';
+import { Store } from '@ngrx/store';
 
 const BACKEND_URL = 'http://localhost:8080';
 
@@ -17,7 +20,11 @@ export class HotelService {
   private hotelsUpdated = new Subject<{ hotels: Hotel[] }>();
   private selectedHotelUpdated = new Subject<{ hotel: Hotel }>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private store: Store<fromRoot.State>
+  ) {}
 
   createHotel(
     hotelName: string,
@@ -41,18 +48,22 @@ export class HotelService {
         pincode: pincode,
       },
     };
+    this.store.dispatch(new UI.StartLoading());
     this.http.post(BACKEND_URL + '/hotels', hotelRegData).subscribe(
       (result) => {
+        this.store.dispatch(new UI.StopLoading());
         console.log(result + ' hotel with the details added successfully');
         this.router.navigate(['/']);
       },
       (error) => {
+        this.store.dispatch(new UI.StopLoading());
         console.log(error);
       }
     );
   }
 
   fetchAllHotels() {
+    this.store.dispatch(new UI.StartLoading());
     this.http
       .get<{ content: Hotel[] }>(BACKEND_URL + '/hotels')
       .pipe(
@@ -71,6 +82,7 @@ export class HotelService {
         })
       )
       .subscribe((transformedHotelData) => {
+        this.store.dispatch(new UI.StopLoading());
         this.hotels = transformedHotelData.hotels;
         this.hotelsUpdated.next({
           hotels: [...this.hotels],
@@ -83,6 +95,7 @@ export class HotelService {
   }
 
   getHotelById(id) {
+    this.store.dispatch(new UI.StartLoading());
     this.http
       .get<{ content: MenuItem[] }>(BACKEND_URL + '/hotels/' + id + '/menu')
       // .pipe(
@@ -99,14 +112,21 @@ export class HotelService {
       //     };
       //   })
       // )
-      .subscribe((hotelData) => {
-        this.selectedHotel = this.hotels.find((hotel) => hotel.id == id);
-        this.selectedHotel.menuItems = hotelData.content;
-        // this.selectedHotel = hotelData;
-        this.selectedHotelUpdated.next({
-          hotel: this.selectedHotel,
-        });
-      });
+      .subscribe(
+        (hotelData) => {
+          this.store.dispatch(new UI.StopLoading());
+          this.selectedHotel = this.hotels.find((hotel) => hotel.id == id);
+          this.selectedHotel.menuItems = hotelData.content;
+          // this.selectedHotel = hotelData;
+          this.selectedHotelUpdated.next({
+            hotel: this.selectedHotel,
+          });
+        },
+        (error) => {
+          this.store.dispatch(new UI.StopLoading());
+          console.log(error);
+        }
+      );
   }
 
   getHotelArray() {
