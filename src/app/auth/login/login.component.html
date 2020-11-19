@@ -1,11 +1,5 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
   <mat-card fxFlex="100">
-    <!-- <mat-toolbar
-      *ngIf="!isLoading"
-      color="primary"
-      fxLayoutAlign="center center"
-      >Login</mat-toolbar
-    > -->
     <form
       (submit)="onLogin(loginForm)"
       #loginForm="ngForm"
@@ -13,7 +7,6 @@
       fxLayout="column"
       class="login-form"
     >
-      <!-- <h3 style="text-align: center">Login</h3> -->
       <mat-form-field>
         <input
           matInput

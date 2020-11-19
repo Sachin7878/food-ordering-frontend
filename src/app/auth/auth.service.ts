@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthLoginData } from './auth-login-data.model';
 import { AuthRegistrationData } from './auth-registration-data.model';
-import * as fromRoot from '../app.reducer';
+import * as fromRoot from '../store/app.reducer';
 import * as UI from '../shared/ui.actions';
-import * as Auth from './auth.actions';
+import * as Auth from './store/auth.actions';
 import { Store } from '@ngrx/store';
 
 const BANKEND_URL = 'http://localhost:8080/api';
@@ -14,14 +14,8 @@ export const ROLE_ADMIN = 'admin';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  //private isAuthenticated = false;
   private token: string;
-  //private authStatusListener = new Subject<boolean>();
   private tokenTimer: any;
-  // private isAdmin = false;
-  // private isLoading = false;
-  // private isLoadingListener = new Subject<boolean>();
-  // private userId: string;
 
   constructor(
     private http: HttpClient,
@@ -29,33 +23,9 @@ export class AuthService {
     private store: Store<fromRoot.State>
   ) {}
 
-  // getAuthStatusListener() {
-  //   return this.authStatusListener;
-  // }
-
-  // getIsLoadingListener() {
-  //   return this.isLoadingListener;
-  // }
-
   getToken() {
     return this.token;
   }
-
-  // getIsLoading() {
-  //   return this.isLoading;
-  // }
-
-  // getIsAuth() {
-  //   return this.isAuthenticated;
-  // }
-
-  // getIsAdmin() {
-  //   return this.isAdmin;
-  // }
-
-  // getUserId() {
-  //   return this.userId;
-  // }
 
   createUser(
     firstName: string,
@@ -106,7 +76,6 @@ export class AuthService {
 
             const roleCheck = response.role;
             if (roleCheck === ROLE_ADMIN) {
-              // this.isAdmin = true;
               this.store.dispatch(new Auth.SetAdminTrue());
             }
             this.store.dispatch(new UI.StopLoading());
@@ -115,7 +84,7 @@ export class AuthService {
             const expirationDate = new Date(
               now.getTime() + expiresInDuration * 1000
             );
-            this.saveAuthData(token, expirationDate);
+            this.saveAuthData(token, expirationDate, roleCheck);
             this.router.navigate(['/']);
           }
         },
@@ -128,6 +97,7 @@ export class AuthService {
   }
 
   autoAuthUser() {
+    this.store.dispatch(new UI.StartLoading());
     const authInfo = this.getAuthData();
     if (!authInfo) {
       return;
@@ -137,9 +107,14 @@ export class AuthService {
     if (expiresIn > 0) {
       this.token = authInfo.token;
       //    this.userId = authInfo.userId;
+      let roleCheck = authInfo.role;
+      if (roleCheck == ROLE_ADMIN) {
+        this.store.dispatch(new Auth.SetAdminTrue());
+      }
       this.store.dispatch(new Auth.SetAuthenticated());
       this.setAuthTimer(expiresIn / 1000);
     }
+    this.store.dispatch(new UI.StopLoading());
   }
 
   logout() {
@@ -148,8 +123,6 @@ export class AuthService {
     this.router.navigate(['/']);
     this.clearAuthData();
     this.store.dispatch(new Auth.SetAdminFalse());
-    // this.isAdmin = false;
-    //this.userId = null;
     clearTimeout(this.tokenTimer);
   }
 
@@ -159,29 +132,29 @@ export class AuthService {
     }, duration * 1000);
   }
 
-  private saveAuthData(token: string, expirationDate: Date) {
+  private saveAuthData(token: string, expirationDate: Date, role: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('expDate', expirationDate.toISOString());
-    //  localStorage.setItem('userId', userId);
+    localStorage.setItem('role', role);
   }
 
   private clearAuthData() {
     localStorage.removeItem('token');
     localStorage.removeItem('expDate');
-    // localStorage.removeItem('userId');
+    localStorage.removeItem('role');
   }
 
   private getAuthData() {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expDate');
-    //  const userId = localStorage.getItem('userId');
-    if (!token || !expirationDate) {
+    const role = localStorage.getItem('role');
+    if (!token || !expirationDate || !role) {
       return;
     }
     return {
       token: token,
       expirationDate: new Date(expirationDate),
-      //  userId: userId,
+      role: role,
     };
   }
 }

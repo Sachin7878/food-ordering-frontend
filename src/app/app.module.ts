@@ -16,7 +16,7 @@ import { ErrorInterceptor } from './error-interceptor';
 import { ErrorComponent } from './error-page/error.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { StoreModule } from '@ngrx/store';
-import { reducers } from './app.reducer';
+import { reducers } from './store/app.reducer';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
@@ -42,7 +42,10 @@ import { environment } from '../environments/environment';
     AngularMaterialModule,
     FlexLayoutModule,
     StoreModule.forRoot(reducers),
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

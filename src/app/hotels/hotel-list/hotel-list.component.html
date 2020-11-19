@@ -1,6 +1,6 @@
 <div fxFlex fxLayout="column">
   <div fxFlex fxLayout fxFill fxLayoutAlign="center center">
-    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
   </div>
   <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
