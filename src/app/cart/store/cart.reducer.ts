@@ -8,7 +8,7 @@ import {
 
 export interface State {
   finalAmount: number;
-  cartItems: Array<{ item: MenuItem; quantity: number }>;
+  cartItems: { item: MenuItem; quantity: number }[];
 }
 const initialState: State = {
   cartItems: [
