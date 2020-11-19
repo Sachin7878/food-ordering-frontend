@@ -5,7 +5,7 @@ import {
 } from '@ngrx/store';
 
 import * as fromUi from './shared/ui.reducer';
-import * as fromAuth from './auth/auth.reducer';
+import * as fromAuth from './auth/store/auth.reducer';
 
 export interface State {
   ui: fromUi.State;

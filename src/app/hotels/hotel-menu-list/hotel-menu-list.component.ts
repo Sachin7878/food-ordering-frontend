@@ -13,7 +13,6 @@ import * as fromRoot from '../../app.reducer';
   styleUrls: ['./hotel-menu-list.component.css'],
 })
 export class HotelMenuListComponent implements OnInit, OnDestroy {
-  // isLoading = false;
   isLoading$: Observable<boolean>;
   private selectHotelSub: Subscription;
   selectedHotel: Hotel;
@@ -32,12 +31,10 @@ export class HotelMenuListComponent implements OnInit, OnDestroy {
       if (paramMap.has('hotelId')) {
         this.hotelIdString = paramMap.get('hotelId');
         this.isLoading$ = this.store.select(fromRoot.getIsLoading);
-        // this.isLoading = true;
         this.hotelService.getHotelById(this.hotelIdString);
         this.selectHotelSub = this.hotelService
           .getSelectedHotelUpdateListener()
           .subscribe((selectedHotelData) => {
-            // this.isLoading = false;
             this.selectedHotel = selectedHotelData.hotel;
             this.hotelNameString = this.selectedHotel.hotelName;
             this.menuItemsForSelectedHotel = this.selectedHotel.menuItems;

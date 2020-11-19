@@ -13,7 +13,6 @@ import * as fromRoot from '../../app.reducer';
 export class HotelListComponent implements OnInit, OnDestroy {
   hotelsList: Hotel[] = [];
   isLoading$: Observable<boolean>;
-  // isLoading = false;
   private hotelSub: Subscription;
 
   constructor(
@@ -22,14 +21,12 @@ export class HotelListComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // this.isLoading = true;
     this.isLoading$ = this.store.select(fromRoot.getIsLoading);
 
     this.hotelService.fetchAllHotels();
     this.hotelSub = this.hotelService
       .getHotelUpdateListener()
       .subscribe((hotelData) => {
-        // this.isLoading = false;
         this.hotelsList = hotelData.hotels;
       });
   }

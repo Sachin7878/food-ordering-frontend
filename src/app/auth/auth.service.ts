@@ -5,7 +5,7 @@ import { AuthLoginData } from './auth-login-data.model';
 import { AuthRegistrationData } from './auth-registration-data.model';
 import * as fromRoot from '../app.reducer';
 import * as UI from '../shared/ui.actions';
-import * as Auth from './auth.actions';
+import * as Auth from './store/auth.actions';
 import { Store } from '@ngrx/store';
 
 const BANKEND_URL = 'http://localhost:8080/api';
@@ -14,14 +14,8 @@ export const ROLE_ADMIN = 'admin';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  //private isAuthenticated = false;
   private token: string;
-  //private authStatusListener = new Subject<boolean>();
   private tokenTimer: any;
-  // private isAdmin = false;
-  // private isLoading = false;
-  // private isLoadingListener = new Subject<boolean>();
-  // private userId: string;
 
   constructor(
     private http: HttpClient,
@@ -29,33 +23,9 @@ export class AuthService {
     private store: Store<fromRoot.State>
   ) {}
 
-  // getAuthStatusListener() {
-  //   return this.authStatusListener;
-  // }
-
-  // getIsLoadingListener() {
-  //   return this.isLoadingListener;
-  // }
-
   getToken() {
     return this.token;
   }
-
-  // getIsLoading() {
-  //   return this.isLoading;
-  // }
-
-  // getIsAuth() {
-  //   return this.isAuthenticated;
-  // }
-
-  // getIsAdmin() {
-  //   return this.isAdmin;
-  // }
-
-  // getUserId() {
-  //   return this.userId;
-  // }
 
   createUser(
     firstName: string,
@@ -106,7 +76,6 @@ export class AuthService {
 
             const roleCheck = response.role;
             if (roleCheck === ROLE_ADMIN) {
-              // this.isAdmin = true;
               this.store.dispatch(new Auth.SetAdminTrue());
             }
             this.store.dispatch(new UI.StopLoading());
@@ -154,8 +123,6 @@ export class AuthService {
     this.router.navigate(['/']);
     this.clearAuthData();
     this.store.dispatch(new Auth.SetAdminFalse());
-    // this.isAdmin = false;
-    //this.userId = null;
     clearTimeout(this.tokenTimer);
   }
 
@@ -169,21 +136,18 @@ export class AuthService {
     localStorage.setItem('token', token);
     localStorage.setItem('expDate', expirationDate.toISOString());
     localStorage.setItem('role', role);
-    //  localStorage.setItem('userId', userId);
   }
 
   private clearAuthData() {
     localStorage.removeItem('token');
     localStorage.removeItem('expDate');
     localStorage.removeItem('role');
-    // localStorage.removeItem('userId');
   }
 
   private getAuthData() {
     const token = localStorage.getItem('token');
     const expirationDate = localStorage.getItem('expDate');
     const role = localStorage.getItem('role');
-    //  const userId = localStorage.getItem('userId');
     if (!token || !expirationDate || !role) {
       return;
     }
@@ -191,7 +155,6 @@ export class AuthService {
       token: token,
       expirationDate: new Date(expirationDate),
       role: role,
-      //  userId: userId,
     };
   }
 }

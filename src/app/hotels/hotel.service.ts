@@ -98,26 +98,11 @@ export class HotelService {
     this.store.dispatch(new UI.StartLoading());
     this.http
       .get<{ content: MenuItem[] }>(BACKEND_URL + '/hotels/' + id + '/menu')
-      // .pipe(
-      //   map((hotelData) => {
-      //     return {
-      //       hotels: hotelData.map((hotel) => {
-      //         return {
-      //           id: hotel.id,
-      //           hotelName: hotel.hotelName,
-      //           mobileNo: hotel.mobileNo,
-      //           address: hotel.address,
-      //         };
-      //       }),
-      //     };
-      //   })
-      // )
       .subscribe(
         (hotelData) => {
           this.store.dispatch(new UI.StopLoading());
           this.selectedHotel = this.hotels.find((hotel) => hotel.id == id);
           this.selectedHotel.menuItems = hotelData.content;
-          // this.selectedHotel = hotelData;
           this.selectedHotelUpdated.next({
             hotel: this.selectedHotel,
           });
