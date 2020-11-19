@@ -19,6 +19,8 @@ import { StoreModule } from '@ngrx/store';
 import { reducers } from './app.reducer';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.com
     AngularMaterialModule,
     FlexLayoutModule,
     StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
