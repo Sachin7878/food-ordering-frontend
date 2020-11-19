@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthLoginData } from './auth-login-data.model';
 import { AuthRegistrationData } from './auth-registration-data.model';
-import * as fromRoot from '../app.reducer';
+import * as fromRoot from '../store/app.reducer';
 import * as UI from '../shared/ui.actions';
 import * as Auth from './store/auth.actions';
 import { Store } from '@ngrx/store';

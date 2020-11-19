@@ -3,7 +3,7 @@ import { Observable, Subscription } from 'rxjs';
 import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';
 import { Store } from '@ngrx/store';
-import * as fromRoot from '../../app.reducer';
+import * as fromRoot from '../../store/app.reducer';
 
 @Component({
   selector: 'app-hotel-list',

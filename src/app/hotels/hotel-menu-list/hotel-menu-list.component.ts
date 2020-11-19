@@ -5,7 +5,7 @@ import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';
 import { MenuItem } from '../menu-item.model';
 import { Store } from '@ngrx/store';
-import * as fromRoot from '../../app.reducer';
+import * as fromRoot from '../../store/app.reducer';
 
 @Component({
   selector: 'app-hotel-menu-list',

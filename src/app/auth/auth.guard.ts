@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 
 import { take } from 'rxjs/operators';
 
-import * as fromRoot from '../app.reducer';
+import * as fromRoot from '../store/app.reducer';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

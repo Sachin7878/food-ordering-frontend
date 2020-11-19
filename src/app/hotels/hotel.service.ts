@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { MenuItem } from './menu-item.model';
-import * as fromRoot from '../app.reducer';
+import * as fromRoot from '../store/app.reducer';
 import * as UI from '../shared/ui.actions';
 import { Store } from '@ngrx/store';
 
