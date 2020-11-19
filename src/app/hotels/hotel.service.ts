@@ -7,7 +7,9 @@ import { Router } from '@angular/router';
 import { MenuItem } from './menu-item.model';
 import * as fromRoot from '../store/app.reducer';
 import * as UI from '../shared/ui.actions';
+import * as HotelAction from './store/hotel.actions';
 import { Store } from '@ngrx/store';
+import { error } from 'protractor';
 
 const BACKEND_URL = 'http://localhost:8080';
 
@@ -68,7 +70,6 @@ export class HotelService {
       .get<{ content: Hotel[] }>(BACKEND_URL + '/hotels')
       .pipe(
         map((hotelData) => {
-          console.log(hotelData);
           return {
             hotels: hotelData.content.map((hotel) => {
               return {
@@ -94,15 +95,69 @@ export class HotelService {
     this.router.navigate(['/hotel/' + id]);
   }
 
+  getOnlyHotelById(id) {
+    this.store.dispatch(new UI.StartLoading());
+    this.store.dispatch(new HotelAction.LoadSelectedHotel());
+    this.http.get<Hotel>(BACKEND_URL + '/hotels/' + id).subscribe(
+      (hotel) => {
+        this.store.dispatch(new UI.StopLoading());
+        this.store.dispatch(new HotelAction.LoadSelectedHotelSucess(hotel));
+      },
+      (error) => {
+        this.store.dispatch(new UI.StopLoading());
+        this.store.dispatch(new HotelAction.LoadSelectedHotelFailure(error));
+      }
+    );
+  }
+
+  getOnlySelectedHotelMenu(id) {
+    this.store.dispatch(new UI.StartLoading());
+    this.store.dispatch(new HotelAction.LoadSelectedHotelMenu());
+    this.http
+      .get<{ content: MenuItem[] }>(BACKEND_URL + '/hotels/' + id + '/menu')
+      .subscribe(
+        (hotelMenu) => {
+          this.store.dispatch(new UI.StopLoading());
+          this.store.dispatch(
+            new HotelAction.LoadSelectedHotelMenuSucess(hotelMenu.content)
+          );
+        },
+        (error) => {
+          this.store.dispatch(new UI.StopLoading());
+          this.store.dispatch(
+            new HotelAction.LoadSelectedHotelMenuFailure(error)
+          );
+        }
+      );
+  }
+
+  getSelectedHotelAndMenuById(id) {
+    this.getOnlyHotelById(id);
+    this.getOnlySelectedHotelMenu(id);
+  }
+
   getHotelById(id) {
     this.store.dispatch(new UI.StartLoading());
+    this.store.dispatch(new HotelAction.LoadSelectedHotelMenu());
     this.http
       .get<{ content: MenuItem[] }>(BACKEND_URL + '/hotels/' + id + '/menu')
       .subscribe(
         (hotelData) => {
           this.store.dispatch(new UI.StopLoading());
           this.selectedHotel = this.hotels.find((hotel) => hotel.id == id);
-          this.selectedHotel.menuItems = hotelData.content;
+
+          this.selectedHotel.menuItems = hotelData.content.filter(
+            (menuItem) => {
+              return menuItem.available == true;
+            }
+          );
+          this.store.dispatch(
+            new HotelAction.LoadSelectedHotelMenuSucess([
+              ...hotelData.content.filter((menuItem) => {
+                return menuItem.available == true;
+              }),
+            ])
+          );
           this.selectedHotelUpdated.next({
             hotel: this.selectedHotel,
           });

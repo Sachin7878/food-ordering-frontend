@@ -10,7 +10,7 @@
   <mat-card class="card" *ngFor="let menuItem of selectedHotel.menuItems">
     <div>{{ menuItem.itemName }}</div>
     <div>
-      <button mat-button color="accent" (click)="addToCart()">
+      <button mat-button color="accent" (click)="addToCart(menuItem)">
         Add To Cart
       </button>
     </div>

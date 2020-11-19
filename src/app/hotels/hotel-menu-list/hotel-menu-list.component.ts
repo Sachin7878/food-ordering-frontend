@@ -6,6 +6,8 @@ import { HotelService } from '../hotel.service';
 import { MenuItem } from '../menu-item.model';
 import { Store } from '@ngrx/store';
 import * as fromRoot from '../../store/app.reducer';
+import { CartService } from 'src/app/cart/cart.service';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-hotel-menu-list',
@@ -14,15 +16,21 @@ import * as fromRoot from '../../store/app.reducer';
 })
 export class HotelMenuListComponent implements OnInit, OnDestroy {
   isLoading$: Observable<boolean>;
+  // selectedHotel$: Observable<Hotel>;
+  // selectedHotelMenu$: Observable<MenuItem[]>;
+  // addressStringWithNgrx: String;
+  // selectedHotelWithNgrx: Hotel;
+  //without ngrx store
   private selectHotelSub: Subscription;
   selectedHotel: Hotel;
   menuItemsForSelectedHotel: MenuItem[];
-  hotelIdString: String;
-  hotelNameString: String;
-  addressString: String;
+  hotelIdString: string;
+  hotelNameString: string;
+  addressString: string;
   constructor(
     public route: ActivatedRoute,
     private hotelService: HotelService,
+    private cartService: CartService,
     private store: Store<fromRoot.State>
   ) {}
 
@@ -48,13 +56,29 @@ export class HotelMenuListComponent implements OnInit, OnDestroy {
               ' - ' +
               this.selectedHotel.address.pincode;
           });
+        //store testing
+        // this.hotelService.getSelectedHotelAndMenuById(+this.hotelIdString);
+        // this.store
+        //   .select(fromRoot.getSelectedHotel)
+        //   .pipe(take(1))
+        //   .subscribe((hotelObj) => {
+        //     this.selectedHotelWithNgrx = hotelObj;
+        //   });
       } else {
         console.log('else in hotel menu list ngOnInit');
       }
     });
   }
 
-  addToCart() {}
+  addToCart(menuItem: MenuItem) {
+    this.cartService.addItemsToCart(
+      this.hotelNameString,
+      this.selectedHotel.id,
+      this.selectedHotel.mobileNo,
+      this.selectedHotel.address,
+      { item: menuItem, quantity: 1 }
+    );
+  }
 
   ngOnDestroy() {
     this.selectHotelSub.unsubscribe();

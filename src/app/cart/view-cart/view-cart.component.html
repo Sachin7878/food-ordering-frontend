@@ -1,0 +1,22 @@
+<!-- <mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ hotelNameString }}</mat-card-title>
+  </mat-card-header>
+</mat-card> -->
+<div>
+  <mat-card class="card">
+    <div>{{ cart.hotelName }}</div>
+    <div *ngFor="let cartItem of cart.cartItems | async">
+      <button mat-button color="warn" (click)="decreaseQuantity(cartItem)">
+        -
+      </button>
+      <span>{{ cartItem.quantity }}</span>
+      <button mat-button color="primary" (click)="increaseQuantity(cartItem)">
+        +
+      </button>
+    </div>
+  </mat-card>
+  <!-- <mat-card *ngIf="!cart">
+    <h3>{{ message }}</h3>
+  </mat-card> -->
+</div>

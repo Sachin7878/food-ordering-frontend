@@ -17,6 +17,17 @@
     <mat-icon>restaurant</mat-icon>
     <span class="nav-caption">Create Hotel</span>
   </a>
+
+  <a
+    mat-list-item
+    routerLink="/cart"
+    (click)="onClose()"
+    *ngIf="isAuth$ | async"
+  >
+    <mat-icon>shopping_cart</mat-icon>
+    <span class="nav-caption">Cart</span>
+  </a>
+
   <mat-list-item>
     <button mat-icon-button (click)="onLogout()" *ngIf="isAuth$ | async">
       <mat-icon>eject</mat-icon>

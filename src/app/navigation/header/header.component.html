@@ -9,6 +9,11 @@
   </div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
     <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+      <li *ngIf="isAuth$ | async">
+        <button mat-button routerLink="/cart" routerLinkActive="mat-accent">
+          Cart
+        </button>
+      </li>
       <li *ngIf="!(isAuth$ | async)">
         <button
           mat-button

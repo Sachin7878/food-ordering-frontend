@@ -21,6 +21,7 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { ViewCartComponent } from './cart/view-cart/view-cart.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { environment } from '../environments/environment';
     HotelCreateComponent,
     HotelListComponent,
     HotelMenuListComponent,
+    ViewCartComponent,
   ],
   imports: [
     BrowserModule,

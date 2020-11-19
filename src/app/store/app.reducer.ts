@@ -7,6 +7,7 @@ import {
 import * as fromUi from '../shared/ui.reducer';
 import * as fromAuth from '../auth/store/auth.reducer';
 import * as fromHotel from '../hotels/store/hotel.reducer';
+import * as fromCart from '../cart/store/cart.reducer';
 
 export interface State {
   ui: fromUi.State;
@@ -29,3 +30,11 @@ export const getIsAdmin = createSelector(getAuthState, fromAuth.getIsAdmin);
 
 export const getHotelsState = createFeatureSelector<fromHotel.State>('hotel');
 export const getHotels = createSelector(getHotelsState, fromHotel.getHotels);
+export const getSelectedHotel = createSelector(
+  getHotelsState,
+  fromHotel.getSelectedHotel
+);
+export const getSelectedHotelMenu = createSelector(
+  getHotelsState,
+  fromHotel.getSelectedHotelMenu
+);
