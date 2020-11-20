@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
+
 import { Select } from '@ngxs/store';
 import { AppState } from 'src/app/shared/app.state';
 
@@ -11,7 +11,7 @@ import { AppState } from 'src/app/shared/app.state';
 })
 export class AuthCardComponent implements OnInit {
   @Select(AppState.isLoading) isLoading$: Observable<boolean>;
-  constructor(private store: Store) {}
+  constructor() {}
 
   ngOnInit(): void {}
 }

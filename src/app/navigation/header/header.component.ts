@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/shared/app.state';
 import { AuthService } from '../../auth/auth.service';
@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
   @Select(AppState.isAuthenticated) isAuthenticated$: Observable<boolean>;
   @Select(AppState.isAdmin) isAdmin$: Observable<boolean>;
 
-  constructor(private store: Store, private authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {}
 

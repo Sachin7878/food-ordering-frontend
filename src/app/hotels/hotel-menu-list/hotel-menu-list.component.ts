@@ -5,8 +5,7 @@ import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';
 import { MenuItem } from '../menu-item.model';
 import { CartService } from 'src/app/cart/cart.service';
-import { take } from 'rxjs/operators';
-import { Select, Store } from '@ngxs/store';
+import { Select } from '@ngxs/store';
 import { AppState } from 'src/app/shared/app.state';
 
 @Component({
@@ -30,8 +29,7 @@ export class HotelMenuListComponent implements OnInit, OnDestroy {
   constructor(
     public route: ActivatedRoute,
     private hotelService: HotelService,
-    private cartService: CartService,
-    private store: Store
+    private cartService: CartService
   ) {}
 
   ngOnInit(): void {

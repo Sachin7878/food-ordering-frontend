@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/shared/app.state';
 
@@ -15,7 +15,7 @@ export class SidenavListComponent implements OnInit {
   @Select(AppState.isAuthenticated) isAuth$: Observable<boolean>;
   @Select(AppState.isAdmin) isAdmin$: Observable<boolean>;
 
-  constructor(private authService: AuthService, private store: Store) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {}
 
