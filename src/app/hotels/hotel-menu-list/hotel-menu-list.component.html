@@ -1,18 +1,16 @@
 <mat-spinner style="margin: auto" *ngIf="isLoading$ | async"></mat-spinner>
-<mat-card>
+<mat-card *ngIf="selectedHotel$ | async as selHotel">
   <mat-card-header>
-    <mat-card-title>{{ hotelNameString }}</mat-card-title>
-    <mat-card-subtitle>{{ addressString }} </mat-card-subtitle>
-    <mat-card-subtitle>{{ selectedHotel.mobileNo }} </mat-card-subtitle>
+    <mat-card-title>{{ selHotel.hotelName }}</mat-card-title>
+    <mat-card-subtitle>{{ addressString }}</mat-card-subtitle>
+    <mat-card-subtitle>{{ selHotel.mobileNo }} </mat-card-subtitle>
   </mat-card-header>
 </mat-card>
 <div>
-  <mat-card class="card" *ngFor="let menuItem of selectedHotel.menuItems">
+  <mat-card class="card" *ngFor="let menuItem of selectedHotelMenu$ | async">
     <div>{{ menuItem.itemName }}</div>
     <div>
-      <button mat-button color="accent" (click)="addToCart(menuItem)">
-        Add To Cart
-      </button>
+      <button mat-button color="accent">Add To Cart</button>
     </div>
   </mat-card>
 </div>

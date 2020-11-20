@@ -6,7 +6,13 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { MenuItem } from './menu-item.model';
 import { Store } from '@ngxs/store';
-import { StartLoading, StopLoading } from '../shared/app.actions';
+import {
+  LoadHotelsSuccess,
+  LoadSelectedHotelMenuSuccess,
+  LoadSelectedHotelSuccess,
+  StartLoading,
+  StopLoading,
+} from '../shared/app.actions';
 // import * as fromRoot from '../store/app.reducer';
 // import * as UI from '../shared/actions';
 // import * as HotelAction from './store/hotel.actions';
@@ -85,6 +91,7 @@ export class HotelService {
       )
       .subscribe((transformedHotelData) => {
         this.store.dispatch(new StopLoading());
+        this.store.dispatch(new LoadHotelsSuccess(transformedHotelData.hotels));
         this.hotels = transformedHotelData.hotels;
         this.hotelsUpdated.next({
           hotels: [...this.hotels],
@@ -96,50 +103,44 @@ export class HotelService {
     this.router.navigate(['/hotel/' + id]);
   }
 
-  // getOnlyHotelById(id) {
-  //   this.store.dispatch(new StartLoading());
-  //   this.store.dispatch(new HotelAction.LoadSelectedHotel());
-  //   this.http.get<Hotel>(BACKEND_URL + '/hotels/' + id).subscribe(
-  //     (hotel) => {
-  //       this.store.dispatch(new StopLoading());
-  //       this.store.dispatch(new HotelAction.LoadSelectedHotelSucess(hotel));
-  //     },
-  //     (error) => {
-  //       this.store.dispatch(new StopLoading());
-  //       this.store.dispatch(new HotelAction.LoadSelectedHotelFailure(error));
-  //     }
-  //   );
-  // }
+  getOnlyHotelById(id) {
+    this.store.dispatch(new StartLoading());
+    this.http.get<Hotel>(BACKEND_URL + '/hotels/' + id).subscribe(
+      (hotel) => {
+        this.store.dispatch(new StopLoading());
+        this.store.dispatch(new LoadSelectedHotelSuccess(hotel));
+      },
+      (error) => {
+        this.store.dispatch(new StopLoading());
+      }
+    );
+  }
 
-  // getOnlySelectedHotelMenu(id) {
-  //   this.store.dispatch(new StartLoading());
-  //   this.store.dispatch(new HotelAction.LoadSelectedHotelMenu());
-  //   this.http
-  //     .get<{ content: MenuItem[] }>(BACKEND_URL + '/hotels/' + id + '/menu')
-  //     .subscribe(
-  //       (hotelMenu) => {
-  //         this.store.dispatch(new StopLoading());
-  //         this.store.dispatch(
-  //           new HotelAction.LoadSelectedHotelMenuSucess(hotelMenu.content)
-  //         );
-  //       },
-  //       (error) => {
-  //         this.store.dispatch(new StopLoading());
-  //         this.store.dispatch(
-  //           new HotelAction.LoadSelectedHotelMenuFailure(error)
-  //         );
-  //       }
-  //     );
-  // }
+  getOnlySelectedHotelMenu(id) {
+    this.store.dispatch(new StartLoading());
+    this.http
+      .get<{ content: MenuItem[] }>(BACKEND_URL + '/hotels/' + id + '/menu')
+      .subscribe(
+        (hotelMenu) => {
+          this.store.dispatch(new StopLoading());
+          this.store.dispatch(
+            new LoadSelectedHotelMenuSuccess(hotelMenu.content)
+          );
+        },
+        (error) => {
+          this.store.dispatch(new StopLoading());
+        }
+      );
+  }
 
-  // getSelectedHotelAndMenuById(id) {
-  //   this.getOnlyHotelById(id);
-  //   this.getOnlySelectedHotelMenu(id);
-  // }
+  getSelectedHotelAndMenuById(id) {
+    this.getOnlyHotelById(id);
+    this.getOnlySelectedHotelMenu(id);
+  }
 
   getHotelById(id) {
     this.store.dispatch(new StartLoading());
-    //this.store.dispatch(new HotelAction.LoadSelectedHotelMenu());
+    //this.store.dispatch(new LoadSelectedHotelMenu());
     this.http
       .get<{ content: MenuItem[] }>(BACKEND_URL + '/hotels/' + id + '/menu')
       .subscribe(
@@ -153,7 +154,7 @@ export class HotelService {
             }
           );
           // this.store.dispatch(
-          //   new HotelAction.LoadSelectedHotelMenuSucess([
+          //   new LoadSelectedHotelMenuSucess([
           //     ...hotelData.content.filter((menuItem) => {
           //       return menuItem.available == true;
           //     }),

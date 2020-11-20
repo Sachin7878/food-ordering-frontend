@@ -8,7 +8,7 @@
         fxFlex="25%"
         fxFlex.xs="100%"
         fxFlex.sm="33%"
-        *ngFor="let hotel of hotelsList"
+        *ngFor="let hotel of hotelsList$ | async"
       >
         <mat-card>
           <mat-card-header>

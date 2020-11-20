@@ -15,69 +15,43 @@ import { AppState } from 'src/app/shared/app.state';
 })
 export class HotelMenuListComponent implements OnInit, OnDestroy {
   @Select(AppState.isLoading) isLoading$: Observable<boolean>;
-  // selectedHotel$: Observable<Hotel>;
-  // selectedHotelMenu$: Observable<MenuItem[]>;
-  // addressStringWithNgrx: String;
-  // selectedHotelWithNgrx: Hotel;
-  //without ngrx store
-  private selectHotelSub: Subscription;
-  selectedHotel: Hotel;
-  menuItemsForSelectedHotel: MenuItem[];
+  @Select(AppState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
+  @Select(AppState.getSelectedHotelMenu) selectedHotelMenu$: Observable<
+    MenuItem[]
+  >;
   hotelIdString: string;
-  hotelNameString: string;
   addressString: string;
   constructor(
     public route: ActivatedRoute,
-    private hotelService: HotelService,
-    private cartService: CartService
+    private hotelService: HotelService
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('hotelId')) {
         this.hotelIdString = paramMap.get('hotelId');
-        this.hotelService.getHotelById(this.hotelIdString);
-        this.selectHotelSub = this.hotelService
-          .getSelectedHotelUpdateListener()
-          .subscribe((selectedHotelData) => {
-            this.selectedHotel = selectedHotelData.hotel;
-            this.hotelNameString = this.selectedHotel.hotelName;
-            this.menuItemsForSelectedHotel = this.selectedHotel.menuItems;
+
+        this.hotelService.getSelectedHotelAndMenuById(this.hotelIdString);
+        this.selectedHotel$.subscribe((hotel) => {
+          if (hotel.address) {
             this.addressString =
-              this.selectedHotel.address.addressLine1 +
-              (this.selectedHotel.address.addressLine2
-                ? ', ' + this.selectedHotel.address.addressLine2
+              hotel.address.addressLine1 +
+              (hotel.address.addressLine2
+                ? ', ' + hotel.address.addressLine2
                 : '') +
               ', ' +
-              this.selectedHotel.address.city +
+              hotel.address.city +
               ' - ' +
-              this.selectedHotel.address.pincode;
-          });
-        //store testing
-        // this.hotelService.getSelectedHotelAndMenuById(+this.hotelIdString);
-        // this.store
-        //   .select(fromRoot.getSelectedHotel)
-        //   .pipe(take(1))
-        //   .subscribe((hotelObj) => {
-        //     this.selectedHotelWithNgrx = hotelObj;
-        //   });
+              hotel.address.pincode;
+          } else {
+            this.addressString = null;
+          }
+        });
       } else {
         console.log('else in hotel menu list ngOnInit');
       }
     });
   }
 
-  addToCart(menuItem: MenuItem) {
-    this.cartService.addItemsToCart(
-      this.hotelNameString,
-      this.selectedHotel.id,
-      this.selectedHotel.mobileNo,
-      this.selectedHotel.address,
-      { item: menuItem, quantity: 1 }
-    );
-  }
-
-  ngOnDestroy() {
-    this.selectHotelSub.unsubscribe();
-  }
+  ngOnDestroy() {}
 }

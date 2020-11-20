@@ -15,9 +15,11 @@ import { AppState } from 'src/app/shared/app.state';
 export class HotelListComponent implements OnInit, OnDestroy {
   hotelsList: Hotel[] = [];
   @Select(AppState.isLoading) isLoading$: Observable<boolean>;
+  @Select(AppState.getHotels) hotelsList$: Observable<Hotel[]>;
+
   private hotelSub: Subscription;
 
-  constructor(private hotelService: HotelService, private store: Store) {}
+  constructor(private hotelService: HotelService) {}
 
   ngOnInit() {
     this.hotelService.fetchAllHotels();
