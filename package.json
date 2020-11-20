@@ -26,8 +26,10 @@
     "@ngxs/logger-plugin": "^3.3.2",
     "@ngxs/schematics": "^0.0.1-alpha.5",
     "@ngxs/store": "^3.3.2",
+    "object-path": "0.11.5",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "webpack-subresource-integrity": "^1.5.1",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
