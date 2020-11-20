@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "food-ordering-frontend"
+  "defaultProject": "food-ordering-frontend",
+  "cli": {
+    "defaultCollection": "@ngxs/schematics"
+  }
 }

@@ -3,10 +3,15 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthLoginData } from './auth-login-data.model';
 import { AuthRegistrationData } from './auth-registration-data.model';
-import * as fromRoot from '../store/app.reducer';
-import * as UI from '../shared/ui.actions';
-import * as Auth from './store/auth.actions';
-import { Store } from '@ngrx/store';
+import { Store } from '@ngxs/store';
+import {
+  SetAdminFalse,
+  SetAdminTrue,
+  SetAuthenticated,
+  SetUnauthenticated,
+  StartLoading,
+  StopLoading,
+} from '../shared/app.actions';
 
 const BANKEND_URL = 'http://localhost:8080/api';
 
@@ -20,7 +25,7 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private store: Store<fromRoot.State>
+    private store: Store
   ) {}
 
   getToken() {
@@ -41,16 +46,16 @@ export class AuthService {
       mobileNo: mobileNo,
       password: password,
     };
-    this.store.dispatch(new UI.StartLoading());
+    this.store.dispatch(new StartLoading());
     this.http.post(BANKEND_URL + '/register', authData).subscribe(
       () => {
-        this.store.dispatch(new UI.StopLoading());
+        this.store.dispatch(new StopLoading());
         this.login(authData.email, authData.password);
         this.router.navigate(['/']);
       },
       () => {
-        this.store.dispatch(new UI.StopLoading());
-        this.store.dispatch(new Auth.SetUnauthenticated());
+        this.store.dispatch(new StopLoading());
+        this.store.dispatch(new SetUnauthenticated());
       }
     );
   }
@@ -60,7 +65,7 @@ export class AuthService {
       email: email,
       password: password,
     };
-    this.store.dispatch(new UI.StartLoading());
+    this.store.dispatch(new StartLoading());
     this.http
       .post<{ token: string; expiresIn: number; role: string }>(
         BANKEND_URL + '/login',
@@ -76,10 +81,10 @@ export class AuthService {
 
             const roleCheck = response.role;
             if (roleCheck === ROLE_ADMIN) {
-              this.store.dispatch(new Auth.SetAdminTrue());
+              this.store.dispatch(new SetAdminTrue());
             }
-            this.store.dispatch(new UI.StopLoading());
-            this.store.dispatch(new Auth.SetAuthenticated());
+            this.store.dispatch(new StopLoading());
+            this.store.dispatch(new SetAuthenticated());
             const now = new Date();
             const expirationDate = new Date(
               now.getTime() + expiresInDuration * 1000
@@ -89,15 +94,15 @@ export class AuthService {
           }
         },
         () => {
-          this.store.dispatch(new UI.StopLoading());
+          this.store.dispatch(new StopLoading());
           console.log('Invalid Credentials');
-          this.store.dispatch(new Auth.SetUnauthenticated());
+          this.store.dispatch(new SetUnauthenticated());
         }
       );
   }
 
   autoAuthUser() {
-    this.store.dispatch(new UI.StartLoading());
+    this.store.dispatch(new StartLoading());
     const authInfo = this.getAuthData();
     if (!authInfo) {
       return;
@@ -109,20 +114,20 @@ export class AuthService {
       //    this.userId = authInfo.userId;
       let roleCheck = authInfo.role;
       if (roleCheck == ROLE_ADMIN) {
-        this.store.dispatch(new Auth.SetAdminTrue());
+        this.store.dispatch(new SetAdminTrue());
       }
-      this.store.dispatch(new Auth.SetAuthenticated());
+      this.store.dispatch(new SetAuthenticated());
       this.setAuthTimer(expiresIn / 1000);
     }
-    this.store.dispatch(new UI.StopLoading());
+    this.store.dispatch(new StopLoading());
   }
 
   logout() {
     this.token = null;
-    this.store.dispatch(new Auth.SetUnauthenticated());
+    this.store.dispatch(new SetUnauthenticated());
     this.router.navigate(['/']);
     this.clearAuthData();
-    this.store.dispatch(new Auth.SetAdminFalse());
+    this.store.dispatch(new SetAdminFalse());
     clearTimeout(this.tokenTimer);
   }
 

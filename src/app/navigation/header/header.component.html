@@ -9,17 +9,13 @@
   </div>
   <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
     <ul fxLayout fxLayoutGap="10px" class="navigation-items">
-      <li *ngIf="isAuth$ | async">
+      <li *ngIf="isAuthenticated$ | async">
         <button mat-button routerLink="/cart" routerLinkActive="mat-accent">
           Cart
         </button>
       </li>
-      <li *ngIf="!(isAuth$ | async)">
-        <button
-          mat-button
-          routerLink="/auth/card"
-          routerLinkActive="mat-accent"
-        >
+      <li *ngIf="!(isAuthenticated$ | async)">
+        <button mat-button routerLink="/auth" routerLinkActive="mat-accent">
           Authorize
         </button>
       </li>
@@ -32,7 +28,7 @@
           Create Hotel
         </button>
       </li>
-      <li *ngIf="isAuth$ | async" routerLinkActive="mat-accent">
+      <li *ngIf="isAuthenticated$ | async" routerLinkActive="mat-accent">
         <button mat-button (click)="onLogout()">Logout</button>
       </li>
     </ul>

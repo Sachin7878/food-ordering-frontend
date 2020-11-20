@@ -6,5 +6,5 @@ export interface Cart {
   hotelId: number;
   hotelMobileNo: number;
   hotelAddress: Address;
-  cartItems: Array<{ item: MenuItem; quantity: number }>;
+  cartItems: { item: MenuItem; quantity: number }[];
 }
