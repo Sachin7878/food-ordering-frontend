@@ -2,8 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';
-import { Store } from '@ngrx/store';
-import * as fromRoot from '../../store/app.reducer';
+// import { Store } from '@ngrx/store';
+// import * as fromRoot from '../../store/app.reducer';
+import { Select, Store } from '@ngxs/store';
+import { AppState } from 'src/app/shared/app.state';
 
 @Component({
   selector: 'app-hotel-list',
@@ -12,17 +14,12 @@ import * as fromRoot from '../../store/app.reducer';
 })
 export class HotelListComponent implements OnInit, OnDestroy {
   hotelsList: Hotel[] = [];
-  isLoading$: Observable<boolean>;
+  @Select(AppState.isLoading) isLoading$: Observable<boolean>;
   private hotelSub: Subscription;
 
-  constructor(
-    private hotelService: HotelService,
-    private store: Store<fromRoot.State>
-  ) {}
+  constructor(private hotelService: HotelService, private store: Store) {}
 
   ngOnInit() {
-    this.isLoading$ = this.store.select(fromRoot.getIsLoading);
-
     this.hotelService.fetchAllHotels();
     this.hotelSub = this.hotelService
       .getHotelUpdateListener()

@@ -26,6 +26,11 @@ import { environment } from '../environments/environment';
 import { ViewCartComponent } from './cart/view-cart/view-cart.component';
 import { AppState } from './shared/app.state';
 
+import { CommonModule } from '@angular/common';
+import { AuthCardComponent } from './auth/auth-card/auth-card.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +42,9 @@ import { AppState } from './shared/app.state';
     HotelListComponent,
     HotelMenuListComponent,
     ViewCartComponent,
+    LoginComponent,
+    SignupComponent,
+    AuthCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,7 +54,11 @@ import { AppState } from './shared/app.state';
     HttpClientModule,
     AngularMaterialModule,
     FlexLayoutModule,
-    NgxsModule.forRoot([AppState]),
+    CommonModule,
+
+    NgxsModule.forRoot([AppState], {
+      developmentMode: !environment.production,
+    }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     // StoreModule.forRoot(reducers),
     // StoreDevtoolsModule.instrument({

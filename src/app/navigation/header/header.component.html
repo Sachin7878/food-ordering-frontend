@@ -15,11 +15,7 @@
         </button>
       </li>
       <li *ngIf="!(isAuth$ | async)">
-        <button
-          mat-button
-          routerLink="/auth/card"
-          routerLinkActive="mat-accent"
-        >
+        <button mat-button routerLink="/auth" routerLinkActive="mat-accent">
           Authorize
         </button>
       </li>

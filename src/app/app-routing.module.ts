@@ -6,19 +6,20 @@ import { AdminGuard } from './auth/admin.guard';
 import { HotelListComponent } from './hotels/hotel-list/hotel-list.component';
 import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list.component';
 import { ViewCartComponent } from './cart/view-cart/view-cart.component';
+import { AuthCardComponent } from './auth/auth-card/auth-card.component';
 
 const routes: Routes = [
   { path: '', component: HotelListComponent },
   {
     path: 'hotelCreate',
     component: HotelCreateComponent,
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AuthGuard],
   },
   { path: 'hotel/:hotelId', component: HotelMenuListComponent },
   { path: 'cart', component: ViewCartComponent },
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    component: AuthCardComponent,
   },
 ];
 
