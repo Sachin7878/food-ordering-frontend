@@ -4,8 +4,9 @@ import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';
 // import { Store } from '@ngrx/store';
 // import * as fromRoot from '../../store/app.reducer';
-import { Select, Store } from '@ngxs/store';
+import { Select } from '@ngxs/store';
 import { AppState } from 'src/app/shared/app.state';
+import { HotelState } from '../store/hotel.state';
 
 @Component({
   selector: 'app-hotel-list',
@@ -15,7 +16,7 @@ import { AppState } from 'src/app/shared/app.state';
 export class HotelListComponent implements OnInit, OnDestroy {
   hotelsList: Hotel[] = [];
   @Select(AppState.isLoading) isLoading$: Observable<boolean>;
-  @Select(AppState.getHotels) hotelsList$: Observable<Hotel[]>;
+  @Select(HotelState.getHotels) hotelsList$: Observable<Hotel[]>;
 
   private hotelSub: Subscription;
 

@@ -6,13 +6,13 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { MenuItem } from './menu-item.model';
 import { Store } from '@ngxs/store';
+import { StartLoading, StopLoading } from '../shared/app.actions';
+
 import {
   LoadHotelsSuccess,
   LoadSelectedHotelMenuSuccess,
   LoadSelectedHotelSuccess,
-  StartLoading,
-  StopLoading,
-} from '../shared/app.actions';
+} from './store/hotel.actions';
 // import * as fromRoot from '../store/app.reducer';
 // import * as UI from '../shared/actions';
 // import * as HotelAction from './store/hotel.actions';
