@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { AppState } from 'src/app/shared/app.state';
 import { HotelState } from '../store/hotel.state';
+import { ClearSelectedHotel } from '../store/hotel.actions';
 
 @Component({
   selector: 'app-hotel-list',
@@ -15,10 +16,11 @@ export class HotelListComponent implements OnInit {
   @Select(AppState.isLoading) isLoading$: Observable<boolean>;
   @Select(HotelState.getHotels) hotelsList$: Observable<Hotel[]>;
 
-  constructor(private hotelService: HotelService) {}
+  constructor(private hotelService: HotelService, private store: Store) {}
 
   ngOnInit() {
     this.hotelService.fetchAllHotels();
+    this.store.dispatch(new ClearSelectedHotel());
   }
 
   openHotel(hotelId) {

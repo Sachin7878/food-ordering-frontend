@@ -6,6 +6,10 @@
         >{{ selHotel.mobileNo }}
       </mat-card-subtitle></mat-card-header
     >
+    <button mat-button (click)="clearCart()">Clear Cart</button>
+  </mat-card>
+  <mat-card *ngIf="!(selectedHotel$ | async) as noHotel">
+    <mat-card-title>{{ message }}</mat-card-title>
   </mat-card>
   <mat-card class="card" *ngFor="let cartItem of cartItems$ | async">
     <div>{{ cartItem.item.itemName }}</div>

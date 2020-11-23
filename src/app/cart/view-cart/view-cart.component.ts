@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Hotel } from 'src/app/hotels/hotel.model';
 import { MenuItem } from 'src/app/hotels/menu-item.model';
+import { ClearSelectedHotel } from 'src/app/hotels/store/hotel.actions';
 import { HotelState } from 'src/app/hotels/store/hotel.state';
 import {
+  ClearCart,
   DecreaseCartItemQuantity,
   IncreaseCartItemQuantity,
 } from '../store/cart.actions';
@@ -22,7 +25,7 @@ export class ViewCartComponent implements OnInit, OnDestroy {
   @Select(HotelState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
 
   message = 'Cart is Empty!';
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -31,6 +34,12 @@ export class ViewCartComponent implements OnInit, OnDestroy {
   }
   decreaseQuantity(id: number) {
     this.store.dispatch(new DecreaseCartItemQuantity(id));
+  }
+
+  clearCart() {
+    this.store.dispatch(new ClearCart());
+    this.store.dispatch(new ClearSelectedHotel());
+    this.router.navigate(['/']);
   }
 
   ngOnDestroy() {}

@@ -20,6 +20,8 @@ export class HotelMenuListComponent implements OnInit, OnDestroy {
   @Select(HotelState.getSelectedHotelMenu) selectedHotelMenu$: Observable<
     MenuItem[]
   >;
+
+  @Select(AppState.isAdmin) isAdmin$: Observable<boolean>;
   hotelIdString: string;
   addressString: string;
   constructor(
@@ -58,6 +60,8 @@ export class HotelMenuListComponent implements OnInit, OnDestroy {
   addToCart(menuItem: MenuItem) {
     this.store.dispatch(new AddItemToCart({ item: menuItem, quantity: 1 }));
   }
+
+  deleteItem(menuId: number) {}
 
   ngOnDestroy() {}
 }

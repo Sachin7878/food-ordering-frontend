@@ -4,6 +4,7 @@ import { Hotel } from '../hotel.model';
 import { MenuItem } from '../menu-item.model';
 import {
   AddHotelSuccess,
+  ClearSelectedHotel,
   LoadHotelsSuccess,
   LoadSelectedHotelMenuSuccess,
   LoadSelectedHotelSuccess,
@@ -43,6 +44,14 @@ export class HotelState {
   @Selector()
   public static getSelectedHotelMenu(state: HotelStateModel) {
     return state.selectedHotelMenuItems;
+  }
+
+  @Action(ClearSelectedHotel)
+  public clearSelectedHotel(
+    { patchState }: StateContext<HotelStateModel>,
+    action: ClearSelectedHotel
+  ) {
+    patchState({ selectedHotel: null, selectedHotelMenuItems: [] });
   }
 
   @Action(LoadHotelsSuccess)

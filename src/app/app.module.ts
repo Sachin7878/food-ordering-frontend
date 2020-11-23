@@ -29,6 +29,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { HotelState } from './hotels/store/hotel.state';
 import { CartState } from './cart/store/cart.state';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CartState } from './cart/store/cart.state';
     LoginComponent,
     SignupComponent,
     AuthCardComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +56,6 @@ import { CartState } from './cart/store/cart.state';
     AngularMaterialModule,
     FlexLayoutModule,
     CommonModule,
-
     NgxsModule.forRoot([AppState, HotelState, CartState], {
       developmentMode: !environment.production,
     }),
@@ -65,6 +66,6 @@ import { CartState } from './cart/store/cart.state';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent],
+  entryComponents: [ErrorComponent, ConfirmDialogComponent],
 })
 export class AppModule {}

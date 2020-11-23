@@ -3,6 +3,7 @@ import { State, Action, Selector, StateContext } from '@ngxs/store';
 import { MenuItem } from 'src/app/hotels/menu-item.model';
 import {
   AddItemToCart,
+  ClearCart,
   DecreaseCartItemQuantity,
   IncreaseCartItemQuantity,
 } from './cart.actions';
@@ -12,12 +13,14 @@ export interface CartStateModel {
   totalAmount: number;
 }
 
+export const getCartInitialState = (): CartStateModel => ({
+  cartItems: [],
+  totalAmount: null,
+});
+
 @State<CartStateModel>({
   name: 'cart',
-  defaults: {
-    cartItems: [],
-    totalAmount: null,
-  },
+  defaults: getCartInitialState(),
 })
 @Injectable()
 export class CartState {
@@ -41,18 +44,13 @@ export class CartState {
     patchState({ cartItems: cartItems });
   }
 
-  // @Action(IncreaseCartItemQuantity)
-  // public increaseCartItemQuantity(
-  //   { getState, patchState }: StateContext<CartStateModel>,
-  //   action: IncreaseCartItemQuantity
-  // ) {
-  //   const current = getState();
-  //   const item = current.cartItems.find((item) => {
-  //     item.item.id === action.payload;
-  //   });
-  //   item.quantity++;
-  //   patchState({ cartItems: [...current.cartItems, item] });
-  // }
+  @Action(ClearCart)
+  public clearCart(
+    { setState }: StateContext<CartStateModel>,
+    action: ClearCart
+  ) {
+    setState(getCartInitialState());
+  }
 
   @Action(IncreaseCartItemQuantity)
   increaseQuantity(

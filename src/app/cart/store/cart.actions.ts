@@ -19,3 +19,8 @@ export class DecreaseCartItemQuantity {
   public static readonly type = '[CART] Decrease Cart Item Quantity';
   constructor(public payload: number) {}
 }
+
+export class ClearCart {
+  public static readonly type = '[CART] Clear Cart';
+  constructor() {}
+}

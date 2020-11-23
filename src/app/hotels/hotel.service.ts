@@ -124,4 +124,6 @@ export class HotelService {
     this.getOnlyHotelById(id);
     this.getOnlySelectedHotelMenu(id);
   }
+
+  deleteMenuItem(hotelId, menuId) {}
 }
