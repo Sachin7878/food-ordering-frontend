@@ -10,27 +10,9 @@ export class LoadHotelsSuccess {
   constructor(public payload: Hotel[]) {}
 }
 
-export class LoadHotelsFailure {
-  public static readonly type = '[HOTEL] Load Hotels Failure';
-  constructor() {}
-}
-
-export class LoadSelectedHotel {
-  public static readonly type = '[HOTEL] Load Selected Hotel';
-}
-
 export class LoadSelectedHotelSuccess {
   public static readonly type = '[HOTEL] Load Selected Hotel Success';
   constructor(public payload: Hotel) {}
-}
-
-export class LoadSelectedHotelFailure {
-  public static readonly type = '[HOTEL] Load Selected Hotel Failure';
-  constructor() {}
-}
-
-export class LoadSelectedHotelMenu {
-  public static readonly type = '[HOTEL] Load Selected Hotel Menu';
 }
 
 export class LoadSelectedHotelMenuSuccess {
@@ -38,7 +20,7 @@ export class LoadSelectedHotelMenuSuccess {
   constructor(public payload: MenuItem[]) {}
 }
 
-export class LoadSelectedHotelMenuFailure {
-  public static readonly type = '[HOTEL] Load Selected Hotel Menu Failure';
-  constructor() {}
+export class AddHotelSuccess {
+  public static readonly type = '[HOTEL] Add Hotel Success';
+  constructor(public payload: Hotel) {}
 }

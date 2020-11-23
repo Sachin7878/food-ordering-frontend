@@ -3,6 +3,7 @@ import { Action, Selector, State, StateContext } from '@ngxs/store';
 import { Hotel } from '../hotel.model';
 import { MenuItem } from '../menu-item.model';
 import {
+  AddHotelSuccess,
   LoadHotelsSuccess,
   LoadSelectedHotelMenuSuccess,
   LoadSelectedHotelSuccess,
@@ -66,5 +67,15 @@ export class HotelState {
     action: LoadSelectedHotelMenuSuccess
   ) {
     patchState({ selectedHotelMenuItems: action.payload });
+  }
+
+  @Action(AddHotelSuccess)
+  public createHotel(
+    { getState, patchState }: StateContext<HotelStateModel>,
+    action: AddHotelSuccess
+  ) {
+    const current = getState();
+    const hotelsList = [...current.hotelsList, action.payload];
+    patchState({ hotelsList: hotelsList });
   }
 }
