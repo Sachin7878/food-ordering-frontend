@@ -4,9 +4,10 @@ import { Observable, Subscription } from 'rxjs';
 import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';
 import { MenuItem } from '../menu-item.model';
-import { CartService } from 'src/app/cart/cart.service';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { AppState } from 'src/app/shared/app.state';
+import { HotelState } from '../store/hotel.state';
+import { AddItemToCart } from 'src/app/cart/store/cart.actions';
 
 @Component({
   selector: 'app-hotel-menu-list',
@@ -15,15 +16,16 @@ import { AppState } from 'src/app/shared/app.state';
 })
 export class HotelMenuListComponent implements OnInit, OnDestroy {
   @Select(AppState.isLoading) isLoading$: Observable<boolean>;
-  @Select(AppState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
-  @Select(AppState.getSelectedHotelMenu) selectedHotelMenu$: Observable<
+  @Select(HotelState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
+  @Select(HotelState.getSelectedHotelMenu) selectedHotelMenu$: Observable<
     MenuItem[]
   >;
   hotelIdString: string;
   addressString: string;
   constructor(
     public route: ActivatedRoute,
-    private hotelService: HotelService
+    private hotelService: HotelService,
+    private store: Store
   ) {}
 
   ngOnInit(): void {
@@ -51,6 +53,10 @@ export class HotelMenuListComponent implements OnInit, OnDestroy {
         console.log('else in hotel menu list ngOnInit');
       }
     });
+  }
+
+  addToCart(menuItem: MenuItem) {
+    this.store.dispatch(new AddItemToCart({ item: menuItem, quantity: 1 }));
   }
 
   ngOnDestroy() {}
