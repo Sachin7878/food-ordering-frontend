@@ -2,21 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Hotel } from './hotel.model';
 import { map } from 'rxjs/operators';
-import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { MenuItem } from './menu-item.model';
 import { Store } from '@ngxs/store';
+import { StartLoading, StopLoading } from '../shared/app.actions';
+
 import {
+  AddHotelSuccess,
   LoadHotelsSuccess,
   LoadSelectedHotelMenuSuccess,
   LoadSelectedHotelSuccess,
-  StartLoading,
-  StopLoading,
-} from '../shared/app.actions';
-// import * as fromRoot from '../store/app.reducer';
-// import * as UI from '../shared/actions';
-// import * as HotelAction from './store/hotel.actions';
-// import { Store } from '@ngrx/store';
+} from './store/hotel.actions';
 
 const BACKEND_URL = 'http://localhost:8080';
 
@@ -24,11 +20,6 @@ const BACKEND_URL = 'http://localhost:8080';
   providedIn: 'root',
 })
 export class HotelService {
-  private selectedHotel: Hotel;
-  private hotels: Hotel[];
-  private hotelsUpdated = new Subject<{ hotels: Hotel[] }>();
-  private selectedHotelUpdated = new Subject<{ hotel: Hotel }>();
-
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -58,10 +49,10 @@ export class HotelService {
       },
     };
     this.store.dispatch(new StartLoading());
-    this.http.post(BACKEND_URL + '/hotels', hotelRegData).subscribe(
+    this.http.post<Hotel>(BACKEND_URL + '/hotels', hotelRegData).subscribe(
       (result) => {
+        this.store.dispatch(new AddHotelSuccess(result));
         this.store.dispatch(new StopLoading());
-        console.log(result + ' hotel with the details added successfully');
         this.router.navigate(['/']);
       },
       (error) => {
@@ -92,10 +83,6 @@ export class HotelService {
       .subscribe((transformedHotelData) => {
         this.store.dispatch(new StopLoading());
         this.store.dispatch(new LoadHotelsSuccess(transformedHotelData.hotels));
-        this.hotels = transformedHotelData.hotels;
-        this.hotelsUpdated.next({
-          hotels: [...this.hotels],
-        });
       });
   }
 
@@ -136,54 +123,5 @@ export class HotelService {
   getSelectedHotelAndMenuById(id) {
     this.getOnlyHotelById(id);
     this.getOnlySelectedHotelMenu(id);
-  }
-
-  getHotelById(id) {
-    this.store.dispatch(new StartLoading());
-    //this.store.dispatch(new LoadSelectedHotelMenu());
-    this.http
-      .get<{ content: MenuItem[] }>(BACKEND_URL + '/hotels/' + id + '/menu')
-      .subscribe(
-        (hotelData) => {
-          this.store.dispatch(new StopLoading());
-          this.selectedHotel = this.hotels.find((hotel) => hotel.id == id);
-
-          this.selectedHotel.menuItems = hotelData.content.filter(
-            (menuItem) => {
-              return menuItem.available == true;
-            }
-          );
-          // this.store.dispatch(
-          //   new LoadSelectedHotelMenuSucess([
-          //     ...hotelData.content.filter((menuItem) => {
-          //       return menuItem.available == true;
-          //     }),
-          //   ])
-          // );
-          this.selectedHotelUpdated.next({
-            hotel: this.selectedHotel,
-          });
-        },
-        (error) => {
-          this.store.dispatch(new StopLoading());
-          console.log(error);
-        }
-      );
-  }
-
-  getHotelArray() {
-    return this.hotels;
-  }
-
-  getHotelUpdateListener() {
-    return this.hotelsUpdated.asObservable();
-  }
-
-  getSelectedHotelUpdateListener() {
-    return this.selectedHotelUpdated.asObservable();
-  }
-
-  getSelectedHotel() {
-    return this.selectedHotel;
   }
 }

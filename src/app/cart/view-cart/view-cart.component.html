@@ -1,22 +1,30 @@
-<!-- <mat-card>
-  <mat-card-header>
-    <mat-card-title>{{ hotelNameString }}</mat-card-title>
-  </mat-card-header>
-</mat-card> -->
 <div>
-  <mat-card class="card">
-    <div>{{ cart.hotelName }}</div>
-    <div *ngFor="let cartItem of cart.cartItems | async">
-      <button mat-button color="warn" (click)="decreaseQuantity(cartItem)">
+  <mat-card *ngIf="selectedHotel$ | async as selHotel">
+    <mat-card-header>
+      <mat-card-title> {{ selHotel.hotelName }}</mat-card-title
+      ><mat-card-subtitle
+        >{{ selHotel.mobileNo }}
+      </mat-card-subtitle></mat-card-header
+    >
+  </mat-card>
+  <mat-card class="card" *ngFor="let cartItem of cartItems$ | async">
+    <div>{{ cartItem.item.itemName }}</div>
+    <div>
+      <button
+        mat-button
+        color="warn"
+        (click)="decreaseQuantity(cartItem.item.id)"
+      >
         -
       </button>
       <span>{{ cartItem.quantity }}</span>
-      <button mat-button color="primary" (click)="increaseQuantity(cartItem)">
+      <button
+        mat-button
+        color="primary"
+        (click)="increaseQuantity(cartItem.item.id)"
+      >
         +
       </button>
     </div>
   </mat-card>
-  <!-- <mat-card *ngIf="!cart">
-    <h3>{{ message }}</h3>
-  </mat-card> -->
 </div>

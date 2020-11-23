@@ -27,6 +27,8 @@ import { CommonModule } from '@angular/common';
 import { AuthCardComponent } from './auth/auth-card/auth-card.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { HotelState } from './hotels/store/hotel.state';
+import { CartState } from './cart/store/cart.state';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,7 @@ import { SignupComponent } from './auth/signup/signup.component';
     FlexLayoutModule,
     CommonModule,
 
-    NgxsModule.forRoot([AppState], {
+    NgxsModule.forRoot([AppState, HotelState, CartState], {
       developmentMode: !environment.production,
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),

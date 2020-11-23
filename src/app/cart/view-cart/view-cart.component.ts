@@ -1,8 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { Hotel } from 'src/app/hotels/hotel.model';
 import { MenuItem } from 'src/app/hotels/menu-item.model';
-import { Cart } from '../cart-item.model';
-import { CartService } from '../cart.service';
+import { HotelState } from 'src/app/hotels/store/hotel.state';
+import {
+  DecreaseCartItemQuantity,
+  IncreaseCartItemQuantity,
+} from '../store/cart.actions';
+import { CartState } from '../store/cart.state';
 
 @Component({
   selector: 'app-view-cart',
@@ -10,28 +16,22 @@ import { CartService } from '../cart.service';
   styleUrls: ['./view-cart.component.css'],
 })
 export class ViewCartComponent implements OnInit, OnDestroy {
-  cart: Cart;
-  cartSub: Subscription;
+  @Select(CartState.getCartItems) cartItems$: Observable<
+    { item: MenuItem; quantity: number }[]
+  >;
+  @Select(HotelState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
+
   message = 'Cart is Empty!';
-  constructor(private cartService: CartService) {}
+  constructor(private store: Store) {}
 
-  ngOnInit(): void {
-    this.cartSub = this.cartService
-      .getCartUpdateListener()
-      .subscribe((receivedCart) => {
-        console.log(receivedCart);
-        this.cart = receivedCart;
-      });
-  }
+  ngOnInit(): void {}
 
-  increaseQuantity(cartItem: { item: MenuItem; quantity: number }) {
-    cartItem.quantity += 1;
+  increaseQuantity(id: number) {
+    this.store.dispatch(new IncreaseCartItemQuantity(id));
   }
-  decreaseQuantity(cartItem: { item: MenuItem; quantity: number }) {
-    cartItem.quantity -= 1;
+  decreaseQuantity(id: number) {
+    this.store.dispatch(new DecreaseCartItemQuantity(id));
   }
 
-  ngOnDestroy() {
-    this.cartSub.unsubscribe();
-  }
+  ngOnDestroy() {}
 }

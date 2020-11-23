@@ -22,6 +22,6 @@ export class AdminGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    return this.store.select((state) => state.isAdmin).pipe(take(1));
+    return this.store.select((state) => state.app.isAdmin).pipe(take(1));
   }
 }
