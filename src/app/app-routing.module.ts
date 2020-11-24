@@ -7,6 +7,7 @@ import { HotelListComponent } from './hotels/hotel-list/hotel-list.component';
 import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list.component';
 import { ViewCartComponent } from './cart/view-cart/view-cart.component';
 import { AuthCardComponent } from './auth/auth-card/auth-card.component';
+import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
 
 const routes: Routes = [
   { path: '', component: HotelListComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'hotel/:hotelId', component: HotelMenuListComponent },
+  { path: 'hotel/:hotelId/edit', component: HotelEditComponent },
   { path: 'cart', component: ViewCartComponent },
   {
     path: 'auth',

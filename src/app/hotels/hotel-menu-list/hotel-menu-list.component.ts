@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';
 import { MenuItem } from '../menu-item.model';
@@ -25,6 +25,7 @@ export class HotelMenuListComponent implements OnInit, OnDestroy {
   hotelIdString: string;
   addressString: string;
   constructor(
+    private router: Router,
     public route: ActivatedRoute,
     private hotelService: HotelService,
     private store: Store
@@ -62,6 +63,12 @@ export class HotelMenuListComponent implements OnInit, OnDestroy {
   }
 
   deleteItem(menuId: number) {}
+
+  editHotel() {
+    this.router.navigate(['edit'], {
+      relativeTo: this.route,
+    });
+  }
 
   ngOnDestroy() {}
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormGroup, NgForm } from '@angular/forms';
 import { HotelService } from '../hotel.service';
 
 @Component({
@@ -9,7 +9,9 @@ import { HotelService } from '../hotel.service';
 })
 export class HotelCreateComponent implements OnInit {
   constructor(private hotelService: HotelService) {}
-
+  hotelForm: FormGroup;
+  id: number;
+  editMode = false;
   country = 'India';
 
   states = [

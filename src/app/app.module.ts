@@ -30,6 +30,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { HotelState } from './hotels/store/hotel.state';
 import { CartState } from './cart/store/cart.state';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     SignupComponent,
     AuthCardComponent,
     ConfirmDialogComponent,
+    HotelEditComponent,
   ],
   imports: [
     BrowserModule,
