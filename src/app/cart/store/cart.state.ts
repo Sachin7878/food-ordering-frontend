@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { State, Action, Selector, StateContext } from '@ngxs/store';
+import { State, Action, Selector, StateContext, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
 import { MenuItem } from 'src/app/hotels/menu-item.model';
 import {
   AddItemToCart,
   ClearCart,
   DecreaseCartItemQuantity,
   IncreaseCartItemQuantity,
+  RemoveCartItem,
 } from './cart.actions';
 
 export interface CartStateModel {
@@ -53,7 +55,7 @@ export class CartState {
   }
 
   @Action(IncreaseCartItemQuantity)
-  increaseQuantity(
+  public increaseQuantity(
     ctx: StateContext<CartStateModel>,
     action: IncreaseCartItemQuantity
   ) {
@@ -80,7 +82,7 @@ export class CartState {
   }
 
   @Action(DecreaseCartItemQuantity)
-  decreaseQuantity(
+  public decreaseQuantity(
     ctx: StateContext<CartStateModel>,
     action: DecreaseCartItemQuantity
   ) {
@@ -100,6 +102,25 @@ export class CartState {
     };
 
     ctx.setState({
+      ...state,
+      ...current,
+    });
+  }
+
+  @Action(RemoveCartItem)
+  public removeSingleCartItem(
+    { getState, setState }: StateContext<CartStateModel>,
+    action: RemoveCartItem
+  ) {
+    const state = getState();
+
+    const current = {
+      cartItems: [
+        ...state.cartItems.filter((x) => x.item.id !== action.payload),
+      ],
+    };
+
+    setState({
       ...state,
       ...current,
     });

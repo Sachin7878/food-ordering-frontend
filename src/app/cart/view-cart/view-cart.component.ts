@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { Hotel } from 'src/app/hotels/hotel.model';
 import { MenuItem } from 'src/app/hotels/menu-item.model';
 import { ClearSelectedHotel } from 'src/app/hotels/store/hotel.actions';
@@ -10,6 +11,7 @@ import {
   ClearCart,
   DecreaseCartItemQuantity,
   IncreaseCartItemQuantity,
+  RemoveCartItem,
 } from '../store/cart.actions';
 import { CartState } from '../store/cart.state';
 
@@ -18,7 +20,7 @@ import { CartState } from '../store/cart.state';
   templateUrl: './view-cart.component.html',
   styleUrls: ['./view-cart.component.css'],
 })
-export class ViewCartComponent implements OnInit, OnDestroy {
+export class ViewCartComponent implements OnInit {
   @Select(CartState.getCartItems) cartItems$: Observable<
     { item: MenuItem; quantity: number }[]
   >;
@@ -42,5 +44,7 @@ export class ViewCartComponent implements OnInit, OnDestroy {
     this.router.navigate(['/']);
   }
 
-  ngOnDestroy() {}
+  removeSingleItem(id: number) {
+    this.store.dispatch(new RemoveCartItem(id));
+  }
 }
