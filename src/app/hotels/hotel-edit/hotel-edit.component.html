@@ -9,7 +9,6 @@
     fxFlex.gt-xs="45"
     fxLayout="column"
     fxLayoutAlign="center center"
-    *ngIf="selectedHotelAddress$ | async as selHotelAdd"
   >
     <mat-card-title style="text-align: center">Edit Hotel</mat-card-title>
     <form
@@ -48,7 +47,7 @@
         <input
           matInput
           name="addressLine1"
-          [(ngModel)]="selHotelAdd.addressLine1"
+          [(ngModel)]="addressLine1"
           type="text"
           placeholder="Address Line 1"
           required
@@ -59,7 +58,7 @@
         <input
           matInput
           name="addressLine2"
-          [(ngModel)]="selHotelAdd.addressLine2"
+          [(ngModel)]="addressLine2"
           type="text"
           placeholder="Address Line 2"
         />
@@ -69,7 +68,7 @@
         <input
           matInput
           name="city"
-          [(ngModel)]="selHotelAdd.city"
+          [(ngModel)]="city"
           type="text"
           placeholder="City"
           required
@@ -78,7 +77,7 @@
 
       <mat-form-field appearance="fill" fxFlexFill>
         <mat-label>State</mat-label>
-        <mat-select [(ngModel)]="selHotelAdd.state" name="state">
+        <mat-select [(ngModel)]="state" name="state">
           <mat-option *ngFor="let state of states" [value]="state">
             {{ state }}
           </mat-option>
@@ -100,7 +99,7 @@
         <input
           matInput
           name="pincode"
-          [(ngModel)]="selHotelAdd.pincode"
+          [(ngModel)]="pincode"
           type="text"
           placeholder="PIN Code"
           required
@@ -120,8 +119,9 @@
           mat-raised-button
           color="primary"
           type="submit"
+          routerLink="../"
         >
-          Clear
+          Cancel
         </button>
       </div>
     </form>

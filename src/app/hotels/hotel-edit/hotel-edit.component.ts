@@ -15,6 +15,12 @@ import { HotelState } from '../store/hotel.state';
 export class HotelEditComponent implements OnInit {
   country = 'India';
   hotelId: string;
+  addressLine1: string;
+  addressLine2: string;
+  city: string;
+  state: string;
+  pincode: string;
+
   @Select(HotelState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
   @Select(HotelState.getSelectedHotelAddress)
   selectedHotelAddress$: Observable<Address>;
@@ -70,6 +76,19 @@ export class HotelEditComponent implements OnInit {
         this.hotelId = paramMap.get('hotelId');
       }
       this.hotelService.getOnlyHotelById(this.hotelId);
+    });
+
+    this.selectedHotelAddress$.subscribe((address) => {
+      if (address != null) {
+        this.addressLine1 = address.addressLine1;
+        this.addressLine2 = address.addressLine2;
+        this.city = address.city;
+        this.state = address.state;
+        this.pincode = address.pincode;
+      } else {
+        this.addressLine1 = this.addressLine2 = this.city = this.state = this.pincode =
+          '';
+      }
     });
   }
 }
