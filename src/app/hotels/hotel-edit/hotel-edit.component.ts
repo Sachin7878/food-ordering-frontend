@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { Address } from 'src/app/address.model';
 import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';
 import { HotelState } from '../store/hotel.state';
@@ -15,6 +16,8 @@ export class HotelEditComponent implements OnInit {
   country = 'India';
   hotelId: string;
   @Select(HotelState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
+  @Select(HotelState.getSelectedHotelAddress)
+  selectedHotelAddress$: Observable<Address>;
 
   states = [
     'Andhra Pradesh',

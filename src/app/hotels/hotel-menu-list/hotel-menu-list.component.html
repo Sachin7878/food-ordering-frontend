@@ -31,12 +31,7 @@
       >
         Add To Cart
       </button>
-      <button
-        color="warn"
-        *ngIf="isAdmin$ | async"
-        mat-button
-        (click)="deleteItem(menuItem.id)"
-      >
+      <button color="warn" *ngIf="isAdmin$ | async" mat-button>
         <mat-icon>delete</mat-icon>
       </button>
       <button *ngIf="isAdmin$ | async" mat-button>

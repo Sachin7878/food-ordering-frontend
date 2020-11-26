@@ -9,6 +9,7 @@
     fxFlex.gt-xs="45"
     fxLayout="column"
     fxLayoutAlign="center center"
+    *ngIf="selectedHotelAddress$ | async as selHotelAdd"
   >
     <mat-card-title style="text-align: center">Edit Hotel</mat-card-title>
     <form
@@ -47,7 +48,7 @@
         <input
           matInput
           name="addressLine1"
-          ngModel
+          [(ngModel)]="selHotelAdd.addressLine1"
           type="text"
           placeholder="Address Line 1"
           required
@@ -58,7 +59,7 @@
         <input
           matInput
           name="addressLine2"
-          ngModel
+          [(ngModel)]="selHotelAdd.addressLine2"
           type="text"
           placeholder="Address Line 2"
         />
@@ -68,7 +69,7 @@
         <input
           matInput
           name="city"
-          ngModel
+          [(ngModel)]="selHotelAdd.city"
           type="text"
           placeholder="City"
           required
@@ -77,7 +78,7 @@
 
       <mat-form-field appearance="fill" fxFlexFill>
         <mat-label>State</mat-label>
-        <mat-select ngModel name="state">
+        <mat-select [(ngModel)]="selHotelAdd.state" name="state">
           <mat-option *ngFor="let state of states" [value]="state">
             {{ state }}
           </mat-option>
@@ -99,7 +100,7 @@
         <input
           matInput
           name="pincode"
-          ngModel
+          [(ngModel)]="selHotelAdd.pincode"
           type="text"
           placeholder="PIN Code"
           required

@@ -42,6 +42,11 @@ export class HotelState {
   }
 
   @Selector()
+  public static getSelectedHotelAddress(state: HotelStateModel) {
+    return state.selectedHotel.address;
+  }
+
+  @Selector()
   public static getSelectedHotelMenu(state: HotelStateModel) {
     return state.selectedHotelMenuItems;
   }
