@@ -57,8 +57,7 @@ export class HotelEditComponent implements OnInit {
 
   constructor(
     public route: ActivatedRoute,
-    private hotelService: HotelService,
-    private store: Store
+    private hotelService: HotelService
   ) {}
 
   ngOnInit(): void {

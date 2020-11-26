@@ -15,6 +15,7 @@ import { ClearSelectedHotel } from '../store/hotel.actions';
 export class HotelListComponent implements OnInit {
   @Select(AppState.isLoading) isLoading$: Observable<boolean>;
   @Select(HotelState.getHotels) hotelsList$: Observable<Hotel[]>;
+  @Select(AppState.isAdmin) isAdmin$: Observable<boolean>;
 
   constructor(private hotelService: HotelService, private store: Store) {}
 

@@ -1,4 +1,9 @@
-<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+<div
+  fxFlex="100"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  *ngIf="selectedHotel$ | async as selHotel"
+>
   <mat-card
     fxFlex.xs="100"
     fxFlex.gt-xs="45"
@@ -17,7 +22,7 @@
         <input
           matInput
           name="hotelName"
-          ngModel
+          [(ngModel)]="selHotel.hotelName"
           type="text"
           placeholder="Hotel Name"
           required
@@ -29,7 +34,7 @@
         <input
           matInput
           name="mobileNo"
-          ngModel
+          [(ngModel)]="selHotel.mobileNo"
           type="text"
           placeholder="Mobile No"
           required
@@ -100,10 +105,24 @@
           required
         />
       </mat-form-field>
-
-      <button mat-raised-button color="accent" type="submit">
-        Create Hotel
-      </button>
+      <div>
+        <button
+          style="margin: 1rem"
+          mat-raised-button
+          color="accent"
+          type="submit"
+        >
+          Update Hotel
+        </button>
+        <button
+          style="margin: 1rem"
+          mat-raised-button
+          color="primary"
+          type="submit"
+        >
+          Clear
+        </button>
+      </div>
     </form>
   </mat-card>
 </div>

@@ -12,6 +12,7 @@ import {
   StartLoading,
   StopLoading,
 } from '../shared/app.actions';
+import { ClearCart } from '../cart/store/cart.actions';
 
 const BANKEND_URL = 'http://localhost:8080/api';
 
@@ -129,6 +130,7 @@ export class AuthService {
     this.clearAuthData();
     this.store.dispatch(new SetAdminFalse());
     clearTimeout(this.tokenTimer);
+    this.store.dispatch(new ClearCart());
   }
 
   private setAuthTimer(duration: number) {
