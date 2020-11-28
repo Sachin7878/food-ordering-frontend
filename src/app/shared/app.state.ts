@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
-// import { Hotel } from '../hotels/hotel.model';
-// import { MenuItem } from '../hotels/menu-item.model';
 import {
   StartLoading,
   StopLoading,
@@ -9,18 +7,12 @@ import {
   SetUnauthenticated,
   SetAdminTrue,
   SetAdminFalse,
-  // LoadHotelsSuccess,
-  // LoadSelectedHotelSuccess,
-  // LoadSelectedHotelMenuSuccess,
 } from './app.actions';
 
 export interface AppStateModel {
   isLoading: boolean;
   isAuthenticated: boolean;
   isAdmin: boolean;
-  // hotelsList: Hotel[];
-  // selectedHotel: Hotel;
-  // selectedHotelMenuItems: MenuItem[];
 }
 
 @State<AppStateModel>({
@@ -29,9 +21,6 @@ export interface AppStateModel {
     isLoading: false,
     isAuthenticated: false,
     isAdmin: false,
-    // hotelsList: [],
-    // selectedHotel: null,
-    // selectedHotelMenuItems: [],
   },
 })
 @Injectable()
@@ -55,21 +44,6 @@ export class AppState {
   public static isAuthenticated(state: AppStateModel) {
     return state.isAuthenticated;
   }
-
-  // @Selector()
-  // public static getHotels(state: AppStateModel) {
-  //   return state.hotelsList;
-  // }
-
-  // @Selector()
-  // public static getSelectedHotel(state: AppStateModel) {
-  //   return state.selectedHotel;
-  // }
-
-  // @Selector()
-  // public static getSelectedHotelMenu(state: AppStateModel) {
-  //   return state.selectedHotelMenuItems;
-  // }
 
   @Action(StartLoading)
   public startLoading({ patchState }: StateContext<AppStateModel>) {
@@ -100,28 +74,4 @@ export class AppState {
   public setAdminFalse({ patchState }: StateContext<AppStateModel>) {
     patchState({ isAdmin: false });
   }
-
-  // @Action(LoadHotelsSuccess)
-  // public hotelListLoaded(
-  //   { patchState }: StateContext<AppStateModel>,
-  //   action: LoadHotelsSuccess
-  // ) {
-  //   patchState({ hotelsList: [...action.payload] });
-  // }
-
-  // @Action(LoadSelectedHotelSuccess)
-  // public selectedHotelLoaded(
-  //   { patchState }: StateContext<AppStateModel>,
-  //   action: LoadSelectedHotelSuccess
-  // ) {
-  //   patchState({ selectedHotel: action.payload });
-  // }
-
-  // @Action(LoadSelectedHotelMenuSuccess)
-  // public loadSelectedHotelMenu(
-  //   { patchState }: StateContext<AppStateModel>,
-  //   action: LoadSelectedHotelMenuSuccess
-  // ) {
-  //   patchState({ selectedHotelMenuItems: action.payload });
-  // }
 }

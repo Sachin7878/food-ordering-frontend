@@ -12,11 +12,12 @@
   >
     <mat-card-title style="text-align: center">Edit Hotel</mat-card-title>
     <form
-      #hotelForm="ngForm"
+      #updateHotelForm="ngForm"
       fxFlex="100"
       fxFlexFill
       fxLayout="column"
       fxLayoutAlign="center center"
+      (submit)="onSubmit(selHotel.id, updateHotelForm)"
     >
       <mat-form-field fxFlexFill>
         <input
@@ -118,7 +119,7 @@
           style="margin: 1rem"
           mat-raised-button
           color="primary"
-          type="submit"
+          type="button"
           routerLink="../"
         >
           Cancel

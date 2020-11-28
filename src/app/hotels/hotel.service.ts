@@ -12,6 +12,7 @@ import {
   LoadHotelsSuccess,
   LoadSelectedHotelMenuSuccess,
   LoadSelectedHotelSuccess,
+  UpdateHotelSuccess,
 } from './store/hotel.actions';
 
 const BACKEND_URL = 'http://localhost:8080';
@@ -123,6 +124,55 @@ export class HotelService {
   getSelectedHotelAndMenuById(id) {
     this.getOnlyHotelById(id);
     this.getOnlySelectedHotelMenu(id);
+  }
+
+  updateHotel(
+    id: number,
+    hotelName: string,
+    mobileNo: string,
+    addressLine1: string,
+    addressLine2: string | undefined,
+    city: string,
+    state: string,
+    country: string,
+    pincode: string
+  ) {
+    const hotelUpdateData = {
+      hotelName: hotelName,
+      mobileNo: mobileNo,
+      address: {
+        addressLine1: addressLine1,
+        addressLine2: addressLine2,
+        city: city,
+        state: state,
+        country: country,
+        pincode: pincode,
+      },
+    };
+    this.store.dispatch(new StartLoading());
+    this.http
+      .put<Hotel>(BACKEND_URL + '/hotels/' + id, hotelUpdateData)
+      .pipe(
+        map((hotel) => {
+          return {
+            id: hotel.id,
+            hotelName: hotel.hotelName,
+            mobileNo: hotel.mobileNo,
+            address: hotel.address,
+          };
+        })
+      )
+      .subscribe(
+        (updatedHotelFromDB) => {
+          this.store.dispatch(new UpdateHotelSuccess(updatedHotelFromDB));
+          this.store.dispatch(new StopLoading());
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          this.store.dispatch(new StopLoading());
+          console.log(error);
+        }
+      );
   }
 
   deleteMenuItem(hotelId, menuId) {}

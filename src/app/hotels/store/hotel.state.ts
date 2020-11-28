@@ -8,6 +8,7 @@ import {
   LoadHotelsSuccess,
   LoadSelectedHotelMenuSuccess,
   LoadSelectedHotelSuccess,
+  UpdateHotelSuccess,
 } from './hotel.actions';
 
 export interface HotelStateModel {
@@ -91,5 +92,18 @@ export class HotelState {
     const current = getState();
     const hotelsList = [...current.hotelsList, action.payload];
     patchState({ hotelsList: hotelsList });
+  }
+
+  @Action(UpdateHotelSuccess)
+  public updateHotel(
+    { getState, patchState }: StateContext<HotelStateModel>,
+    action: UpdateHotelSuccess
+  ) {
+    const current = getState();
+    let toUpdateHotelsList = [
+      ...current.hotelsList.filter((x) => x.id != action.payload.id),
+      action.payload,
+    ];
+    patchState({ hotelsList: toUpdateHotelsList });
   }
 }

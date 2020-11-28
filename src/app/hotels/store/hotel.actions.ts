@@ -25,3 +25,8 @@ export class ClearSelectedHotel {
   public static readonly type = '[HOTEL] Clear Selected Hotel';
   constructor() {}
 }
+
+export class UpdateHotelSuccess {
+  public static readonly type = '[HOTEL] Update Hotel Success';
+  constructor(public payload: Hotel) {}
+}

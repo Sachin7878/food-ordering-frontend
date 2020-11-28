@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
@@ -90,5 +91,24 @@ export class HotelEditComponent implements OnInit {
           '';
       }
     });
+  }
+
+  onSubmit(id: number, form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+    // console.log(id);
+    // console.log(form);
+    this.hotelService.updateHotel(
+      id,
+      form.value.hotelName,
+      form.value.mobileNo,
+      form.value.addressLine1,
+      form.value.addressLine2,
+      form.value.city,
+      form.value.state,
+      form.value.country,
+      form.value.pincode
+    );
   }
 }
