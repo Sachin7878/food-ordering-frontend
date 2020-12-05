@@ -69,4 +69,8 @@ export class HotelMenuListComponent implements OnInit {
       relativeTo: this.route,
     });
   }
+
+  deleteItem(menuId) {
+    this.hotelService.deleteMenuItem(this.hotelIdString, menuId);
+  }
 }

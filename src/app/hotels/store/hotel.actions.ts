@@ -30,3 +30,8 @@ export class UpdateHotelSuccess {
   public static readonly type = '[HOTEL] Update Hotel Success';
   constructor(public payload: Hotel) {}
 }
+
+export class DeleteMenuItem {
+  public static readonly type = '[HOTEL] Delete Menu Item Success';
+  constructor(public payload: number) {}
+}

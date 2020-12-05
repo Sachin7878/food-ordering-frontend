@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Hotel } from './hotel.model';
 import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem } from './menu-item.model';
 import { Store } from '@ngxs/store';
 import { StartLoading, StopLoading } from '../shared/app.actions';
 
 import {
   AddHotelSuccess,
+  DeleteMenuItem,
   LoadHotelsSuccess,
   LoadSelectedHotelMenuSuccess,
   LoadSelectedHotelSuccess,
@@ -24,6 +25,7 @@ export class HotelService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    public route: ActivatedRoute,
     private store: Store
   ) {}
 
@@ -175,5 +177,19 @@ export class HotelService {
       );
   }
 
-  deleteMenuItem(hotelId, menuId) {}
+  deleteMenuItem(hotelId, menuId) {
+    this.store.dispatch(new StartLoading());
+    this.http
+      .delete(BACKEND_URL + '/hotels/' + hotelId + '/menu/' + menuId)
+      .subscribe(
+        (result) => {
+          this.store.dispatch(new StopLoading());
+          this.store.dispatch(new DeleteMenuItem(menuId));
+        },
+        (error) => {
+          this.store.dispatch(new StopLoading());
+          console.log(error);
+        }
+      );
+  }
 }

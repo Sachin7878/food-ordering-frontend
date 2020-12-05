@@ -8,6 +8,7 @@ import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list
 import { ViewCartComponent } from './cart/view-cart/view-cart.component';
 import { AuthCardComponent } from './auth/auth-card/auth-card.component';
 import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
+import { AddMenuItemComponent } from './hotels/add-menu-item/add-menu-item.component';
 
 const routes: Routes = [
   { path: '', component: HotelListComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   },
   { path: 'hotel/:hotelId', component: HotelMenuListComponent },
   { path: 'hotel/:hotelId/edit', component: HotelEditComponent },
+  { path: 'hotel/:hotelId/add', component: AddMenuItemComponent },
   { path: 'cart', component: ViewCartComponent },
   {
     path: 'auth',

@@ -1,0 +1,52 @@
+<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card
+    fxFlex.xs="100"
+    fxFlex.gt-xs="45"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+  >
+    <mat-card-title style="text-align: center">Add Menu Item</mat-card-title>
+    <form
+      #hotelForm="ngForm"
+      fxFlex="100"
+      fxFlexFill
+      fxLayout="column"
+      fxLayoutAlign="center center"
+    >
+      <mat-form-field fxFlexFill>
+        <input
+          matInput
+          name="itemName"
+          ngModel
+          type="text"
+          placeholder="Hotel Name"
+          required
+          autocapitalize="words"
+        />
+      </mat-form-field>
+
+      <mat-form-field fxFlexFill>
+        <input
+          matInput
+          name="itemPrice"
+          ngModel
+          type="text"
+          placeholder="Item Price"
+          required
+          maxlength="10"
+          minlength="10"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" fxFlexFill>
+        <mat-label>Available</mat-label>
+        <mat-select ngModel name="available">
+          <mat-option value="true"> True </mat-option>
+          <mat-option value="false"> False </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="accent" type="submit">Add Item</button>
+    </form>
+  </mat-card>
+</div>

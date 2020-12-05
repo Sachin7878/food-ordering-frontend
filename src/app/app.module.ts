@@ -30,6 +30,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { HotelState } from './hotels/store/hotel.state';
 import { CartState } from './cart/store/cart.state';
 import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
+import { AddMenuItemComponent } from './hotels/add-menu-item/add-menu-item.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
     SignupComponent,
     AuthCardComponent,
     HotelEditComponent,
+    AddMenuItemComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ import { MenuItem } from '../menu-item.model';
 import {
   AddHotelSuccess,
   ClearSelectedHotel,
+  DeleteMenuItem,
   LoadHotelsSuccess,
   LoadSelectedHotelMenuSuccess,
   LoadSelectedHotelSuccess,
@@ -105,5 +106,24 @@ export class HotelState {
       action.payload,
     ];
     patchState({ hotelsList: toUpdateHotelsList });
+  }
+
+  @Action(DeleteMenuItem)
+  public removeSingleCartItem(
+    { getState, setState }: StateContext<HotelStateModel>,
+    action: DeleteMenuItem
+  ) {
+    const state = getState();
+
+    const current = {
+      selectedHotelMenuItems: [
+        ...state.selectedHotelMenuItems.filter((x) => x.id !== action.payload),
+      ],
+    };
+
+    setState({
+      ...state,
+      ...current,
+    });
   }
 }
