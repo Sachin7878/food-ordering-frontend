@@ -15,6 +15,7 @@ import {
   LoadSelectedHotelSuccess,
   UpdateHotelSuccess,
 } from './store/hotel.actions';
+import { Location } from '@angular/common';
 
 const BACKEND_URL = 'http://localhost:8080';
 
@@ -25,8 +26,8 @@ export class HotelService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    public route: ActivatedRoute,
-    private store: Store
+    private store: Store,
+    private location: Location
   ) {}
 
   createHotel(
@@ -178,13 +179,46 @@ export class HotelService {
   }
 
   deleteMenuItem(hotelId, menuId) {
-    this.store.dispatch(new StartLoading());
+    // this.store.dispatch(new StartLoading());
     this.http
       .delete(BACKEND_URL + '/hotels/' + hotelId + '/menu/' + menuId)
       .subscribe(
         (result) => {
-          this.store.dispatch(new StopLoading());
+          // this.store.dispatch(new StopLoading());
           this.store.dispatch(new DeleteMenuItem(menuId));
+        },
+        (error) => {
+          // this.store.dispatch(new StopLoading());
+          console.log(error);
+        }
+      );
+  }
+
+  addMenuItem(
+    hotelId: number,
+    itemName: string,
+    itemPrice: number,
+    available: boolean
+  ) {
+    const itemToBeAdded: MenuItem = {
+      id: null,
+      itemName: itemName,
+      itemPrice: itemPrice,
+      available: available,
+    };
+
+    this.store.dispatch(new StartLoading());
+
+    this.http
+      .post<MenuItem>(
+        BACKEND_URL + '/hotels/' + hotelId + '/menu/',
+        itemToBeAdded
+      )
+      .subscribe(
+        (result) => {
+          this.store.dispatch(new StopLoading());
+          // this.router.navigate(['../'], { relativeTo: this.route });
+          this.location.back();
         },
         (error) => {
           this.store.dispatch(new StopLoading());

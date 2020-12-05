@@ -7,7 +7,8 @@
   >
     <mat-card-title style="text-align: center">Add Menu Item</mat-card-title>
     <form
-      #hotelForm="ngForm"
+      (submit)="addMenuItem(itemForm)"
+      #itemForm="ngForm"
       fxFlex="100"
       fxFlexFill
       fxLayout="column"
@@ -33,8 +34,6 @@
           type="text"
           placeholder="Item Price"
           required
-          maxlength="10"
-          minlength="10"
         />
       </mat-form-field>
 
