@@ -94,7 +94,7 @@ export class AuthService {
             this.router.navigate(['/']);
           }
         },
-        () => {
+        (error) => {
           this.store.dispatch(new StopLoading());
           console.log('Invalid Credentials');
           this.store.dispatch(new SetUnauthenticated());

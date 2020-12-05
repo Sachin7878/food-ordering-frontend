@@ -29,7 +29,6 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { HotelState } from './hotels/store/hotel.state';
 import { CartState } from './cart/store/cart.state';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
 
 @NgModule({
@@ -46,7 +45,6 @@ import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
     LoginComponent,
     SignupComponent,
     AuthCardComponent,
-    ConfirmDialogComponent,
     HotelEditComponent,
   ],
   imports: [
@@ -68,6 +66,6 @@ import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent, ConfirmDialogComponent],
+  entryComponents: [ErrorComponent],
 })
 export class AppModule {}

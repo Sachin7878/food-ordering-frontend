@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Select, Store } from '@ngxs/store';
+import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Address } from 'src/app/address.model';
+
 import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';
 import { HotelState } from '../store/hotel.state';
@@ -97,8 +99,7 @@ export class HotelEditComponent implements OnInit {
     if (form.invalid) {
       return;
     }
-    // console.log(id);
-    // console.log(form);
+
     this.hotelService.updateHotel(
       id,
       form.value.hotelName,
