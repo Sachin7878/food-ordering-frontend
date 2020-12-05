@@ -184,11 +184,9 @@ export class HotelService {
       .delete(BACKEND_URL + '/hotels/' + hotelId + '/menu/' + menuId)
       .subscribe(
         (result) => {
-          // this.store.dispatch(new StopLoading());
           this.store.dispatch(new DeleteMenuItem(menuId));
         },
         (error) => {
-          // this.store.dispatch(new StopLoading());
           console.log(error);
         }
       );
@@ -217,7 +215,6 @@ export class HotelService {
       .subscribe(
         (result) => {
           this.store.dispatch(new StopLoading());
-          // this.router.navigate(['../'], { relativeTo: this.route });
           this.location.back();
         },
         (error) => {
