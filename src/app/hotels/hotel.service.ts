@@ -223,4 +223,37 @@ export class HotelService {
         }
       );
   }
+
+  updateMenuItem(
+    hotelId,
+    menuId: number,
+    itemName: string,
+    itemPrice: number,
+    available: boolean
+  ) {
+    const updatedMenuItem: MenuItem = {
+      id: menuId,
+      itemName: itemName,
+      itemPrice: itemPrice,
+      available: available,
+    };
+
+    this.store.dispatch(new StartLoading());
+
+    this.http
+      .put<MenuItem>(
+        BACKEND_URL + '/hotels/' + hotelId + '/menu/' + menuId,
+        updatedMenuItem
+      )
+      .subscribe(
+        (result) => {
+          this.store.dispatch(new StopLoading());
+          this.location.back();
+        },
+        (error) => {
+          this.store.dispatch(new StopLoading());
+          console.log(error);
+        }
+      );
+  }
 }

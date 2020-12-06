@@ -5,9 +5,9 @@
     fxLayout="column"
     fxLayoutAlign="center center"
   >
-    <mat-card-title style="text-align: center">Add Menu Item</mat-card-title>
+    <mat-card-title style="text-align: center">Edit Menu Item</mat-card-title>
     <form
-      (submit)="addMenuItem(itemForm)"
+      (submit)="updateMenuItem(itemForm)"
       #itemForm="ngForm"
       fxFlex="100"
       fxFlexFill
@@ -18,7 +18,7 @@
         <input
           matInput
           name="itemName"
-          ngModel
+          [(ngModel)]="itemName"
           type="text"
           placeholder="Hotel Name"
           required
@@ -30,7 +30,7 @@
         <input
           matInput
           name="itemPrice"
-          ngModel
+          [(ngModel)]="itemPrice"
           type="text"
           placeholder="Item Price"
           required
@@ -38,10 +38,16 @@
       </mat-form-field>
 
       <section>
-        <mat-checkbox name="available" ngModel>Available</mat-checkbox>
+        <mat-checkbox name="available" [(ngModel)]="available"
+          >Available</mat-checkbox
+        >
       </section>
 
-      <button mat-raised-button color="accent" type="submit">Add Item</button>
+      <mat-card-actions>
+        <button mat-raised-button color="accent" type="submit">
+          Update Item
+        </button>
+      </mat-card-actions>
     </form>
   </mat-card>
 </div>

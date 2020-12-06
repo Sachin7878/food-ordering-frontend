@@ -45,7 +45,11 @@
       >
         <mat-icon>delete</mat-icon>
       </button>
-      <button *ngIf="isAdmin$ | async" mat-button>
+      <button
+        *ngIf="isAdmin$ | async"
+        mat-button
+        (click)="editItem(menuItem.id)"
+      >
         <mat-icon>create</mat-icon>
       </button>
     </div>
