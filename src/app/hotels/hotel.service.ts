@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Hotel } from './hotel.model';
 import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MenuItem } from './menu-item.model';
 import { Store } from '@ngxs/store';
 import { StartLoading, StopLoading } from '../shared/app.actions';
@@ -101,7 +101,7 @@ export class HotelService {
         this.store.dispatch(new StopLoading());
         this.store.dispatch(new LoadSelectedHotelSuccess(hotel));
       },
-      (error) => {
+      () => {
         this.store.dispatch(new StopLoading());
       }
     );
@@ -118,7 +118,7 @@ export class HotelService {
             new LoadSelectedHotelMenuSuccess(hotelMenu.content)
           );
         },
-        (error) => {
+        () => {
           this.store.dispatch(new StopLoading());
         }
       );
@@ -183,7 +183,7 @@ export class HotelService {
     this.http
       .delete(BACKEND_URL + '/hotels/' + hotelId + '/menu/' + menuId)
       .subscribe(
-        (result) => {
+        () => {
           this.store.dispatch(new DeleteMenuItem(menuId));
         },
         (error) => {
@@ -213,7 +213,7 @@ export class HotelService {
         itemToBeAdded
       )
       .subscribe(
-        (result) => {
+        () => {
           this.store.dispatch(new StopLoading());
           this.location.back();
         },
@@ -246,7 +246,7 @@ export class HotelService {
         updatedMenuItem
       )
       .subscribe(
-        (result) => {
+        () => {
           this.store.dispatch(new StopLoading());
           this.location.back();
         },

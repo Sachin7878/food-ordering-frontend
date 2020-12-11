@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { State, Action, Selector, StateContext, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
+import { State, Action, Selector, StateContext } from '@ngxs/store';
 import { MenuItem } from 'src/app/hotels/menu-item.model';
 import {
   AddItemToCart,
