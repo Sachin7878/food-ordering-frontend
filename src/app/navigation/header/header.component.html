@@ -11,7 +11,7 @@
     <ul fxLayout fxLayoutGap="10px" class="navigation-items">
       <li *ngIf="(isAuthenticated$ | async) && !(isAdmin$ | async)">
         <button mat-button routerLink="/cart" routerLinkActive="mat-accent">
-          Cart
+          <mat-icon>shopping_cart</mat-icon>
         </button>
       </li>
       <li *ngIf="!(isAuthenticated$ | async)">
@@ -28,8 +28,16 @@
           Create Hotel
         </button>
       </li>
+
       <li *ngIf="isAuthenticated$ | async" routerLinkActive="mat-accent">
-        <button mat-button (click)="onLogout()">Logout</button>
+        <button mat-button [matMenuTriggerFor]="afterMenu">
+          Manage Account
+        </button>
+        <mat-menu #afterMenu="matMenu" xPosition="after">
+          <button mat-menu-item>Edit Account</button>
+          <button mat-menu-item>Edit Address</button>
+          <button mat-menu-item (click)="onLogout()">Logout</button>
+        </mat-menu>
       </li>
     </ul>
   </div>
