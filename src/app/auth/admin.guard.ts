@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
+  Router,
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
@@ -12,7 +13,7 @@ import { take } from 'rxjs/operators';
 
 @Injectable()
 export class AdminGuard implements CanActivate {
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -22,6 +23,15 @@ export class AdminGuard implements CanActivate {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    return this.store.select((state) => state.app.isAdmin).pipe(take(1));
+    let isAdmin: boolean;
+    this.store
+      .select((state) => state.app.isAdmin)
+      .pipe(take(1))
+      .subscribe((result) => (isAdmin = result));
+
+    if (!isAdmin) {
+      this.router.navigate(['/auth']);
+    }
+    return isAdmin;
   }
 }

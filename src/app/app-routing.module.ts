@@ -18,11 +18,27 @@ const routes: Routes = [
     component: HotelCreateComponent,
     canActivate: [AuthGuard],
   },
-  { path: 'hotel/:hotelId', component: HotelMenuListComponent },
-  { path: 'hotel/:hotelId/edit', component: HotelEditComponent },
-  { path: 'hotel/:hotelId/add', component: AddMenuItemComponent },
-  { path: 'hotel/:hotelId/:menuId/edit', component: EditMenuItemComponent },
-  { path: 'cart', component: ViewCartComponent },
+  {
+    path: 'hotel/:hotelId',
+    component: HotelMenuListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'hotel/:hotelId/edit',
+    component: HotelEditComponent,
+    canActivate: [AuthGuard, AdminGuard],
+  },
+  {
+    path: 'hotel/:hotelId/add',
+    component: AddMenuItemComponent,
+    canActivate: [AuthGuard, AdminGuard],
+  },
+  {
+    path: 'hotel/:hotelId/:menuId/edit',
+    component: EditMenuItemComponent,
+    canActivate: [AuthGuard, AdminGuard],
+  },
+  { path: 'cart', component: ViewCartComponent, canActivate: [AuthGuard] },
   {
     path: 'auth',
     component: AuthCardComponent,
