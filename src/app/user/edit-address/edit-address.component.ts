@@ -3,6 +3,7 @@ import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Address } from 'src/app/address.model';
 import { AppState } from 'src/app/shared/app.state';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-edit-address',
@@ -11,6 +12,7 @@ import { AppState } from 'src/app/shared/app.state';
 })
 export class EditAddressComponent implements OnInit {
   country = 'India';
+  addressId: number;
   addressLine1: string;
   addressLine2: string;
   city: string;
@@ -58,7 +60,24 @@ export class EditAddressComponent implements OnInit {
 
   @Select(AppState.userAddress) userAddress$: Observable<Address>;
 
-  constructor() {}
+  constructor(private userService: UserService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.userService.fetchUser();
+
+    this.userAddress$.subscribe((address) => {
+      if (address != null) {
+        this.addressId = address.id;
+        this.addressLine1 = address.addressLine1;
+        this.addressLine2 = address.addressLine2;
+        this.city = address.city;
+        this.state = address.state;
+        this.pincode = address.pincode;
+      } else {
+        this.addressId = null;
+        this.addressLine1 = this.addressLine2 = this.city = this.state = this.pincode =
+          '';
+      }
+    });
+  }
 }
