@@ -1,8 +1,9 @@
+<p>User Address not loaded</p>
 <div
   fxFlex="100"
   fxLayout="row"
   fxLayoutAlign="center center"
-  *ngIf="selectedHotel$ | async as selHotel"
+  *ngIf="userAddress$ | async as userAdd"
 >
   <mat-card
     fxFlex.xs="100"
@@ -10,40 +11,16 @@
     fxLayout="column"
     fxLayoutAlign="center center"
   >
-    <mat-card-title style="text-align: center">Edit Hotel</mat-card-title>
+    <mat-card-title style="text-align: center"
+      >Edit Your Address</mat-card-title
+    >
     <form
-      #updateHotelForm="ngForm"
+      #updateUserAdd="ngForm"
       fxFlex="100"
       fxFlexFill
       fxLayout="column"
       fxLayoutAlign="center center"
-      (submit)="onSubmit(selHotel.id, updateHotelForm)"
     >
-      <mat-form-field fxFlexFill>
-        <input
-          matInput
-          name="hotelName"
-          [(ngModel)]="selHotel.hotelName"
-          type="text"
-          placeholder="Hotel Name"
-          required
-          autocapitalize="words"
-        />
-      </mat-form-field>
-
-      <mat-form-field fxFlexFill>
-        <input
-          matInput
-          name="mobileNo"
-          [(ngModel)]="selHotel.mobileNo"
-          type="text"
-          placeholder="Mobile No"
-          required
-          maxlength="10"
-          minlength="10"
-        />
-      </mat-form-field>
-
       <mat-form-field fxFlexFill>
         <input
           matInput
@@ -106,7 +83,6 @@
           required
         />
       </mat-form-field>
-      <input type="hidden" [(ngModel)]="addressId" name="addressId" />
       <div>
         <button
           style="margin: 1rem"
@@ -114,7 +90,7 @@
           color="accent"
           type="submit"
         >
-          Update Hotel
+          Update Address
         </button>
         <button
           style="margin: 1rem"

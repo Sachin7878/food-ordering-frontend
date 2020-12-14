@@ -18,6 +18,7 @@ import { HotelState } from '../store/hotel.state';
 export class HotelEditComponent implements OnInit {
   country = 'India';
   hotelId: string;
+  addressId: number;
   addressLine1: string;
   addressLine2: string;
   city: string;
@@ -73,7 +74,6 @@ export class HotelEditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('navigated to hotel edit successfully');
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has('hotelId')) {
         this.hotelId = paramMap.get('hotelId');
@@ -83,12 +83,14 @@ export class HotelEditComponent implements OnInit {
 
     this.selectedHotelAddress$.subscribe((address) => {
       if (address != null) {
+        this.addressId = address.id;
         this.addressLine1 = address.addressLine1;
         this.addressLine2 = address.addressLine2;
         this.city = address.city;
         this.state = address.state;
         this.pincode = address.pincode;
       } else {
+        this.addressId = null;
         this.addressLine1 = this.addressLine2 = this.city = this.state = this.pincode =
           '';
       }
@@ -104,6 +106,7 @@ export class HotelEditComponent implements OnInit {
       id,
       form.value.hotelName,
       form.value.mobileNo,
+      form.value.addressId,
       form.value.addressLine1,
       form.value.addressLine2,
       form.value.city,

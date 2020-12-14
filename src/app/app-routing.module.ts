@@ -10,6 +10,8 @@ import { AuthCardComponent } from './auth/auth-card/auth-card.component';
 import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
 import { AddMenuItemComponent } from './hotels/add-menu-item/add-menu-item.component';
 import { EditMenuItemComponent } from './hotels/edit-menu-item/edit-menu-item.component';
+import { EditAccountComponent } from './user/edit-account/edit-account.component';
+import { EditAddressComponent } from './user/edit-address/edit-address.component';
 
 const routes: Routes = [
   { path: '', component: HotelListComponent },
@@ -42,6 +44,14 @@ const routes: Routes = [
   {
     path: 'auth',
     component: AuthCardComponent,
+  },
+  {
+    path: 'edit-account',
+    component: EditAccountComponent,
+  },
+  {
+    path: 'edit-address',
+    component: EditAddressComponent,
   },
 ];
 

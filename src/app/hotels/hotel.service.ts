@@ -133,6 +133,7 @@ export class HotelService {
     id: number,
     hotelName: string,
     mobileNo: string,
+    addressId: number,
     addressLine1: string,
     addressLine2: string | undefined,
     city: string,
@@ -144,6 +145,7 @@ export class HotelService {
       hotelName: hotelName,
       mobileNo: mobileNo,
       address: {
+        id: addressId,
         addressLine1: addressLine1,
         addressLine2: addressLine2,
         city: city,
@@ -179,7 +181,6 @@ export class HotelService {
   }
 
   deleteMenuItem(hotelId, menuId) {
-    // this.store.dispatch(new StartLoading());
     this.http
       .delete(BACKEND_URL + '/hotels/' + hotelId + '/menu/' + menuId)
       .subscribe(

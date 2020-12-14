@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
+import { User } from '../user/user-model';
 import {
   StartLoading,
   StopLoading,
@@ -7,12 +8,15 @@ import {
   SetUnauthenticated,
   SetAdminTrue,
   SetAdminFalse,
+  // GetUserAddress,
+  GetUserDetails,
 } from './app.actions';
 
 export interface AppStateModel {
   isLoading: boolean;
   isAuthenticated: boolean;
   isAdmin: boolean;
+  user: User;
 }
 
 @State<AppStateModel>({
@@ -21,6 +25,7 @@ export interface AppStateModel {
     isLoading: false,
     isAuthenticated: false,
     isAdmin: false,
+    user: null,
   },
 })
 @Injectable()
@@ -43,6 +48,16 @@ export class AppState {
   @Selector()
   public static isAuthenticated(state: AppStateModel) {
     return state.isAuthenticated;
+  }
+
+  @Selector()
+  public static User(state: AppStateModel) {
+    return state.user;
+  }
+
+  @Selector()
+  public static userAddress(state: AppStateModel) {
+    return state.user.address;
   }
 
   @Action(StartLoading)
@@ -74,4 +89,36 @@ export class AppState {
   public setAdminFalse({ patchState }: StateContext<AppStateModel>) {
     patchState({ isAdmin: false });
   }
+
+  @Action(GetUserDetails)
+  public getUserDetails(
+    { patchState }: StateContext<AppStateModel>,
+    action: GetUserDetails
+  ) {
+    patchState({ user: action.payload });
+  }
 }
+
+// {
+//   firstName: '',
+//   lastName: '',
+//   mobileNo: '',
+//   email: '',
+//   address: {
+//     addressLine1: '',
+//     addressLine2: '',
+//     id: null,
+//     pincode: '',
+//     city: '',
+//     state: '',
+//     country: '',
+//   },
+// }
+
+// @Action(GetUserAddress)
+// public getUserAddress(
+//   { patchState }: StateContext<AppStateModel>,
+//   action: GetUserAddress
+// ) {
+//   patchState({ user: action.payload });
+// }

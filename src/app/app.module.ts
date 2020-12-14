@@ -32,11 +32,12 @@ import { CartState } from './cart/store/cart.state';
 import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
 import { AddMenuItemComponent } from './hotels/add-menu-item/add-menu-item.component';
 import { EditMenuItemComponent } from './hotels/edit-menu-item/edit-menu-item.component';
+import { EditAddressComponent } from './user/edit-address/edit-address.component';
+import { EditAccountComponent } from './user/edit-account/edit-account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    // HeaderComponent,
     HeaderComponent,
     SidenavListComponent,
     ErrorComponent,
@@ -50,6 +51,8 @@ import { EditMenuItemComponent } from './hotels/edit-menu-item/edit-menu-item.co
     HotelEditComponent,
     AddMenuItemComponent,
     EditMenuItemComponent,
+    EditAddressComponent,
+    EditAccountComponent,
   ],
   imports: [
     BrowserModule,
