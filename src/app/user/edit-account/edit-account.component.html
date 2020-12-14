@@ -1,1 +1,73 @@
-<p>edit-account works!</p>
+<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+  <mat-card
+    fxFlex.xs="100"
+    fxFlex.gt-xs="45"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+  >
+    <form
+      #editAccForm="ngForm"
+      fxLayoutAlign="stretch"
+      fxLayout="column"
+      class="signup-form"
+    >
+      <mat-form-field>
+        <input
+          matInput
+          name="firstName"
+          ngModel
+          type="text"
+          placeholder="First Name"
+          required
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          name="lastName"
+          ngModel
+          type="text"
+          placeholder="Last Name"
+        />
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          name="email"
+          ngModel
+          type="email"
+          placeholder="E-Mail Address"
+          #emailInput="ngModel"
+          required
+          email
+        />
+        <mat-error *ngIf="emailInput.invalid"
+          >Please enter a valid email!</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field>
+        <input
+          matInput
+          name="mobileNo"
+          ngModel
+          type="text"
+          placeholder="Mobile No"
+          required
+          maxlength="10"
+          minlength="10"
+        />
+      </mat-form-field>
+      <button
+        style="margin-top: 10px"
+        mat-raised-button
+        color="accent"
+        type="submit"
+      >
+        Update Details
+      </button>
+    </form>
+  </mat-card>
+</div>

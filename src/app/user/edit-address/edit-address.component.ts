@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Address } from 'src/app/address.model';
@@ -79,5 +80,21 @@ export class EditAddressComponent implements OnInit {
           '';
       }
     });
+  }
+
+  onSubmit(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+
+    this.userService.updateUserAddress(
+      form.value.addressId,
+      form.value.addressLine1,
+      form.value.addressLine2,
+      form.value.city,
+      form.value.state,
+      form.value.country,
+      form.value.pincode
+    );
   }
 }
