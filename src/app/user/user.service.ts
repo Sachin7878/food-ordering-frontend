@@ -36,6 +36,25 @@ export class UserService {
     );
   }
 
+  updateUser(id, firstName, lastName, mobileNo, email) {
+    const userUpdateData = {
+      id: id,
+      firstName: firstName,
+      lastName: lastName,
+      mobileNo: mobileNo,
+      email: email,
+    };
+
+    this.store.dispatch(new StartLoading());
+
+    this.http
+      .put(BACKEND_URL + '/api/account', userUpdateData)
+      .subscribe((res) => {
+        this.store.dispatch(new StopLoading());
+        this.router.navigate(['/']);
+      });
+  }
+
   updateUserAddress(
     addressId: number,
     addressLine1: string,

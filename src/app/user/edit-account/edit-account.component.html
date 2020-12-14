@@ -1,73 +1,88 @@
-<div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+<div
+  fxFlex="100"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  *ngIf="userDetails$ | async as userDetails"
+>
   <mat-card
     fxFlex.xs="100"
     fxFlex.gt-xs="45"
     fxLayout="column"
     fxLayoutAlign="center center"
   >
-    <form
-      #editAccForm="ngForm"
-      fxLayoutAlign="stretch"
-      fxLayout="column"
-      class="signup-form"
+    <mat-card-title style="text-align: center"
+      >Edit Your Details</mat-card-title
     >
-      <mat-form-field>
+    <form
+      #updateUser="ngForm"
+      fxFlex="100"
+      fxFlexFill
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      (submit)="onSubmit(updateUser)"
+    >
+      <mat-form-field fxFlexFill>
         <input
           matInput
           name="firstName"
-          ngModel
+          [(ngModel)]="firstName"
           type="text"
           placeholder="First Name"
           required
         />
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field fxFlexFill>
         <input
           matInput
           name="lastName"
-          ngModel
+          [(ngModel)]="lastName"
           type="text"
           placeholder="Last Name"
         />
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field fxFlexFill>
         <input
           matInput
           name="email"
-          ngModel
+          [(ngModel)]="email"
           type="email"
-          placeholder="E-Mail Address"
-          #emailInput="ngModel"
+          placeholder="Email"
           required
-          email
         />
-        <mat-error *ngIf="emailInput.invalid"
-          >Please enter a valid email!</mat-error
-        >
       </mat-form-field>
 
-      <mat-form-field>
+      <mat-form-field fxFlexFill>
         <input
           matInput
           name="mobileNo"
-          ngModel
+          [(ngModel)]="mobileNo"
           type="text"
           placeholder="Mobile No"
           required
-          maxlength="10"
-          minlength="10"
         />
       </mat-form-field>
-      <button
-        style="margin-top: 10px"
-        mat-raised-button
-        color="accent"
-        type="submit"
-      >
-        Update Details
-      </button>
+      <input type="hidden" name="userId" [(ngModel)]="userId" />
+      <div>
+        <button
+          style="margin: 1rem"
+          mat-raised-button
+          color="accent"
+          type="submit"
+        >
+          Update Account
+        </button>
+        <button
+          style="margin: 1rem"
+          mat-raised-button
+          color="primary"
+          type="button"
+          routerLink="../"
+        >
+          Cancel
+        </button>
+      </div>
     </form>
   </mat-card>
 </div>
