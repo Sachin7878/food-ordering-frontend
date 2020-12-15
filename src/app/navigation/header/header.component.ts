@@ -1,4 +1,11 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  EventEmitter,
+  Output,
+  HostBinding,
+} from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/shared/app.state';
@@ -14,9 +21,17 @@ export class HeaderComponent implements OnInit {
   @Select(AppState.isAuthenticated) isAuthenticated$: Observable<boolean>;
   @Select(AppState.isAdmin) isAdmin$: Observable<boolean>;
 
+  toggleControl = new FormControl(false);
+
+  @HostBinding('class') className = '';
+
   constructor(private authService: AuthService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.toggleControl.valueChanges.subscribe((val) => {
+      this.className = val ? 'darkMode' : '';
+    });
+  }
 
   onToggleSidenav() {
     this.sidenavToggle.emit();

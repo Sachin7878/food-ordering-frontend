@@ -9,7 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularMaterialModule } from './angular-material.module';
 import { HotelCreateComponent } from './hotels/hotel-create/hotel-create.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { HotelListComponent } from './hotels/hotel-list/hotel-list.component';
 import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list.component';
@@ -61,6 +61,7 @@ import { EditAccountComponent } from './user/edit-account/edit-account.component
     BrowserAnimationsModule,
     HttpClientModule,
     AngularMaterialModule,
+    ReactiveFormsModule,
     FlexLayoutModule,
     CommonModule,
     NgxsModule.forRoot([AppState, HotelState, CartState], {

@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   exports: [
@@ -33,6 +34,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatListModule,
     MatCheckboxModule,
     MatMenuModule,
+    MatSlideToggleModule,
   ],
 })
 export class AngularMaterialModule {}
