@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { State, Action, Selector, StateContext } from '@ngxs/store';
+import { State, Action, Selector, StateContext, Store } from '@ngxs/store';
 import { MenuItem } from 'src/app/hotels/menu-item.model';
+import { ClearSelectedHotel } from 'src/app/hotels/store/hotel.actions';
 import {
   AddItemToCart,
   ClearCart,
@@ -25,6 +26,8 @@ export const getCartInitialState = (): CartStateModel => ({
 })
 @Injectable()
 export class CartState {
+  constructor(private store: Store) {}
+
   @Selector()
   public static getState(state: CartStateModel) {
     return state;
@@ -59,24 +62,24 @@ export class CartState {
     action: IncreaseCartItemQuantity
   ) {
     const state = ctx.getState();
-
-    // find cart item by item name
-    const { quantity = 0 } =
-      state.cartItems.find((x) => x.item.id === action.payload) || {};
     const item = state.cartItems.find((item) => item.item.id == action.payload);
-    const current = {
-      cartItems: [
-        ...state.cartItems.filter((x) => x.item.id !== action.payload),
-        {
-          item: item.item,
-          quantity: quantity + 1,
-        },
-      ],
+    let inCartQty = state.cartItems.find((x) => x.item.id === action.payload)
+      .quantity;
+
+    if (inCartQty > 0) {
+      inCartQty++;
+    }
+
+    const current: { item: MenuItem; quantity: number } = {
+      item: item.item,
+      quantity: inCartQty,
     };
 
-    ctx.setState({
-      ...state,
-      ...current,
+    ctx.patchState({
+      cartItems: [
+        ...state.cartItems.filter((x) => x.item.id !== action.payload),
+        current,
+      ],
     });
   }
 
@@ -86,23 +89,26 @@ export class CartState {
     action: DecreaseCartItemQuantity
   ) {
     const state = ctx.getState();
-
-    const { quantity = 0 } =
-      state.cartItems.find((x) => x.item.id === action.payload) || {};
     const item = state.cartItems.find((item) => item.item.id == action.payload);
-    const current = {
-      cartItems: [
-        ...state.cartItems.filter((x) => x.item.id !== action.payload),
-        {
-          item: item.item,
-          quantity: quantity - 1,
-        },
-      ],
+    let inCartQty = state.cartItems.find((x) => x.item.id === action.payload)
+      .quantity;
+
+    if (inCartQty > 1) {
+      inCartQty--;
+    } else if (inCartQty <= 1) {
+      this.store.dispatch(new RemoveCartItem(action.payload));
+    }
+
+    const current: { item: MenuItem; quantity: number } = {
+      item: item.item,
+      quantity: inCartQty,
     };
 
-    ctx.setState({
-      ...state,
-      ...current,
+    ctx.patchState({
+      cartItems: [
+        ...state.cartItems.filter((x) => x.item.id !== action.payload),
+        current,
+      ],
     });
   }
 

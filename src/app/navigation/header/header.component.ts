@@ -6,8 +6,9 @@ import {
   HostBinding,
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { SetThemeStatus } from 'src/app/shared/app.actions';
 import { AppState } from 'src/app/shared/app.state';
 import { AuthService } from '../../auth/auth.service';
 
@@ -23,13 +24,11 @@ export class HeaderComponent implements OnInit {
 
   toggleControl = new FormControl(false);
 
-  @HostBinding('class') className = '';
-
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private store: Store) {}
 
   ngOnInit() {
     this.toggleControl.valueChanges.subscribe((val) => {
-      this.className = val ? 'darkMode' : '';
+      this.store.dispatch(new SetThemeStatus(val));
     });
   }
 

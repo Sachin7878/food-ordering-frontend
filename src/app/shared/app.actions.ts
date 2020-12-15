@@ -36,6 +36,11 @@ export class GetUserDetails {
   constructor(public payload: User) {}
 }
 
+export class SetThemeStatus {
+  public static readonly type = '[Theme] Update Theme';
+  constructor(public payload: boolean) {}
+}
+
 // export class GetUserAddress {
 //   public static readonly type = '[User] Get User Address';
 //   constructor(public payload: Address) {}

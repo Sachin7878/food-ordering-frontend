@@ -10,12 +10,14 @@ import {
   SetAdminFalse,
   // GetUserAddress,
   GetUserDetails,
+  SetThemeStatus,
 } from './app.actions';
 
 export interface AppStateModel {
   isLoading: boolean;
   isAuthenticated: boolean;
   isAdmin: boolean;
+  darkModeSwitch: boolean;
   user: User;
 }
 
@@ -25,6 +27,7 @@ export interface AppStateModel {
     isLoading: false,
     isAuthenticated: false,
     isAdmin: false,
+    darkModeSwitch: false,
     user: null,
   },
 })
@@ -48,6 +51,11 @@ export class AppState {
   @Selector()
   public static isAuthenticated(state: AppStateModel) {
     return state.isAuthenticated;
+  }
+
+  @Selector()
+  public static isDark(state: AppStateModel) {
+    return state.darkModeSwitch;
   }
 
   @Selector()
@@ -96,6 +104,14 @@ export class AppState {
     action: GetUserDetails
   ) {
     patchState({ user: action.payload });
+  }
+
+  @Action(SetThemeStatus)
+  public setThemeStatus(
+    { patchState }: StateContext<AppStateModel>,
+    action: SetThemeStatus
+  ) {
+    patchState({ darkModeSwitch: action.payload });
   }
 }
 
