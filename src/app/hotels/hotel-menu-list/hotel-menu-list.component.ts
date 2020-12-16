@@ -61,7 +61,9 @@ export class HotelMenuListComponent implements OnInit {
   }
 
   addToCart(menuItem: MenuItem) {
-    this.store.dispatch(new AddItemToCart({ item: menuItem, quantity: 1 }));
+    this.store.dispatch(
+      new AddItemToCart({ id: null, item: menuItem, quantity: 1 })
+    );
   }
 
   editHotel() {

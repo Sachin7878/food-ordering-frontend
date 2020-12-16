@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext, Store } from '@ngxs/store';
 import { MenuItem } from 'src/app/hotels/menu-item.model';
 import { ClearSelectedHotel } from 'src/app/hotels/store/hotel.actions';
+import { CartItem } from '../cart-item.model';
 import {
   AddItemToCart,
   ClearCart,
@@ -11,7 +12,7 @@ import {
 } from './cart.actions';
 
 export interface CartStateModel {
-  cartItems: { item: MenuItem; quantity: number }[];
+  cartItems: CartItem[];
   totalAmount: number;
 }
 
@@ -70,7 +71,8 @@ export class CartState {
       inCartQty++;
     }
 
-    const current: { item: MenuItem; quantity: number } = {
+    const current: CartItem = {
+      id: item.id,
       item: item.item,
       quantity: inCartQty,
     };
@@ -99,7 +101,8 @@ export class CartState {
       this.store.dispatch(new RemoveCartItem(action.payload));
     }
 
-    const current: { item: MenuItem; quantity: number } = {
+    const current: CartItem = {
+      id: item.id,
       item: item.item,
       quantity: inCartQty,
     };

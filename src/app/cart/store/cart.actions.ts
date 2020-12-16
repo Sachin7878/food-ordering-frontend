@@ -1,4 +1,5 @@
 import { MenuItem } from 'src/app/hotels/menu-item.model';
+import { CartItem } from '../cart-item.model';
 
 export class LoadCartItems {
   public static readonly type = '[CART] Load Cart Items';
@@ -7,7 +8,7 @@ export class LoadCartItems {
 
 export class AddItemToCart {
   public static readonly type = '[CART] Add Items to Cart';
-  constructor(public payload: { item: MenuItem; quantity: number }) {}
+  constructor(public payload: CartItem) {}
 }
 
 export class IncreaseCartItemQuantity {

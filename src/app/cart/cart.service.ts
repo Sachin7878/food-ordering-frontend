@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Address } from '../address.model';
 import { MenuItem } from '../hotels/menu-item.model';
-import { Cart } from './cart-item.model';
+import { Cart } from './cart.model';
 
 @Injectable({
   providedIn: 'root',
