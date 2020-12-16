@@ -1,24 +1,23 @@
 import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext, Store } from '@ngxs/store';
-import { MenuItem } from 'src/app/hotels/menu-item.model';
-import { ClearSelectedHotel } from 'src/app/hotels/store/hotel.actions';
+import { tap } from 'rxjs/operators';
 import { CartItem } from '../cart-item.model';
+import { CartService } from '../cart.service';
 import {
   AddItemToCart,
   ClearCart,
   DecreaseCartItemQuantity,
   IncreaseCartItemQuantity,
+  LoadCartItems,
   RemoveCartItem,
 } from './cart.actions';
 
 export interface CartStateModel {
   cartItems: CartItem[];
-  totalAmount: number;
 }
 
 export const getCartInitialState = (): CartStateModel => ({
   cartItems: [],
-  totalAmount: null,
 });
 
 @State<CartStateModel>({
@@ -27,7 +26,7 @@ export const getCartInitialState = (): CartStateModel => ({
 })
 @Injectable()
 export class CartState {
-  constructor(private store: Store) {}
+  constructor(private store: Store, private cartService: CartService) {}
 
   @Selector()
   public static getState(state: CartStateModel) {
@@ -37,6 +36,20 @@ export class CartState {
   @Selector()
   public static getCartItems(state: CartStateModel) {
     return state.cartItems;
+  }
+
+  @Action(LoadCartItems)
+  public loadCartFromDb(
+    { patchState }: StateContext<CartStateModel>,
+    action: LoadCartItems
+  ) {
+    return this.cartService.fetchCart().pipe(
+      tap((result) => {
+        patchState({
+          cartItems: [...result],
+        });
+      })
+    );
   }
 
   @Action(AddItemToCart)
@@ -117,20 +130,28 @@ export class CartState {
 
   @Action(RemoveCartItem)
   public removeSingleCartItem(
-    { getState, setState }: StateContext<CartStateModel>,
+    { patchState }: StateContext<CartStateModel>,
     action: RemoveCartItem
   ) {
-    const state = getState();
+    // const state = getState();
 
-    const current = {
-      cartItems: [
-        ...state.cartItems.filter((x) => x.item.id !== action.payload),
-      ],
-    };
+    // const current = {
+    //   cartItems: [
+    //     ...state.cartItems.filter((x) => x.item.id !== action.payload),
+    //   ],
+    // };
 
-    setState({
-      ...state,
-      ...current,
-    });
+    // setState({
+    //   ...state,
+    //   ...current,
+    // });
+
+    return this.cartService.removeCartItem(action.payload).pipe(
+      tap((result) => {
+        patchState({
+          cartItems: [...result],
+        });
+      })
+    );
   }
 }

@@ -7,6 +7,7 @@ import { Hotel } from 'src/app/hotels/hotel.model';
 import { MenuItem } from 'src/app/hotels/menu-item.model';
 import { ClearSelectedHotel } from 'src/app/hotels/store/hotel.actions';
 import { HotelState } from 'src/app/hotels/store/hotel.state';
+import { CartItem } from '../cart-item.model';
 import {
   ClearCart,
   DecreaseCartItemQuantity,
@@ -21,15 +22,19 @@ import { CartState } from '../store/cart.state';
   styleUrls: ['./view-cart.component.css'],
 })
 export class ViewCartComponent implements OnInit {
-  @Select(CartState.getCartItems) cartItems$: Observable<
-    { item: MenuItem; quantity: number }[]
-  >;
+  @Select(CartState.getCartItems) cartItems$: Observable<CartItem[]>;
   @Select(HotelState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
 
   message = 'Cart is Empty!';
   constructor(private store: Store, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cartItems$.subscribe((res) => {
+      if (Array.isArray(res) && res.length) {
+        this.message = null;
+      }
+    });
+  }
 
   increaseQuantity(id: number) {
     this.store.dispatch(new IncreaseCartItemQuantity(id));

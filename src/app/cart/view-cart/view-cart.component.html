@@ -8,7 +8,8 @@
     >
     <button mat-button (click)="clearCart()">Clear Cart</button>
   </mat-card>
-  <mat-card *ngIf="!(selectedHotel$ | async) as noHotel">
+  <!-- <mat-card *ngIf="!(selectedHotel$ | async) as noHotel"> -->
+  <mat-card *ngIf="message != null">
     <mat-card-title>{{ message }}</mat-card-title>
   </mat-card>
   <mat-card class="card" *ngFor="let cartItem of cartItems$ | async">
@@ -29,7 +30,7 @@
       >
         +
       </button>
-      <button mat-button (click)="removeSingleItem(cartItem.item.id)">
+      <button mat-button (click)="removeSingleItem(cartItem.id)">
         <mat-icon>clear</mat-icon>
       </button>
     </div>

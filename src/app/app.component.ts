@@ -1,7 +1,9 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { Select } from '@ngxs/store';
+import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth/auth.service';
+import { CartService } from './cart/cart.service';
+import { LoadCartItems } from './cart/store/cart.actions';
 import { AppState } from './shared/app.state';
 
 @Component({
@@ -14,11 +16,13 @@ export class AppComponent implements OnInit {
 
   @Select(AppState.isDark) isDark$: Observable<boolean>;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private store: Store) {}
   ngOnInit(): void {
     this.authService.autoAuthUser();
     this.isDark$.subscribe((status) =>
       status ? (this.className = 'darkMode') : (this.className = '')
     );
+
+    this.store.dispatch(new LoadCartItems());
   }
 }

@@ -1,4 +1,3 @@
-import { MenuItem } from 'src/app/hotels/menu-item.model';
 import { CartItem } from '../cart-item.model';
 
 export class LoadCartItems {
