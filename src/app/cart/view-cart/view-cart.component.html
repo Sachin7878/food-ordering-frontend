@@ -9,9 +9,11 @@
     <button mat-button (click)="clearCart()">Clear Cart</button>
   </mat-card>
   <!-- <mat-card *ngIf="!(selectedHotel$ | async) as noHotel"> -->
-  <mat-card *ngIf="message != null">
-    <mat-card-title>{{ message }}</mat-card-title>
-  </mat-card>
+  <div *ngIf="message != null">
+    <h2 style="text-align: center">
+      <b>{{ message }}</b>
+    </h2>
+  </div>
   <mat-card class="card" *ngFor="let cartItem of cartItems$ | async">
     <div>
       <mat-card-content style="font-weight: 400">{{

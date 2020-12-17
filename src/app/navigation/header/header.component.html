@@ -7,7 +7,7 @@
   <div>
     <a routerLink="/">FoodMan</a>
   </div>
-  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end">
     <ul fxLayout fxLayoutGap="10px" class="navigation-items">
       <li>
         <div
@@ -22,16 +22,22 @@
         </div>
       </li>
       <li *ngIf="(isAuthenticated$ | async) && !(isAdmin$ | async)">
-        <button mat-button routerLink="/cart" routerLinkActive="mat-accent">
+        <button
+          mat-button
+          [matBadge]="getQty$ | async"
+          matBadgeColor="warn"
+          routerLink="/cart"
+          routerLinkActive="mat-accent"
+        >
           <mat-icon>shopping_cart</mat-icon>
         </button>
       </li>
-      <li *ngIf="!(isAuthenticated$ | async)">
+      <li *ngIf="!(isAuthenticated$ | async)" fxHide.xs>
         <button mat-button routerLink="/auth" routerLinkActive="mat-accent">
           Authorize
         </button>
       </li>
-      <li *ngIf="isAdmin$ | async">
+      <li *ngIf="isAdmin$ | async" fxHide.xs>
         <button
           mat-button
           routerLink="/hotelCreate"
@@ -44,6 +50,7 @@
       <li
         *ngIf="(isAuthenticated$ | async) && !(isAdmin$ | async)"
         routerLinkActive="mat-accent"
+        fxHide.xs
       >
         <button mat-button [matMenuTriggerFor]="afterMenu">
           Manage Account
@@ -58,7 +65,7 @@
           <button mat-menu-item (click)="onLogout()"><b>Logout</b></button>
         </mat-menu>
       </li>
-      <li *ngIf="isAdmin$ | async">
+      <li *ngIf="isAdmin$ | async" fxHide.xs>
         <button mat-button (click)="onLogout()">Logout</button>
       </li>
     </ul>

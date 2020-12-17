@@ -38,6 +38,11 @@ export class CartState {
     return state.cartItems;
   }
 
+  @Selector()
+  public static getQty(state: CartStateModel) {
+    return state.cartItems.length;
+  }
+
   @Action(LoadCartItems)
   public loadCartFromDb(
     { patchState }: StateContext<CartStateModel>,
@@ -95,13 +100,6 @@ export class CartState {
       quantity: inCartQty,
     };
 
-    // ctx.patchState({
-    //   cartItems: [
-    //     ...state.cartItems.filter((x) => x.item.id !== action.payload),
-    //     current,
-    //   ],
-    // });
-
     return this.cartService.updateCartItemQty(current).subscribe((resp) => {
       ctx.patchState({
         cartItems: [
@@ -134,13 +132,6 @@ export class CartState {
       quantity: inCartQty,
     };
 
-    // ctx.patchState({
-    //   cartItems: [
-    //     ...state.cartItems.filter((x) => x.item.id !== action.payload),
-    //     current,
-    //   ],
-    // });
-
     return this.cartService.updateCartItemQty(current).subscribe((resp) => {
       ctx.patchState({
         cartItems: [
@@ -156,19 +147,6 @@ export class CartState {
     { patchState }: StateContext<CartStateModel>,
     action: RemoveCartItem
   ) {
-    // const state = getState();
-
-    // const current = {
-    //   cartItems: [
-    //     ...state.cartItems.filter((x) => x.item.id !== action.payload),
-    //   ],
-    // };
-
-    // setState({
-    //   ...state,
-    //   ...current,
-    // });
-
     return this.cartService.removeCartItem(action.payload).pipe(
       tap((result) => {
         patchState({

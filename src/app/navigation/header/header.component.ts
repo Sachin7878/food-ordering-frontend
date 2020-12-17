@@ -8,6 +8,7 @@ import {
 import { FormControl } from '@angular/forms';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { CartState } from 'src/app/cart/store/cart.state';
 import { SetThemeStatus } from 'src/app/shared/app.actions';
 import { AppState } from 'src/app/shared/app.state';
 import { AuthService } from '../../auth/auth.service';
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
   @Output() sidenavToggle = new EventEmitter<void>();
   @Select(AppState.isAuthenticated) isAuthenticated$: Observable<boolean>;
   @Select(AppState.isAdmin) isAdmin$: Observable<boolean>;
+  @Select(CartState.getQty) getQty$: Observable<number>;
 
   toggleControl = new FormControl(false);
 

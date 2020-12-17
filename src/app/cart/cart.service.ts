@@ -27,10 +27,9 @@ export class CartService {
   }
 
   updateCartItemQty(cartItemToBeUpdated: CartItem) {
-    return this.http.put(BACKEND_URL + '/cart/updateQty', cartItemToBeUpdated);
+    return this.http.put<CartItem>(
+      BACKEND_URL + '/cart/updateQty',
+      cartItemToBeUpdated
+    );
   }
-
-  // updateCartItemQtyById(cartItemId, updatedQty) {
-  //   return this.http.put(BACKEND_URL + '/cart/' + cartItemId, );
-  // }
 }
