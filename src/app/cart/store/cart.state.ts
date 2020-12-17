@@ -54,20 +54,25 @@ export class CartState {
 
   @Action(AddItemToCart)
   public selectedHotelLoaded(
-    { getState, patchState }: StateContext<CartStateModel>,
+    { patchState }: StateContext<CartStateModel>,
     action: AddItemToCart
   ) {
-    const current = getState();
-    const cartItems = [...current.cartItems, action.payload];
-    patchState({ cartItems: cartItems });
+    return this.cartService.addCartItem(action.payload).pipe(
+      tap((result) => {
+        patchState({
+          cartItems: [...result],
+        });
+      })
+    );
   }
 
   @Action(ClearCart)
-  public clearCart(
-    { setState }: StateContext<CartStateModel>,
-    action: ClearCart
-  ) {
-    setState(getCartInitialState());
+  public clearCart({ setState }: StateContext<CartStateModel>) {
+    return this.cartService.clearCart().pipe(
+      tap((result) => {
+        setState(getCartInitialState());
+      })
+    );
   }
 
   @Action(IncreaseCartItemQuantity)

@@ -17,4 +17,12 @@ export class CartService {
   removeCartItem(id: number) {
     return this.http.delete<CartItem[]>(BACKEND_URL + '/cart/' + id);
   }
+
+  addCartItem(cartItemToAdd: CartItem) {
+    return this.http.post<CartItem[]>(BACKEND_URL + '/cart', cartItemToAdd);
+  }
+
+  clearCart() {
+    return this.http.delete(BACKEND_URL + '/cart');
+  }
 }
