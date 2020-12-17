@@ -17,7 +17,38 @@
     </mat-card-actions>
   </mat-card-header>
 </mat-card>
-<div>
+
+<!-- Customer View where only available items are visible -->
+<div *ngIf="!(isAdmin$ | async)">
+  <div *ngFor="let menuItem of selectedHotelMenu$ | async">
+    <div *ngIf="menuItem.available">
+      <mat-card class="card">
+        <div>
+          <mat-card-content style="font-weight: 400">{{
+            menuItem.itemName
+          }}</mat-card-content>
+          <mat-card-content style="font-weight: bold"
+            >Rs. {{ menuItem.itemPrice }}</mat-card-content
+          >
+        </div>
+
+        <div>
+          <button
+            *ngIf="!(isAdmin$ | async)"
+            mat-button
+            color="accent"
+            (click)="addToCart(menuItem)"
+          >
+            Add To Cart
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>
+
+<!-- Admin View where all items are visible -->
+<div *ngIf="isAdmin$ | async">
   <mat-card class="card" *ngFor="let menuItem of selectedHotelMenu$ | async">
     <div>
       <mat-card-content style="font-weight: 400">{{
@@ -29,27 +60,10 @@
     </div>
 
     <div>
-      <button
-        *ngIf="!(isAdmin$ | async)"
-        mat-button
-        color="accent"
-        (click)="addToCart(menuItem)"
-      >
-        Add To Cart
-      </button>
-      <button
-        color="warn"
-        *ngIf="isAdmin$ | async"
-        mat-button
-        (click)="deleteItem(menuItem.id)"
-      >
+      <button color="warn" mat-button (click)="deleteItem(menuItem.id)">
         <mat-icon>delete</mat-icon>
       </button>
-      <button
-        *ngIf="isAdmin$ | async"
-        mat-button
-        (click)="editItem(menuItem.id)"
-      >
+      <button mat-button (click)="editItem(menuItem.id)">
         <mat-icon>create</mat-icon>
       </button>
     </div>
