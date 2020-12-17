@@ -29,3 +29,8 @@ export class RemoveCartItem {
   public static readonly type = '[CART] Remove Cart Item';
   constructor(public payload: number) {}
 }
+
+export class CalculateTotalAmount {
+  public static readonly type = '[CART] Calculate Total Amount';
+  constructor() {}
+}

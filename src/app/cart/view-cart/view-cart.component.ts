@@ -24,6 +24,7 @@ import { CartState } from '../store/cart.state';
 export class ViewCartComponent implements OnInit {
   @Select(CartState.getCartItems) cartItems$: Observable<CartItem[]>;
   @Select(HotelState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
+  @Select(CartState.getTotalAmount) totalAmount$: Observable<number>;
 
   message = 'Cart is Empty!';
   constructor(private store: Store, private router: Router) {}

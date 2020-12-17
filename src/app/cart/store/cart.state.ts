@@ -5,6 +5,7 @@ import { CartItem } from '../cart-item.model';
 import { CartService } from '../cart.service';
 import {
   AddItemToCart,
+  CalculateTotalAmount,
   ClearCart,
   DecreaseCartItemQuantity,
   IncreaseCartItemQuantity,
@@ -14,10 +15,12 @@ import {
 
 export interface CartStateModel {
   cartItems: CartItem[];
+  totalAmount: number;
 }
 
 export const getCartInitialState = (): CartStateModel => ({
   cartItems: [],
+  totalAmount: null,
 });
 
 @State<CartStateModel>({
@@ -43,18 +46,22 @@ export class CartState {
     return state.cartItems.length;
   }
 
+  @Selector()
+  public static getTotalAmount(state: CartStateModel) {
+    return state.totalAmount;
+  }
+
   @Action(LoadCartItems)
   public loadCartFromDb(
     { patchState }: StateContext<CartStateModel>,
     action: LoadCartItems
   ) {
-    return this.cartService.fetchCart().pipe(
-      tap((result) => {
-        patchState({
-          cartItems: [...result],
-        });
-      })
-    );
+    return this.cartService.fetchCart().subscribe((result) => {
+      patchState({
+        cartItems: [...result],
+      });
+      this.store.dispatch(new CalculateTotalAmount());
+    });
   }
 
   @Action(AddItemToCart)
@@ -62,13 +69,12 @@ export class CartState {
     { patchState }: StateContext<CartStateModel>,
     action: AddItemToCart
   ) {
-    return this.cartService.addCartItem(action.payload).pipe(
-      tap((result) => {
-        patchState({
-          cartItems: [...result],
-        });
-      })
-    );
+    return this.cartService.addCartItem(action.payload).subscribe((result) => {
+      patchState({
+        cartItems: [...result],
+      });
+      this.store.dispatch(new CalculateTotalAmount());
+    });
   }
 
   @Action(ClearCart)
@@ -107,6 +113,7 @@ export class CartState {
           current,
         ],
       });
+      this.store.dispatch(new CalculateTotalAmount());
     });
   }
 
@@ -139,6 +146,7 @@ export class CartState {
           current,
         ],
       });
+      this.store.dispatch(new CalculateTotalAmount());
     });
   }
 
@@ -152,7 +160,24 @@ export class CartState {
         patchState({
           cartItems: [...result],
         });
+        this.store.dispatch(new CalculateTotalAmount());
       })
     );
+  }
+
+  @Action(CalculateTotalAmount)
+  public calcTotalAmount({
+    patchState,
+    getState,
+  }: StateContext<CartStateModel>) {
+    const state = getState();
+    let amount = 0;
+    if (state.cartItems.length >= 1) {
+      state.cartItems.map((m) => (amount += m.item.itemPrice * m.quantity));
+    } else amount = 0;
+
+    patchState({
+      totalAmount: amount,
+    });
   }
 }

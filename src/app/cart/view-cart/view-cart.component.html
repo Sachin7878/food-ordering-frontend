@@ -45,4 +45,13 @@
       </button>
     </div>
   </mat-card>
+
+  <div
+    *ngIf="message == null"
+    fxLayout="row"
+    fxLayoutAlign="space-evenly center"
+  >
+    <h3 style="margin: auto">Total Amount:</h3>
+    <h3 style="margin: auto">Rs. {{ totalAmount$ | async }}</h3>
+  </div>
 </div>
