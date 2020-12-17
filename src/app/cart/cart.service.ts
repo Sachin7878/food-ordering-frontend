@@ -25,4 +25,12 @@ export class CartService {
   clearCart() {
     return this.http.delete(BACKEND_URL + '/cart');
   }
+
+  updateCartItemQty(cartItemToBeUpdated: CartItem) {
+    return this.http.put(BACKEND_URL + '/cart/updateQty', cartItemToBeUpdated);
+  }
+
+  // updateCartItemQtyById(cartItemId, updatedQty) {
+  //   return this.http.put(BACKEND_URL + '/cart/' + cartItemId, );
+  // }
 }

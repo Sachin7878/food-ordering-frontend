@@ -95,11 +95,20 @@ export class CartState {
       quantity: inCartQty,
     };
 
-    ctx.patchState({
-      cartItems: [
-        ...state.cartItems.filter((x) => x.item.id !== action.payload),
-        current,
-      ],
+    // ctx.patchState({
+    //   cartItems: [
+    //     ...state.cartItems.filter((x) => x.item.id !== action.payload),
+    //     current,
+    //   ],
+    // });
+
+    return this.cartService.updateCartItemQty(current).subscribe((resp) => {
+      ctx.patchState({
+        cartItems: [
+          ...state.cartItems.filter((x) => x.item.id !== action.payload),
+          current,
+        ],
+      });
     });
   }
 
@@ -125,11 +134,20 @@ export class CartState {
       quantity: inCartQty,
     };
 
-    ctx.patchState({
-      cartItems: [
-        ...state.cartItems.filter((x) => x.item.id !== action.payload),
-        current,
-      ],
+    // ctx.patchState({
+    //   cartItems: [
+    //     ...state.cartItems.filter((x) => x.item.id !== action.payload),
+    //     current,
+    //   ],
+    // });
+
+    return this.cartService.updateCartItemQty(current).subscribe((resp) => {
+      ctx.patchState({
+        cartItems: [
+          ...state.cartItems.filter((x) => x.item.id !== action.payload),
+          current,
+        ],
+      });
     });
   }
 
