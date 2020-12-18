@@ -1,5 +1,8 @@
 <div fxLayoutAlign="center center" fxFlexFill class="main-div">
-  <mat-card fxFlex="100">
+  <mat-card [fxFlex]="vendorReg ? 70 : 100">
+    <h3 *ngIf="vendorReg" style="text-align: center; margin-top: 1rem">
+      Vendor Register
+    </h3>
     <form
       (submit)="onSignup(signupForm)"
       #signupForm="ngForm"

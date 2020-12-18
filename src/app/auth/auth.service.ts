@@ -61,6 +61,33 @@ export class AuthService {
     );
   }
 
+  createVendor(
+    firstName: string,
+    lastName: string,
+    email: string,
+    mobileNo: string,
+    password: string
+  ) {
+    const authData: AuthRegistrationData = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      mobileNo: mobileNo,
+      password: password,
+    };
+    this.store.dispatch(new StartLoading());
+    this.http.post(BANKEND_URL + '/register/vendor', authData).subscribe(
+      () => {
+        this.store.dispatch(new StopLoading());
+        this.router.navigate(['/']);
+      },
+      () => {
+        this.store.dispatch(new StopLoading());
+        this.store.dispatch(new SetUnauthenticated());
+      }
+    );
+  }
+
   login(email: string, password: string) {
     const authData: AuthLoginData = {
       email: email,

@@ -21,6 +21,7 @@
           <mat-icon>bedtime</mat-icon>
         </div>
       </li>
+
       <li *ngIf="(isAuthenticated$ | async) && !(isAdmin$ | async)">
         <button
           mat-button
@@ -37,6 +38,17 @@
           Authorize
         </button>
       </li>
+
+      <li *ngIf="isAdmin$ | async" fxHide.xs>
+        <button
+          mat-button
+          routerLink="/vendorRegister"
+          routerLinkActive="mat-accent"
+        >
+          Register Vendor
+        </button>
+      </li>
+
       <li *ngIf="isAdmin$ | async" fxHide.xs>
         <button
           mat-button
@@ -65,6 +77,7 @@
           <button mat-menu-item (click)="onLogout()"><b>Logout</b></button>
         </mat-menu>
       </li>
+
       <li *ngIf="isAdmin$ | async" fxHide.xs>
         <button mat-button (click)="onLogout()">Logout</button>
       </li>

@@ -12,6 +12,7 @@ import { AddMenuItemComponent } from './hotels/add-menu-item/add-menu-item.compo
 import { EditMenuItemComponent } from './hotels/edit-menu-item/edit-menu-item.component';
 import { EditAccountComponent } from './user/edit-account/edit-account.component';
 import { EditAddressComponent } from './user/edit-address/edit-address.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 const routes: Routes = [
   { path: '', component: HotelListComponent },
@@ -44,6 +45,10 @@ const routes: Routes = [
   {
     path: 'auth',
     component: AuthCardComponent,
+  },
+  {
+    path: 'vendorRegister',
+    component: SignupComponent,
   },
   {
     path: 'edit-account',
