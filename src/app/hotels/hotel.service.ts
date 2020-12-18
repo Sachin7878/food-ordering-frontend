@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Hotel } from './hotel.model';
 import { map } from 'rxjs/operators';
@@ -38,7 +38,8 @@ export class HotelService {
     city: string,
     state: string,
     country: string,
-    pincode: string
+    pincode: string,
+    vendorEmail: string | undefined
   ) {
     const hotelRegData = {
       hotelName: hotelName,
@@ -52,18 +53,26 @@ export class HotelService {
         pincode: pincode,
       },
     };
+
+    let emailParams = new HttpParams();
+    emailParams = emailParams.append('email', vendorEmail);
+
     this.store.dispatch(new StartLoading());
-    this.http.post<Hotel>(BACKEND_URL + '/hotels', hotelRegData).subscribe(
-      (result) => {
-        this.store.dispatch(new AddHotelSuccess(result));
-        this.store.dispatch(new StopLoading());
-        this.router.navigate(['/']);
-      },
-      (error) => {
-        this.store.dispatch(new StopLoading());
-        console.log(error);
-      }
-    );
+    this.http
+      .post<Hotel>(BACKEND_URL + '/hotels', hotelRegData, {
+        params: emailParams,
+      })
+      .subscribe(
+        (result) => {
+          this.store.dispatch(new AddHotelSuccess(result));
+          this.store.dispatch(new StopLoading());
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          this.store.dispatch(new StopLoading());
+          console.log(error);
+        }
+      );
   }
 
   fetchAllHotels() {
@@ -139,7 +148,8 @@ export class HotelService {
     city: string,
     state: string,
     country: string,
-    pincode: string
+    pincode: string,
+    vendorEmail: string | undefined
   ) {
     const hotelUpdateData = {
       hotelName: hotelName,
@@ -154,9 +164,15 @@ export class HotelService {
         pincode: pincode,
       },
     };
+
+    let emailParam = new HttpParams();
+    emailParam = emailParam.append('email', vendorEmail);
+
     this.store.dispatch(new StartLoading());
     this.http
-      .put<Hotel>(BACKEND_URL + '/hotels/' + id, hotelUpdateData)
+      .put<Hotel>(BACKEND_URL + '/hotels/' + id, hotelUpdateData, {
+        params: emailParam,
+      })
       .pipe(
         map((hotel) => {
           return {

@@ -67,7 +67,8 @@ export class HotelCreateComponent implements OnInit {
       form.value.city,
       form.value.state,
       form.value.country,
-      form.value.pincode
+      form.value.pincode,
+      form.value.vendorEmail
     );
   }
 }

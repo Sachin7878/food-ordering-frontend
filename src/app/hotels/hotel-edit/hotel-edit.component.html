@@ -106,6 +106,18 @@
           required
         />
       </mat-form-field>
+
+      <mat-form-field fxFlexFill>
+        <input
+          matInput
+          name="vendorEmail"
+          ngModel
+          type="text"
+          placeholder="Vendor Email"
+          email
+        />
+      </mat-form-field>
+
       <input type="hidden" [(ngModel)]="addressId" name="addressId" />
       <div>
         <button
