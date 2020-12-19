@@ -22,6 +22,7 @@ export class HeaderComponent implements OnInit {
   @Output() sidenavToggle = new EventEmitter<void>();
   @Select(AppState.isAuthenticated) isAuthenticated$: Observable<boolean>;
   @Select(AppState.isAdmin) isAdmin$: Observable<boolean>;
+  @Select(AppState.isVendor) isVendor$: Observable<boolean>;
   @Select(CartState.getQty) getQty$: Observable<number>;
 
   toggleControl = new FormControl(false);

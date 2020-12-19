@@ -25,6 +25,8 @@ export class HotelMenuListComponent implements OnInit {
   selectedHotelAddress$: Observable<Address>;
 
   @Select(AppState.isAdmin) isAdmin$: Observable<boolean>;
+  @Select(AppState.isVendor) isVendor$: Observable<boolean>;
+
   hotelIdString: string;
   addressString: string;
   constructor(

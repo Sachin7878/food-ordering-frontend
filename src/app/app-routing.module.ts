@@ -15,6 +15,7 @@ import { EditAddressComponent } from './user/edit-address/edit-address.component
 import { SignupComponent } from './auth/signup/signup.component';
 import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashboard.component';
 import { VendorGuard } from './auth/vendor.guard';
+import { MasterGuard } from './auth/master.guard';
 
 const routes: Routes = [
   { path: '', component: HotelListComponent },
@@ -31,17 +32,17 @@ const routes: Routes = [
   {
     path: 'hotel/:hotelId/edit',
     component: HotelEditComponent,
-    canActivate: [AdminGuard],
+    canActivate: [MasterGuard],
   },
   {
     path: 'hotel/:hotelId/add',
     component: AddMenuItemComponent,
-    canActivate: [AdminGuard],
+    canActivate: [MasterGuard],
   },
   {
     path: 'hotel/:hotelId/:menuId/edit',
     component: EditMenuItemComponent,
-    canActivate: [AdminGuard],
+    canActivate: [MasterGuard],
   },
   { path: 'cart', component: ViewCartComponent, canActivate: [AuthGuard] },
   {

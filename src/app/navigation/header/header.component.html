@@ -22,7 +22,13 @@
         </div>
       </li>
 
-      <li *ngIf="(isAuthenticated$ | async) && !(isAdmin$ | async)">
+      <li
+        *ngIf="
+          (isAuthenticated$ | async) &&
+          !(isAdmin$ | async) &&
+          !(isVendor$ | async)
+        "
+      >
         <button
           mat-button
           [matBadge]="getQty$ | async"

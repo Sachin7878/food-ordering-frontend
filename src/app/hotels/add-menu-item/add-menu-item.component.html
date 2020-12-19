@@ -40,8 +40,18 @@
       <section>
         <mat-checkbox name="available" ngModel>Available</mat-checkbox>
       </section>
-
-      <button mat-raised-button color="accent" type="submit">Add Item</button>
+      <mat-card-actions>
+        <button mat-raised-button color="accent" type="submit">Add Item</button>
+        <button
+          style="margin: 1rem"
+          mat-raised-button
+          color="primary"
+          type="button"
+          routerLink="../"
+        >
+          Cancel
+        </button>
+      </mat-card-actions>
     </form>
   </mat-card>
 </div>

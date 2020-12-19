@@ -22,7 +22,7 @@ export class VendorDashboardComponent implements OnInit {
     this.vendorService.getVendorHotel();
   }
 
-  openHotel() {
-    this.vendorService.getVendorHotel();
+  openHotel(id) {
+    this.vendorService.openHotelMenu(id);
   }
 }

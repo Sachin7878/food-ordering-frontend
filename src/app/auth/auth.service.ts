@@ -161,6 +161,11 @@ export class AuthService {
     this.store.dispatch(new ClearCart());
   }
 
+  getRole() {
+    const role = localStorage.getItem('role');
+    return role;
+  }
+
   private setAuthTimer(duration: number) {
     this.tokenTimer = setTimeout(() => {
       this.logout();
