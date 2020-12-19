@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 @Injectable()
-export class AdminGuard implements CanActivate {
+export class VendorGuard implements CanActivate {
   constructor(private store: Store, private router: Router) {}
 
   canActivate(

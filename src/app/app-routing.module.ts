@@ -13,6 +13,8 @@ import { EditMenuItemComponent } from './hotels/edit-menu-item/edit-menu-item.co
 import { EditAccountComponent } from './user/edit-account/edit-account.component';
 import { EditAddressComponent } from './user/edit-address/edit-address.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashboard.component';
+import { VendorGuard } from './auth/vendor.guard';
 
 const routes: Routes = [
   { path: '', component: HotelListComponent },
@@ -29,17 +31,17 @@ const routes: Routes = [
   {
     path: 'hotel/:hotelId/edit',
     component: HotelEditComponent,
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AdminGuard],
   },
   {
     path: 'hotel/:hotelId/add',
     component: AddMenuItemComponent,
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AdminGuard],
   },
   {
     path: 'hotel/:hotelId/:menuId/edit',
     component: EditMenuItemComponent,
-    canActivate: [AuthGuard, AdminGuard],
+    canActivate: [AdminGuard],
   },
   { path: 'cart', component: ViewCartComponent, canActivate: [AuthGuard] },
   {
@@ -49,6 +51,7 @@ const routes: Routes = [
   {
     path: 'vendorRegister',
     component: SignupComponent,
+    canActivate: [AdminGuard],
   },
   {
     path: 'edit-account',
@@ -58,11 +61,16 @@ const routes: Routes = [
     path: 'edit-address',
     component: EditAddressComponent,
   },
+  {
+    path: 'vendor-dashboard',
+    component: VendorDashboardComponent,
+    canActivate: [VendorGuard],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  providers: [AuthGuard, AdminGuard],
+  providers: [AuthGuard, AdminGuard, VendorGuard],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}
