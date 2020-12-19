@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext, Store } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
+import { Hotel } from 'src/app/hotels/hotel.model';
 import { CartItem } from '../cart-item.model';
 import { CartService } from '../cart.service';
 import {
@@ -16,11 +17,13 @@ import {
 export interface CartStateModel {
   cartItems: CartItem[];
   totalAmount: number;
+  currentCartHotel: Hotel;
 }
 
 export const getCartInitialState = (): CartStateModel => ({
   cartItems: [],
   totalAmount: null,
+  currentCartHotel: null,
 });
 
 @State<CartStateModel>({
@@ -49,6 +52,11 @@ export class CartState {
   @Selector()
   public static getTotalAmount(state: CartStateModel) {
     return state.totalAmount;
+  }
+
+  @Selector()
+  public static getCurrentHotel(state: CartStateModel) {
+    return state.currentCartHotel;
   }
 
   @Action(LoadCartItems)

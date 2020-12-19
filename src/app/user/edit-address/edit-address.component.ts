@@ -97,4 +97,19 @@ export class EditAddressComponent implements OnInit {
       form.value.pincode
     );
   }
+
+  addAddress(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+
+    this.userService.addUserAddress(
+      form.value.addressLine1,
+      form.value.addressLine2,
+      form.value.city,
+      form.value.state,
+      form.value.country,
+      form.value.pincode
+    );
+  }
 }
