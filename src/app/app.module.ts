@@ -34,6 +34,7 @@ import { AddMenuItemComponent } from './hotels/add-menu-item/add-menu-item.compo
 import { EditMenuItemComponent } from './hotels/edit-menu-item/edit-menu-item.component';
 import { EditAddressComponent } from './user/edit-address/edit-address.component';
 import { EditAccountComponent } from './user/edit-account/edit-account.component';
+import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { EditAccountComponent } from './user/edit-account/edit-account.component
     EditMenuItemComponent,
     EditAddressComponent,
     EditAccountComponent,
+    VendorDashboardComponent,
   ],
   imports: [
     BrowserModule,

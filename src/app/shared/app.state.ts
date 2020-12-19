@@ -11,12 +11,15 @@ import {
   // GetUserAddress,
   GetUserDetails,
   SetThemeStatus,
+  SetVendorTrue,
+  SetVendorFalse,
 } from './app.actions';
 
 export interface AppStateModel {
   isLoading: boolean;
   isAuthenticated: boolean;
   isAdmin: boolean;
+  isVendor: boolean;
   darkModeSwitch: boolean;
   user: User;
 }
@@ -27,6 +30,7 @@ export interface AppStateModel {
     isLoading: false,
     isAuthenticated: false,
     isAdmin: false,
+    isVendor: false,
     darkModeSwitch: false,
     user: null,
   },
@@ -46,6 +50,11 @@ export class AppState {
   @Selector()
   public static isAdmin(state: AppStateModel) {
     return state.isAdmin;
+  }
+
+  @Selector()
+  public static isVendor(state: AppStateModel) {
+    return state.isVendor;
   }
 
   @Selector()
@@ -96,6 +105,16 @@ export class AppState {
   @Action(SetAdminFalse)
   public setAdminFalse({ patchState }: StateContext<AppStateModel>) {
     patchState({ isAdmin: false });
+  }
+
+  @Action(SetVendorTrue)
+  public setVendorTrue({ patchState }: StateContext<AppStateModel>) {
+    patchState({ isVendor: true });
+  }
+
+  @Action(SetVendorFalse)
+  public setVendorFalse({ patchState }: StateContext<AppStateModel>) {
+    patchState({ isVendor: false });
   }
 
   @Action(GetUserDetails)

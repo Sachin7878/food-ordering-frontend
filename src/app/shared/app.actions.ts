@@ -31,6 +31,16 @@ export class SetAdminFalse {
   constructor() {}
 }
 
+export class SetVendorTrue {
+  public static readonly type = '[Auth] Set Vendor True';
+  constructor() {}
+}
+
+export class SetVendorFalse {
+  public static readonly type = '[Auth] Set Vendor False';
+  constructor() {}
+}
+
 export class GetUserDetails {
   public static readonly type = '[User] Get User Details';
   constructor(public payload: User) {}

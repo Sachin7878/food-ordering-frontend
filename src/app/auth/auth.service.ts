@@ -9,14 +9,17 @@ import {
   SetAdminTrue,
   SetAuthenticated,
   SetUnauthenticated,
+  SetVendorFalse,
+  SetVendorTrue,
   StartLoading,
   StopLoading,
 } from '../shared/app.actions';
 import { ClearCart } from '../cart/store/cart.actions';
 
-const BANKEND_URL = 'http://localhost:8080/api';
-
 export const ROLE_ADMIN = 'admin';
+export const ROLE_VENDOR = 'vendor';
+export const ROLE_USER = 'user';
+const BANKEND_URL = 'http://localhost:8080/api';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -108,9 +111,9 @@ export class AuthService {
             this.setAuthTimer(expiresInDuration);
 
             const roleCheck = response.role;
-            if (roleCheck === ROLE_ADMIN) {
-              this.store.dispatch(new SetAdminTrue());
-            }
+
+            this.roleHandling(roleCheck);
+
             this.store.dispatch(new StopLoading());
             this.store.dispatch(new SetAuthenticated());
             const now = new Date();
@@ -139,11 +142,8 @@ export class AuthService {
     const expiresIn = authInfo.expirationDate.getTime() - now.getTime();
     if (expiresIn > 0) {
       this.token = authInfo.token;
-      //    this.userId = authInfo.userId;
       let roleCheck = authInfo.role;
-      if (roleCheck == ROLE_ADMIN) {
-        this.store.dispatch(new SetAdminTrue());
-      }
+      this.roleHandling(roleCheck);
       this.store.dispatch(new SetAuthenticated());
       this.setAuthTimer(expiresIn / 1000);
     }
@@ -156,6 +156,7 @@ export class AuthService {
     this.router.navigate(['/']);
     this.clearAuthData();
     this.store.dispatch(new SetAdminFalse());
+    this.store.dispatch(new SetVendorFalse());
     clearTimeout(this.tokenTimer);
     this.store.dispatch(new ClearCart());
   }
@@ -190,5 +191,14 @@ export class AuthService {
       expirationDate: new Date(expirationDate),
       role: role,
     };
+  }
+
+  private roleHandling(roleCheck) {
+    if (roleCheck == ROLE_ADMIN) {
+      this.store.dispatch(new SetAdminTrue());
+    } else if (roleCheck == ROLE_VENDOR) {
+      this.store.dispatch(new SetVendorTrue());
+    } else if (roleCheck == ROLE_USER) {
+    }
   }
 }
