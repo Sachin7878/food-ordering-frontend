@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MenuItem } from './menu-item.model';
 import { Store } from '@ngxs/store';
-import { StartLoading, StopLoading } from '../shared/app.actions';
+import { StartLoading, StopLoading } from '../shared/store/app.actions';
 
 import {
   AddHotelSuccess,

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Select } from '@ngxs/store';
-import { AppState } from 'src/app/shared/app.state';
+import { AppState } from 'src/app/shared/store/app.state';
 
 @Component({
   selector: 'app-auth-card',

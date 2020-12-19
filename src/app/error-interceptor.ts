@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { ErrorComponent } from './error-page/error.component';
+import { ErrorComponent } from './shared/error-page/error.component';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {

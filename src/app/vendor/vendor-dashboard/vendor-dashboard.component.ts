@@ -3,7 +3,7 @@ import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { Hotel } from 'src/app/hotels/hotel.model';
 import { HotelState } from 'src/app/hotels/store/hotel.state';
-import { AppState } from 'src/app/shared/app.state';
+import { AppState } from '../../shared/store/app.state';
 import { VendorService } from '../vendor.service';
 
 @Component({

@@ -1,5 +1,4 @@
-import { Address } from '../address.model';
-import { User } from '../user/user-model';
+import { User } from '../../user/user-model';
 
 export class StartLoading {
   public static readonly type = '[UI] Start Loading';

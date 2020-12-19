@@ -1,7 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { AppState } from 'src/app/shared/app.state';
+import { AppState } from 'src/app/shared/store/app.state';
 
 import { AuthService } from '../../auth/auth.service';
 

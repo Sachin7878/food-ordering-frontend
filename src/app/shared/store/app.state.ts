@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
-import { User } from '../user/user-model';
+import { User } from '../../user/user-model';
 import {
   StartLoading,
   StopLoading,

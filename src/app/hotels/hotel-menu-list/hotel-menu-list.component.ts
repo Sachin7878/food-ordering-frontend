@@ -5,10 +5,11 @@ import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';
 import { MenuItem } from '../menu-item.model';
 import { Select, Store } from '@ngxs/store';
-import { AppState } from 'src/app/shared/app.state';
+import { AppState } from 'src/app/shared/store/app.state';
 import { HotelState } from '../store/hotel.state';
 import { AddItemToCart } from 'src/app/cart/store/cart.actions';
 import { Address } from 'src/app/address.model';
+import { DialogService } from 'src/app/shared/dialog.service';
 
 @Component({
   selector: 'app-hotel-menu-list',
@@ -33,7 +34,8 @@ export class HotelMenuListComponent implements OnInit {
     private router: Router,
     public route: ActivatedRoute,
     private hotelService: HotelService,
-    private store: Store
+    private store: Store,
+    private dialogService: DialogService
   ) {}
 
   ngOnInit(): void {
@@ -75,7 +77,14 @@ export class HotelMenuListComponent implements OnInit {
   }
 
   deleteItem(menuId) {
-    this.hotelService.deleteMenuItem(this.hotelIdString, menuId);
+    this.dialogService
+      .openConfirmDialog('Are you sure to delete this Menu Item ?')
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          this.hotelService.deleteMenuItem(this.hotelIdString, menuId);
+        }
+      });
   }
 
   editItem(menuId) {

@@ -14,14 +14,14 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { HotelListComponent } from './hotels/hotel-list/hotel-list.component';
 import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list.component';
 import { ErrorInterceptor } from './error-interceptor';
-import { ErrorComponent } from './error-page/error.component';
+import { ErrorComponent } from './shared/error-page/error.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 
 import { environment } from '../environments/environment';
 import { ViewCartComponent } from './cart/view-cart/view-cart.component';
-import { AppState } from './shared/app.state';
+import { AppState } from './shared/store/app.state';
 
 import { CommonModule } from '@angular/common';
 import { AuthCardComponent } from './auth/auth-card/auth-card.component';
@@ -35,6 +35,7 @@ import { EditMenuItemComponent } from './hotels/edit-menu-item/edit-menu-item.co
 import { EditAddressComponent } from './user/edit-address/edit-address.component';
 import { EditAccountComponent } from './user/edit-account/edit-account.component';
 import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashboard.component';
+import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashb
     EditAddressComponent,
     EditAccountComponent,
     VendorDashboardComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +78,6 @@ import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashb
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
-  entryComponents: [ErrorComponent],
+  entryComponents: [ErrorComponent, ConfirmDialogComponent],
 })
 export class AppModule {}

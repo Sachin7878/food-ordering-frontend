@@ -2,7 +2,7 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth/auth.service';
-import { AppState } from './shared/app.state';
+import { AppState } from './shared/store/app.state';
 
 @Component({
   selector: 'app-root',

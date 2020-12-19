@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';
 import { Select, Store } from '@ngxs/store';
-import { AppState } from 'src/app/shared/app.state';
+import { AppState } from 'src/app/shared/store/app.state';
 import { HotelState } from '../store/hotel.state';
 import { ClearSelectedHotel } from '../store/hotel.actions';
 import { Router } from '@angular/router';

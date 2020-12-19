@@ -13,7 +13,7 @@ import {
   SetVendorTrue,
   StartLoading,
   StopLoading,
-} from '../shared/app.actions';
+} from '../shared/store/app.actions';
 import { ClearCart, LoadCartItems } from '../cart/store/cart.actions';
 
 export const ROLE_ADMIN = 'admin';

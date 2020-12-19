@@ -3,12 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 import { Hotel } from '../hotels/hotel.model';
-import { MenuItem } from '../hotels/menu-item.model';
-import {
-  LoadSelectedHotelMenuSuccess,
-  LoadSelectedHotelSuccess,
-} from '../hotels/store/hotel.actions';
-import { StartLoading, StopLoading } from '../shared/app.actions';
+import { LoadSelectedHotelSuccess } from '../hotels/store/hotel.actions';
 
 const BACKEND_URL = 'http://localhost:8080';
 

@@ -6,7 +6,7 @@ import {
   GetUserDetails,
   StartLoading,
   StopLoading,
-} from '../shared/app.actions';
+} from '../shared/store/app.actions';
 import { User } from './user-model';
 
 const BACKEND_URL = 'http://localhost:8080';
