@@ -14,7 +14,7 @@ import {
   StartLoading,
   StopLoading,
 } from '../shared/app.actions';
-import { ClearCart } from '../cart/store/cart.actions';
+import { ClearCart, LoadCartItems } from '../cart/store/cart.actions';
 
 export const ROLE_ADMIN = 'admin';
 export const ROLE_VENDOR = 'vendor';
@@ -121,6 +121,7 @@ export class AuthService {
               now.getTime() + expiresInDuration * 1000
             );
             this.saveAuthData(token, expirationDate, roleCheck);
+            this.store.dispatch(new LoadCartItems());
             this.router.navigate(['/']);
           }
         },
@@ -147,6 +148,7 @@ export class AuthService {
       this.store.dispatch(new SetAuthenticated());
       this.setAuthTimer(expiresIn / 1000);
     }
+    this.store.dispatch(new LoadCartItems());
     this.store.dispatch(new StopLoading());
   }
 
