@@ -7,6 +7,7 @@ import { Hotel } from 'src/app/hotels/hotel.model';
 import { MenuItem } from 'src/app/hotels/menu-item.model';
 import { ClearSelectedHotel } from 'src/app/hotels/store/hotel.actions';
 import { HotelState } from 'src/app/hotels/store/hotel.state';
+import { DialogService } from 'src/app/shared/dialog.service';
 import { CartItem } from '../cart-item.model';
 import {
   ClearCart,
@@ -23,11 +24,15 @@ import { CartState } from '../store/cart.state';
 })
 export class ViewCartComponent implements OnInit {
   @Select(CartState.getCartItems) cartItems$: Observable<CartItem[]>;
-  @Select(HotelState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
+  // @Select(HotelState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
   @Select(CartState.getTotalAmount) totalAmount$: Observable<number>;
 
   message = 'Cart is Empty!';
-  constructor(private store: Store, private router: Router) {}
+  constructor(
+    private store: Store,
+    private router: Router,
+    private dialogService: DialogService
+  ) {}
 
   ngOnInit(): void {
     this.cartItems$.subscribe((res) => {
@@ -45,9 +50,15 @@ export class ViewCartComponent implements OnInit {
   }
 
   clearCart() {
-    this.store.dispatch(new ClearCart());
-    this.store.dispatch(new ClearSelectedHotel());
-    this.router.navigate(['/']);
+    this.dialogService
+      .openConfirmDialog('Are you sure you want to clear the cart?')
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          this.store.dispatch(new ClearCart());
+          this.router.navigate(['/']);
+        }
+      });
   }
 
   removeSingleItem(id: number) {

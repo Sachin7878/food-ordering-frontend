@@ -66,7 +66,11 @@
       </li>
 
       <li
-        *ngIf="(isAuthenticated$ | async) && !(isAdmin$ | async)"
+        *ngIf="
+          (isAuthenticated$ | async) &&
+          !(isAdmin$ | async) &&
+          !(isVendor$ | async)
+        "
         routerLinkActive="mat-accent"
         fxHide.xs
       >
@@ -84,7 +88,7 @@
         </mat-menu>
       </li>
 
-      <li *ngIf="isAdmin$ | async" fxHide.xs>
+      <li *ngIf="(isAdmin$ | async) || (isVendor$ | async)" fxHide.xs>
         <button mat-button (click)="onLogout()">Logout</button>
       </li>
     </ul>

@@ -1,19 +1,14 @@
 <div>
-  <mat-card *ngIf="selectedHotel$ | async as selHotel">
-    <mat-card-header>
-      <mat-card-title> {{ selHotel.hotelName }}</mat-card-title
-      ><mat-card-subtitle
-        >{{ selHotel.mobileNo }}
-      </mat-card-subtitle></mat-card-header
-    >
-    <button mat-button (click)="clearCart()">Clear Cart</button>
-  </mat-card>
-  <!-- <mat-card *ngIf="!(selectedHotel$ | async) as noHotel"> -->
   <div *ngIf="message != null">
     <h2 style="text-align: center">
-      <b>{{ message }}</b>
+      {{ message }}
     </h2>
   </div>
+
+  <div *ngIf="message == null">
+    <h2 style="margin: auto; text-align: center">Cart Items</h2>
+  </div>
+
   <mat-card class="card" *ngFor="let cartItem of cartItems$ | async">
     <div>
       <mat-card-content style="font-weight: 400">{{
@@ -46,13 +41,23 @@
     </div>
   </mat-card>
 
-  <div
-    *ngIf="message == null"
-    fxLayout="row"
-    fxLayoutAlign="space-evenly center"
-    style="margin-top: 1rem"
-  >
-    <h3 style="margin: auto">Total Amount:</h3>
-    <h3 style="margin: auto">Rs. {{ totalAmount$ | async }}</h3>
-  </div>
+  <mat-card class="card">
+    <mat-card-content>
+      <div
+        *ngIf="message == null"
+        fxLayout="row"
+        fxLayoutAlign="space-evenly center"
+        style="margin-top: 1rem"
+      >
+        <h3 style="margin: auto">Total Amount:</h3>
+        <h3 style="margin: auto">Rs. {{ totalAmount$ | async }}</h3>
+      </div></mat-card-content
+    >
+    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+      <button mat-button color="warn" (click)="clearCart()">
+        <mat-icon>clear</mat-icon>
+      </button>
+      <!-- </div> -->
+    </div>
+  </mat-card>
 </div>

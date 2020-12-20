@@ -14,6 +14,7 @@ export class SidenavListComponent implements OnInit {
   @Output() closeSidenav = new EventEmitter<void>();
   @Select(AppState.isAuthenticated) isAuth$: Observable<boolean>;
   @Select(AppState.isAdmin) isAdmin$: Observable<boolean>;
+  @Select(AppState.isVendor) isVendor$: Observable<boolean>;
 
   constructor(private authService: AuthService) {}
 
