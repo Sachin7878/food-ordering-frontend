@@ -2,11 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { Hotel } from 'src/app/hotels/hotel.model';
-import { MenuItem } from 'src/app/hotels/menu-item.model';
-import { ClearSelectedHotel } from 'src/app/hotels/store/hotel.actions';
-import { HotelState } from 'src/app/hotels/store/hotel.state';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { CartItem } from '../cart-item.model';
 import {

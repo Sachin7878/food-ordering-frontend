@@ -1,3 +1,4 @@
+import { Hotel } from 'src/app/hotels/hotel.model';
 import { CartItem } from '../cart-item.model';
 
 export class LoadCartItems {
@@ -33,4 +34,9 @@ export class RemoveCartItem {
 export class CalculateTotalAmount {
   public static readonly type = '[CART] Calculate Total Amount';
   constructor() {}
+}
+
+export class SetCurrentCartHotel {
+  public static readonly type = '[CART] Set Current Cart Hotel';
+  constructor(public payload: Hotel) {}
 }

@@ -7,9 +7,14 @@ import { MenuItem } from '../menu-item.model';
 import { Select, Store } from '@ngxs/store';
 import { AppState } from 'src/app/shared/store/app.state';
 import { HotelState } from '../store/hotel.state';
-import { AddItemToCart } from 'src/app/cart/store/cart.actions';
+import {
+  AddItemToCart,
+  ClearCart,
+  SetCurrentCartHotel,
+} from 'src/app/cart/store/cart.actions';
 import { Address } from 'src/app/address.model';
 import { DialogService } from 'src/app/shared/dialog.service';
+import { CartState } from 'src/app/cart/store/cart.state';
 
 @Component({
   selector: 'app-hotel-menu-list',
@@ -24,6 +29,7 @@ export class HotelMenuListComponent implements OnInit {
   >;
   @Select(HotelState.getSelectedHotelAddress)
   selectedHotelAddress$: Observable<Address>;
+  @Select(CartState.getCurrentHotel) currentHotel$: Observable<Hotel>;
 
   @Select(AppState.isAdmin) isAdmin$: Observable<boolean>;
   @Select(AppState.isVendor) isVendor$: Observable<boolean>;
@@ -65,9 +71,28 @@ export class HotelMenuListComponent implements OnInit {
   }
 
   addToCart(menuItem: MenuItem) {
-    this.store.dispatch(
-      new AddItemToCart({ id: null, item: menuItem, quantity: 1 })
-    );
+    let currentHotel: Hotel;
+    let currentSelectHotel: Hotel;
+    this.currentHotel$.subscribe((h) => (currentHotel = h));
+    this.selectedHotel$.subscribe((h) => (currentSelectHotel = h));
+
+    if (currentHotel == null) {
+      this.store.dispatch(new SetCurrentCartHotel(currentSelectHotel));
+      this.store.dispatch(
+        new AddItemToCart({ id: null, item: menuItem, quantity: 1 })
+      );
+    } else if (currentHotel.id != currentSelectHotel.id) {
+      this.dialogService
+        .openConfirmDialog(
+          'The item you are adding now is from different Hotel. Do you want to clear your cart and add again?'
+        )
+        .afterClosed()
+        .subscribe((res) => {
+          if (res) {
+            this.store.dispatch(new ClearCart());
+          }
+        });
+    }
   }
 
   editHotel() {

@@ -1,7 +1,17 @@
 import { Injectable } from '@angular/core';
-import { State, Action, Selector, StateContext, Store } from '@ngxs/store';
+import {
+  State,
+  Action,
+  Selector,
+  StateContext,
+  Store,
+  Select,
+} from '@ngxs/store';
+import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Hotel } from 'src/app/hotels/hotel.model';
+import { HotelState } from 'src/app/hotels/store/hotel.state';
+import { DialogService } from 'src/app/shared/dialog.service';
 import { CartItem } from '../cart-item.model';
 import { CartService } from '../cart.service';
 import {
@@ -12,6 +22,7 @@ import {
   IncreaseCartItemQuantity,
   LoadCartItems,
   RemoveCartItem,
+  SetCurrentCartHotel,
 } from './cart.actions';
 
 export interface CartStateModel {
@@ -32,7 +43,13 @@ export const getCartInitialState = (): CartStateModel => ({
 })
 @Injectable()
 export class CartState {
-  constructor(private store: Store, private cartService: CartService) {}
+  @Select(HotelState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
+
+  constructor(
+    private store: Store,
+    private cartService: CartService,
+    private dialogService: DialogService
+  ) {}
 
   @Selector()
   public static getState(state: CartStateModel) {
@@ -187,5 +204,37 @@ export class CartState {
     patchState({
       totalAmount: amount,
     });
+  }
+
+  // @Action(SetCurrentCartHotel)
+  // public setCurrentHotel(
+  //   { patchState, getState }: StateContext<CartStateModel>,
+  //   action: SetCurrentCartHotel
+  // ) {
+  //   const state = getState();
+  //   let currentHotel = state.currentCartHotel;
+
+  //   if (currentHotel == null) {
+  //     return patchState({ currentCartHotel: action.payload });
+  //   } else if (currentHotel.id != action.payload.id) {
+  //     return this.dialogService
+  //       .openConfirmDialog(
+  //         'The item you are adding now is from different Hotel. Do you want to clear your cart?'
+  //       )
+  //       .afterClosed()
+  //       .subscribe((res) => {
+  //         if (res) {
+  //           this.store.dispatch(new ClearCart());
+  //         }
+  //       });
+  //   }
+  // }
+
+  @Action(SetCurrentCartHotel)
+  public setCurrentHotel(
+    { patchState }: StateContext<CartStateModel>,
+    action: SetCurrentCartHotel
+  ) {
+    patchState({ currentCartHotel: action.payload });
   }
 }

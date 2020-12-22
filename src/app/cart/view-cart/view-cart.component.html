@@ -41,10 +41,9 @@
     </div>
   </mat-card>
 
-  <mat-card class="card">
+  <mat-card class="card" *ngIf="message == null">
     <mat-card-content>
       <div
-        *ngIf="message == null"
         fxLayout="row"
         fxLayoutAlign="space-evenly center"
         style="margin-top: 1rem"
@@ -53,11 +52,9 @@
         <h3 style="margin: auto">Rs. {{ totalAmount$ | async }}</h3>
       </div></mat-card-content
     >
-    <div fxLayout="row" fxLayoutAlign="space-evenly center">
-      <button mat-button color="warn" (click)="clearCart()">
-        <mat-icon>clear</mat-icon>
-      </button>
-      <!-- </div> -->
-    </div>
+    <mat-card-actions style="margin-bottom: 0">
+      <button mat-button color="warn" (click)="clearCart()">Clear Cart</button>
+      <button mat-button>Place Order</button>
+    </mat-card-actions>
   </mat-card>
 </div>
