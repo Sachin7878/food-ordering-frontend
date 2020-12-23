@@ -1,7 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
+import { PlaceOrder } from 'src/app/orders/store/order.action';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { CartItem } from '../cart-item.model';
 import {
@@ -58,5 +59,10 @@ export class ViewCartComponent implements OnInit {
 
   removeSingleItem(id: number) {
     this.store.dispatch(new RemoveCartItem(id));
+  }
+
+  placeOrder() {
+    this.store.dispatch(new PlaceOrder());
+    this.router.navigate(['/']);
   }
 }

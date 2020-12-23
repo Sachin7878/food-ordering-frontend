@@ -38,6 +38,7 @@ import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashb
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { ViewOrdersComponent } from './orders/view-orders/view-orders.component';
 import { OrderState } from './orders/store/order.state';
+import { EditOrdersComponent } from './orders/edit-orders/edit-orders.component';
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import { OrderState } from './orders/store/order.state';
     VendorDashboardComponent,
     ConfirmDialogComponent,
     ViewOrdersComponent,
+    EditOrdersComponent,
   ],
   imports: [
     BrowserModule,

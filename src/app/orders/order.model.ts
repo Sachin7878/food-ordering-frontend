@@ -8,6 +8,7 @@ export interface Order {
   hotel: Hotel;
   orderItems: OrderItem[];
   customerAddress: Address;
+  status: String;
 }
 export interface OrderItem {
   id: number;

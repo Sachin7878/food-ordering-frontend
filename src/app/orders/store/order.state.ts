@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Action, StateContext, State, Selector, Store } from '@ngxs/store';
+import { RefreshCart } from 'src/app/cart/store/cart.actions';
 import { StartLoading, StopLoading } from 'src/app/shared/store/app.actions';
 import { Order } from '../order.model';
 import { OrderService } from '../order.service';
-import { FetchOrders } from './order.action';
+import { FetchOrders, PlaceOrder } from './order.action';
 
 export interface OrderStateModel {
   orders: Order[];
@@ -32,16 +33,25 @@ export class OrderState {
   }
 
   @Action(FetchOrders)
-  public loadCartFromDb(
-    { patchState }: StateContext<OrderStateModel>,
-    action: FetchOrders
-  ) {
+  public loadCartFromDb({ patchState }: StateContext<OrderStateModel>) {
     this.store.dispatch(new StartLoading());
     return this.orderService.fetchOrders().subscribe((result) => {
       patchState({
         orders: result,
       });
       this.store.dispatch(new StopLoading());
+    });
+  }
+
+  @Action(PlaceOrder)
+  public placeOrder({ patchState, getState }: StateContext<OrderStateModel>) {
+    this.store.dispatch(new StartLoading());
+    const state = getState();
+    return this.orderService.placeOrder().subscribe((result) => {
+      const orderList: Order[] = [...state.orders, result];
+      patchState({ orders: orderList });
+      this.store.dispatch(new StopLoading());
+      this.store.dispatch(new RefreshCart());
     });
   }
 }

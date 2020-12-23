@@ -13,4 +13,8 @@ export class OrderService {
   fetchOrders() {
     return this.http.get<Order[]>(BACKEND_URL + '/order');
   }
+
+  placeOrder() {
+    return this.http.post<Order>(BACKEND_URL + '/order/place', {});
+  }
 }

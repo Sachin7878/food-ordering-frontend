@@ -40,3 +40,7 @@ export class SetCurrentCartHotel {
   public static readonly type = '[CART] Set Current Cart Hotel';
   constructor(public payload: Hotel) {}
 }
+export class RefreshCart {
+  public static readonly type = '[CART] Refresh Cart';
+  constructor() {}
+}

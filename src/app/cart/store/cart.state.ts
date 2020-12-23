@@ -21,6 +21,7 @@ import {
   DecreaseCartItemQuantity,
   IncreaseCartItemQuantity,
   LoadCartItems,
+  RefreshCart,
   RemoveCartItem,
   SetCurrentCartHotel,
 } from './cart.actions';
@@ -214,35 +215,17 @@ export class CartState {
     });
   }
 
-  // @Action(SetCurrentCartHotel)
-  // public setCurrentHotel(
-  //   { patchState, getState }: StateContext<CartStateModel>,
-  //   action: SetCurrentCartHotel
-  // ) {
-  //   const state = getState();
-  //   let currentHotel = state.currentCartHotel;
-
-  //   if (currentHotel == null) {
-  //     return patchState({ currentCartHotel: action.payload });
-  //   } else if (currentHotel.id != action.payload.id) {
-  //     return this.dialogService
-  //       .openConfirmDialog(
-  //         'The item you are adding now is from different Hotel. Do you want to clear your cart?'
-  //       )
-  //       .afterClosed()
-  //       .subscribe((res) => {
-  //         if (res) {
-  //           this.store.dispatch(new ClearCart());
-  //         }
-  //       });
-  //   }
-  // }
-
   @Action(SetCurrentCartHotel)
   public setCurrentHotel(
     { patchState }: StateContext<CartStateModel>,
     action: SetCurrentCartHotel
   ) {
     patchState({ currentCartHotel: action.payload });
+  }
+
+  @Action(RefreshCart)
+  public refreshCart({ setState }: StateContext<CartStateModel>) {
+    setState(getCartInitialState());
+    this.store.dispatch(new LoadCartItems());
   }
 }
