@@ -25,12 +25,16 @@
         </div>
         <mat-form-field>
           <mat-radio-group
-            aria-label="Select an option"
+            aria-label="Select an option to Update Order Status"
+            class="status-radio-group"
             [(ngModel)]="newStatus"
           >
-            <mat-radio-button *ngFor="let stat of status" [value]="stat">{{
-              stat
-            }}</mat-radio-button>
+            <mat-radio-button
+              class="status-radio-button"
+              *ngFor="let stat of status"
+              [value]="stat"
+              >{{ stat }}</mat-radio-button
+            >
           </mat-radio-group>
         </mat-form-field>
         <mat-action-row>
