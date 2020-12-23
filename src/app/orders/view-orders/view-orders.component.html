@@ -23,28 +23,6 @@
             {{ items.amount }}
           </p>
         </div>
-        <div *ngIf="!(isAdmin$ | async) && !(isVendor$ | async)">
-          <p>Order Status : {{ order.status }}</p>
-        </div>
-        <mat-form-field *ngIf="(isAdmin$ | async) || (isVendor$ | async)">
-          <mat-radio-group
-            aria-label="Select an option"
-            [(ngModel)]="newStatus"
-          >
-            <mat-radio-button *ngFor="let stat of status" [value]="stat">{{
-              stat
-            }}</mat-radio-button>
-          </mat-radio-group>
-        </mat-form-field>
-        <mat-action-row *ngIf="(isAdmin$ | async) || (isVendor$ | async)">
-          <button
-            mat-button
-            color="primary"
-            (click)="updateStatus(order.orderId)"
-          >
-            Update Status
-          </button>
-        </mat-action-row>
       </mat-expansion-panel>
     </div>
   </mat-accordion>
