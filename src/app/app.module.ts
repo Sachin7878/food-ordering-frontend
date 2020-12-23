@@ -36,6 +36,8 @@ import { EditAddressComponent } from './user/edit-address/edit-address.component
 import { EditAccountComponent } from './user/edit-account/edit-account.component';
 import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashboard.component';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
+import { ViewOrdersComponent } from './orders/view-orders/view-orders.component';
+import { OrderState } from './orders/store/order.state';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,7 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
     EditAccountComponent,
     VendorDashboardComponent,
     ConfirmDialogComponent,
+    ViewOrdersComponent,
   ],
   imports: [
     BrowserModule,
@@ -68,7 +71,7 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
     ReactiveFormsModule,
     FlexLayoutModule,
     CommonModule,
-    NgxsModule.forRoot([AppState, HotelState, CartState], {
+    NgxsModule.forRoot([AppState, HotelState, CartState, OrderState], {
       developmentMode: !environment.production,
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),

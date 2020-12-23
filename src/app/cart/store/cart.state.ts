@@ -91,15 +91,23 @@ export class CartState {
 
   @Action(AddItemToCart)
   public selectedHotelLoaded(
-    { patchState }: StateContext<CartStateModel>,
+    { patchState, getState }: StateContext<CartStateModel>,
     action: AddItemToCart
   ) {
-    return this.cartService.addCartItem(action.payload).subscribe((result) => {
-      patchState({
-        cartItems: [...result],
-      });
-      this.store.dispatch(new CalculateTotalAmount());
-    });
+    const state = getState();
+    let dupItem = state.cartItems.find(
+      (c) => c.item.id == action.payload.item.id
+    );
+    if (dupItem == null) {
+      return this.cartService
+        .addCartItem(action.payload)
+        .subscribe((result) => {
+          patchState({
+            cartItems: [...result],
+          });
+          this.store.dispatch(new CalculateTotalAmount());
+        });
+    }
   }
 
   @Action(ClearCart)

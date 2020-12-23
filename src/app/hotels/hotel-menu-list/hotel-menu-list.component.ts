@@ -92,6 +92,10 @@ export class HotelMenuListComponent implements OnInit {
             this.store.dispatch(new ClearCart());
           }
         });
+    } else {
+      this.store.dispatch(
+        new AddItemToCart({ id: null, item: menuItem, quantity: 1 })
+      );
     }
   }
 

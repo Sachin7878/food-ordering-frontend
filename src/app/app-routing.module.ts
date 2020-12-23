@@ -16,6 +16,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashboard.component';
 import { VendorGuard } from './auth/vendor.guard';
 import { MasterGuard } from './auth/master.guard';
+import { ViewOrdersComponent } from './orders/view-orders/view-orders.component';
 
 const routes: Routes = [
   { path: '', component: HotelListComponent },
@@ -66,6 +67,11 @@ const routes: Routes = [
     path: 'vendor-dashboard',
     component: VendorDashboardComponent,
     canActivate: [VendorGuard],
+  },
+  {
+    path: 'orders',
+    component: ViewOrdersComponent,
+    canActivate: [AuthGuard],
   },
 ];
 

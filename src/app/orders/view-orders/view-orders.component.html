@@ -1,0 +1,16 @@
+<mat-accordion multi="true">
+  <div *ngFor="let order of orders$ | async">
+    <mat-expansion-panel multi hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Order ID: {{ order.orderId }} </mat-panel-title>
+        <mat-panel-description>
+          Order from :
+          {{ order.hotel.hotelName }}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div *ngFor="let items of order.orderItems">
+        <p>{{ items.item.itemName }}</p>
+      </div>
+    </mat-expansion-panel>
+  </div>
+</mat-accordion>
