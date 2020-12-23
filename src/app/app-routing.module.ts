@@ -40,6 +40,11 @@ const routes: Routes = [
     component: AddMenuItemComponent,
     canActivate: [MasterGuard],
   },
+  // {
+  //   path: 'hotel/:hotelId/orders',
+  //   component: ViewOrdersComponent,
+  //   canActivate: [AdminGuard],
+  // },
   {
     path: 'hotel/:hotelId/:menuId/edit',
     component: EditMenuItemComponent,

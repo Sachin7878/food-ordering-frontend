@@ -4,7 +4,7 @@ import { RefreshCart } from 'src/app/cart/store/cart.actions';
 import { StartLoading, StopLoading } from 'src/app/shared/store/app.actions';
 import { Order } from '../order.model';
 import { OrderService } from '../order.service';
-import { FetchOrders, PlaceOrder } from './order.action';
+import { FetchOrders, FetchOrdersByHotelId, PlaceOrder } from './order.action';
 
 export interface OrderStateModel {
   orders: Order[];
@@ -33,7 +33,7 @@ export class OrderState {
   }
 
   @Action(FetchOrders)
-  public loadCartFromDb({ patchState }: StateContext<OrderStateModel>) {
+  public loadOrdersForUser({ patchState }: StateContext<OrderStateModel>) {
     this.store.dispatch(new StartLoading());
     return this.orderService.fetchOrders().subscribe((result) => {
       patchState({
@@ -53,5 +53,21 @@ export class OrderState {
       this.store.dispatch(new StopLoading());
       this.store.dispatch(new RefreshCart());
     });
+  }
+
+  @Action(FetchOrdersByHotelId)
+  public loadOrdersByHotelId(
+    { patchState }: StateContext<OrderStateModel>,
+    action: FetchOrdersByHotelId
+  ) {
+    this.store.dispatch(new StartLoading());
+    return this.orderService
+      .fetchOrdersByHotelId(action.payload)
+      .subscribe((result) => {
+        patchState({
+          orders: result,
+        });
+        this.store.dispatch(new StopLoading());
+      });
   }
 }

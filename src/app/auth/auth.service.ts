@@ -121,7 +121,6 @@ export class AuthService {
               now.getTime() + expiresInDuration * 1000
             );
             this.saveAuthData(token, expirationDate, roleCheck);
-            this.store.dispatch(new LoadCartItems());
             this.router.navigate(['/']);
           }
         },
@@ -148,7 +147,7 @@ export class AuthService {
       this.store.dispatch(new SetAuthenticated());
       this.setAuthTimer(expiresIn / 1000);
     }
-    this.store.dispatch(new LoadCartItems());
+
     this.store.dispatch(new StopLoading());
   }
 
@@ -160,7 +159,10 @@ export class AuthService {
     this.store.dispatch(new SetAdminFalse());
     this.store.dispatch(new SetVendorFalse());
     clearTimeout(this.tokenTimer);
-    this.store.dispatch(new ClearCart());
+    if (this.getRole() == 'user') {
+      console.log('in logout of user');
+      this.store.dispatch(new ClearCart());
+    }
   }
 
   getRole() {
@@ -206,6 +208,7 @@ export class AuthService {
     } else if (roleCheck == ROLE_VENDOR) {
       this.store.dispatch(new SetVendorTrue());
     } else if (roleCheck == ROLE_USER) {
+      this.store.dispatch(new LoadCartItems());
     }
   }
 }

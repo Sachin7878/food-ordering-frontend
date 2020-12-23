@@ -17,4 +17,16 @@ export class OrderService {
   placeOrder() {
     return this.http.post<Order>(BACKEND_URL + '/order/place', {});
   }
+
+  updateStatusById(orderId, newStatus) {
+    this.http
+      .post(BACKEND_URL + '/order/' + orderId, newStatus)
+      .subscribe((res) => {
+        console.log('Success');
+      });
+  }
+
+  fetchOrdersByHotelId(hotelId) {
+    return this.http.get<Order[]>(BACKEND_URL + '/order/' + hotelId);
+  }
 }
