@@ -9,6 +9,7 @@ import { StartLoading, StopLoading } from '../shared/store/app.actions';
 
 import {
   AddHotelSuccess,
+  DeleteHotel,
   DeleteMenuItem,
   LoadHotelsSuccess,
   LoadSelectedHotelMenuSuccess,
@@ -194,6 +195,21 @@ export class HotelService {
           console.log(error);
         }
       );
+  }
+
+  deleteHotel(hotelIdString: string) {
+    this.store.dispatch(new StartLoading());
+    this.http.delete(BACKEND_URL + '/hotels/' + hotelIdString).subscribe(
+      () => {
+        this.store.dispatch(new DeleteHotel(hotelIdString));
+        this.store.dispatch(new StopLoading());
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        console.log(error);
+        this.store.dispatch(new StopLoading());
+      }
+    );
   }
 
   deleteMenuItem(hotelId, menuId) {

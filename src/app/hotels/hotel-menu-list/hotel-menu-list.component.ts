@@ -105,6 +105,19 @@ export class HotelMenuListComponent implements OnInit {
     });
   }
 
+  deleteHotel() {
+    this.dialogService
+      .openConfirmDialog(
+        "Are you sure to delete this Hotel and it's related address & vendor account ?"
+      )
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          this.hotelService.deleteHotel(this.hotelIdString);
+        }
+      });
+  }
+
   deleteItem(menuId) {
     this.dialogService
       .openConfirmDialog('Are you sure to delete this Menu Item ?')

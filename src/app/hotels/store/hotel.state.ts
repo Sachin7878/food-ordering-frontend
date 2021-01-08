@@ -5,6 +5,7 @@ import { MenuItem } from '../menu-item.model';
 import {
   AddHotelSuccess,
   ClearSelectedHotel,
+  DeleteHotel,
   DeleteMenuItem,
   LoadHotelsSuccess,
   LoadSelectedHotelMenuSuccess,
@@ -106,6 +107,23 @@ export class HotelState {
       action.payload,
     ];
     patchState({ hotelsList: toUpdateHotelsList });
+  }
+
+  @Action(DeleteHotel)
+  public removeHotel(
+    { getState, setState }: StateContext<HotelStateModel>,
+    action: DeleteHotel
+  ) {
+    const state = getState();
+
+    const current = {
+      hotelsList: [...state.hotelsList.filter((x) => x.id !== +action.payload)],
+    };
+
+    setState({
+      ...state,
+      ...current,
+    });
   }
 
   @Action(DeleteMenuItem)

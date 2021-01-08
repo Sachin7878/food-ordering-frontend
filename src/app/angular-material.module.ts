@@ -18,6 +18,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   exports: [
@@ -39,6 +40,7 @@ import { MatRadioModule } from '@angular/material/radio';
     MatSlideToggleModule,
     MatBadgeModule,
     MatRadioModule,
+    MatDividerModule,
   ],
 })
 export class AngularMaterialModule {}
