@@ -25,4 +25,8 @@ export class VendorDashboardComponent implements OnInit {
   openHotel(id) {
     this.vendorService.openHotelMenu(id);
   }
+
+  openOrders(id) {
+    this.vendorService.openHotelOrders(id);
+  }
 }

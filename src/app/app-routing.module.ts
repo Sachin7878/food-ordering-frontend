@@ -17,6 +17,7 @@ import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashb
 import { VendorGuard } from './auth/vendor.guard';
 import { MasterGuard } from './auth/master.guard';
 import { ViewOrdersComponent } from './orders/view-orders/view-orders.component';
+import { EditOrdersComponent } from './orders/edit-orders/edit-orders.component';
 
 const routes: Routes = [
   { path: '', component: HotelListComponent },
@@ -40,11 +41,6 @@ const routes: Routes = [
     component: AddMenuItemComponent,
     canActivate: [MasterGuard],
   },
-  // {
-  //   path: 'hotel/:hotelId/orders',
-  //   component: ViewOrdersComponent,
-  //   canActivate: [AdminGuard],
-  // },
   {
     path: 'hotel/:hotelId/:menuId/edit',
     component: EditMenuItemComponent,
@@ -77,6 +73,11 @@ const routes: Routes = [
     path: 'orders',
     component: ViewOrdersComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'orders/:hotelId',
+    component: EditOrdersComponent,
+    canActivate: [MasterGuard],
   },
 ];
 

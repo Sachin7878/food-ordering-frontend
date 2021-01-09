@@ -26,4 +26,8 @@ export class VendorService {
   openHotelMenu(id) {
     this.router.navigate(['/hotel/' + id]);
   }
+
+  openHotelOrders(id) {
+    this.router.navigate(['/orders/' + id]);
+  }
 }

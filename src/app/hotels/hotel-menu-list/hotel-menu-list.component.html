@@ -10,7 +10,13 @@
         fxFlex
         fxLayoutAlign="end center"
       >
-        <button mat-button *ngIf="isAdmin$ | async">Manage Orders</button>
+        <button
+          mat-button
+          (click)="openOrders(selHotel.id)"
+          *ngIf="isAdmin$ | async"
+        >
+          Manage Orders
+        </button>
         <button mat-button routerLink="add">Add Menu Items</button>
         <div>
           <button

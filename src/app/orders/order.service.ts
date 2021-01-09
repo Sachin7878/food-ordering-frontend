@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Order } from './order.model';
+import { Location } from '@angular/common';
 
 const BACKEND_URL = 'http://localhost:8080';
 
@@ -8,7 +9,7 @@ const BACKEND_URL = 'http://localhost:8080';
   providedIn: 'root',
 })
 export class OrderService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private location: Location) {}
 
   fetchOrders() {
     return this.http.get<Order[]>(BACKEND_URL + '/order');
@@ -18,11 +19,11 @@ export class OrderService {
     return this.http.post<Order>(BACKEND_URL + '/order/place', {});
   }
 
-  updateStatusById(orderId, newStatus) {
+  updateStatusById(orderId: number, status: string) {
     this.http
-      .post(BACKEND_URL + '/order/' + orderId, newStatus)
+      .post(BACKEND_URL + '/order/' + orderId, status)
       .subscribe((res) => {
-        console.log('Success');
+        this.location.back();
       });
   }
 

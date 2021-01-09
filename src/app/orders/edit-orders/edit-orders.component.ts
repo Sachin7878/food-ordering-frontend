@@ -4,6 +4,7 @@ import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AppState } from 'src/app/shared/store/app.state';
 import { Order } from '../order.model';
+import { OrderService } from '../order.service';
 import { FetchOrdersByHotelId } from '../store/order.action';
 import { OrderState } from '../store/order.state';
 
@@ -17,11 +18,16 @@ export class EditOrdersComponent implements OnInit {
   @Select(AppState.isLoading) isLoading$: Observable<boolean>;
   @Select(AppState.isAdmin) isAdmin$: Observable<boolean>;
 
-  hotelId: number;
-  status: string[] = ['PENDING', 'DISPATCHED', 'DELIVERED'];
-  newStatus: string;
+  updatedOrderStatus: { orderId: number; newStatus: string }[] = [];
 
-  constructor(private store: Store, public route: ActivatedRoute) {}
+  hotelId: number;
+  status: string[] = ['PENDING', 'DISPATCHED', 'DELIVERED', 'CANCELLED'];
+
+  constructor(
+    private store: Store,
+    public route: ActivatedRoute,
+    private orderService: OrderService
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
@@ -36,5 +42,24 @@ export class EditOrdersComponent implements OnInit {
     });
   }
 
-  updateStatus(orderId) {}
+  updateStatus(id: number) {
+    let newStatus = this.updatedOrderStatus.find((x) => x.orderId == id)
+      .newStatus;
+    console.log('updating order id: ' + id + ' with status: ' + newStatus);
+    this.orderService.updateStatusById(id, newStatus);
+  }
+
+  selectChanged(orderId: number, event) {
+    let item = this.updatedOrderStatus.find((x) => x.orderId == orderId);
+
+    if (item) {
+      this.updatedOrderStatus.find((x) => x.orderId == item.orderId).newStatus =
+        event.value;
+    } else {
+      this.updatedOrderStatus.push({
+        orderId: orderId,
+        newStatus: event.value,
+      });
+    }
+  }
 }

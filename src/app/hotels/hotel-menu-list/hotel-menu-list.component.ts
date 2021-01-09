@@ -15,6 +15,7 @@ import {
 import { Address } from 'src/app/address.model';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { CartState } from 'src/app/cart/store/cart.state';
+import { VendorService } from 'src/app/vendor/vendor.service';
 
 @Component({
   selector: 'app-hotel-menu-list',
@@ -41,7 +42,8 @@ export class HotelMenuListComponent implements OnInit {
     public route: ActivatedRoute,
     private hotelService: HotelService,
     private store: Store,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private vendorService: VendorService
   ) {}
 
   ngOnInit(): void {
@@ -131,5 +133,9 @@ export class HotelMenuListComponent implements OnInit {
 
   editItem(menuId) {
     this.router.navigate([menuId, 'edit'], { relativeTo: this.route });
+  }
+
+  openOrders(id) {
+    this.vendorService.openHotelOrders(id);
   }
 }
