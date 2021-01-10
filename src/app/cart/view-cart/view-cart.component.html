@@ -14,9 +14,9 @@
       <mat-card-content style="font-weight: 400">{{
         cartItem.item.itemName
       }}</mat-card-content>
-      <mat-card-content style="font-weight: bold"
-        >Rs. {{ cartItem.item.itemPrice }}</mat-card-content
-      >
+      <mat-card-content style="font-weight: bold">{{
+        cartItem.item.itemPrice | currency: "INR"
+      }}</mat-card-content>
     </div>
 
     <div>
@@ -48,8 +48,10 @@
         fxLayoutAlign="space-evenly center"
         style="margin-top: 1rem"
       >
-        <h3 style="margin: auto">Total Amount:</h3>
-        <h3 style="margin: auto">Rs. {{ totalAmount$ | async }}</h3>
+        <h3 style="margin: auto">Total Amount: &nbsp;</h3>
+        <h3 style="margin: auto">
+          {{ totalAmount$ | async | currency: "INR" }}
+        </h3>
       </div></mat-card-content
     >
     <mat-card-actions style="margin-bottom: 0">

@@ -13,3 +13,9 @@ span {
 #heading {
   padding: 16px;
 }
+
+.mat-card-avatar {
+  height: 150px;
+  width: 150px;
+  border-radius: 0%;
+}

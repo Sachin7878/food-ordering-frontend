@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   State,
   Action,
@@ -44,13 +45,13 @@ export const getCartInitialState = (): CartStateModel => ({
 })
 @Injectable()
 export class CartState {
-  @Select(HotelState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
-
   constructor(
     private store: Store,
     private cartService: CartService,
-    private dialogService: DialogService
+    private router: Router
   ) {}
+
+  @Select(HotelState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
 
   @Selector()
   public static getState(state: CartStateModel) {
@@ -116,6 +117,7 @@ export class CartState {
     return this.cartService.clearCart().pipe(
       tap((result) => {
         setState(getCartInitialState());
+        this.router.navigate(['/']);
       })
     );
   }
@@ -164,7 +166,8 @@ export class CartState {
     if (inCartQty > 1) {
       inCartQty--;
     } else if (inCartQty <= 1) {
-      this.store.dispatch(new RemoveCartItem(action.payload));
+      this.store.dispatch(new RemoveCartItem(item.id));
+      return;
     }
 
     const current: CartItem = {
@@ -208,11 +211,12 @@ export class CartState {
     let amount = 0;
     if (state.cartItems.length >= 1) {
       state.cartItems.map((m) => (amount += m.item.itemPrice * m.quantity));
-    } else amount = 0;
-
-    patchState({
-      totalAmount: amount,
-    });
+      patchState({
+        totalAmount: amount,
+      });
+    } else {
+      this.store.dispatch(new ClearCart());
+    }
   }
 
   @Action(SetCurrentCartHotel)

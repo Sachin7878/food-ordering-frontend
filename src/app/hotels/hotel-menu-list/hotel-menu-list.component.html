@@ -2,6 +2,13 @@
 <div id="heading">
   <mat-card *ngIf="selectedHotel$ | async as selHotel">
     <mat-card-header>
+      <!-- <img
+        (click)="upload.click()"
+        mat-card-avatar
+        src="https://png.pngtree.com/templates/20180809/restaurant-logos-png-png_25706.jpg"
+        alt="pizza"
+      />
+      <input #upload type="file" hidden /> -->
       <mat-card-title>{{ selHotel.hotelName }}</mat-card-title>
       <mat-card-subtitle>{{ addressString }}</mat-card-subtitle>
       <mat-card-subtitle>{{ selHotel.mobileNo }} </mat-card-subtitle>
@@ -46,9 +53,9 @@
           <mat-card-content style="font-weight: 400">{{
             menuItem.itemName
           }}</mat-card-content>
-          <mat-card-content style="font-weight: bold"
-            >Rs. {{ menuItem.itemPrice }}</mat-card-content
-          >
+          <mat-card-content style="font-weight: bold">{{
+            menuItem.itemPrice | currency: "INR"
+          }}</mat-card-content>
         </div>
 
         <div>
@@ -68,9 +75,9 @@
       <mat-card-content style="font-weight: 400">{{
         menuItem.itemName
       }}</mat-card-content>
-      <mat-card-content style="font-weight: bold"
-        >Rs. {{ menuItem.itemPrice }}</mat-card-content
-      >
+      <mat-card-content style="font-weight: bold">{{
+        menuItem.itemPrice | currency: "INR"
+      }}</mat-card-content>
     </div>
 
     <div>

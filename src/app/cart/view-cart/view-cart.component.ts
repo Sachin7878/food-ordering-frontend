@@ -52,7 +52,6 @@ export class ViewCartComponent implements OnInit {
       .subscribe((res) => {
         if (res) {
           this.store.dispatch(new ClearCart());
-          this.router.navigate(['/']);
         }
       });
   }

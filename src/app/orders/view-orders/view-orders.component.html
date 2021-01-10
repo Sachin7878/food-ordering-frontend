@@ -18,13 +18,13 @@
             <p fxLayoutAlign="flex-start">
               Order from : {{ order.hotel.hotelName }}
             </p>
-            <p>Amount: Rs. {{ order.grandTotal }}</p>
+            <p>Amount: {{ order.grandTotal | currency: "INR" }}</p>
           </mat-panel-description>
         </mat-expansion-panel-header>
         <mat-list *ngFor="let items of order.orderItems">
           <mat-list-item>
-            {{ items.item.itemName }} x {{ items.quantity }} = Rs.
-            {{ items.amount }}</mat-list-item
+            {{ items.item.itemName }} x {{ items.quantity }} =
+            {{ items.amount | currency: "INR" }}</mat-list-item
           >
           <mat-divider> </mat-divider>
         </mat-list>
