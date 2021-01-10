@@ -6,6 +6,9 @@ export interface Hotel {
   id: number;
   hotelName: string;
   mobileNo: number;
+  image?;
+  imageContentType?: string;
+  picture?;
   menuItems?: MenuItem[];
   address?: Address;
   vendor?: User;

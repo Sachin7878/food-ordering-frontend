@@ -89,6 +89,10 @@ export class HotelService {
                 hotelName: hotel.hotelName,
                 mobileNo: hotel.mobileNo,
                 address: hotel.address,
+                picture:
+                  hotel.image == null
+                    ? '/assets/no-product-image-400x400_6.png'
+                    : `data:${hotel.imageContentType};base64,${hotel.image}`,
               };
             }),
           };
@@ -106,15 +110,31 @@ export class HotelService {
 
   getOnlyHotelById(id) {
     this.store.dispatch(new StartLoading());
-    this.http.get<Hotel>(BACKEND_URL + '/hotels/' + id).subscribe(
-      (hotel) => {
-        this.store.dispatch(new StopLoading());
-        this.store.dispatch(new LoadSelectedHotelSuccess(hotel));
-      },
-      () => {
-        this.store.dispatch(new StopLoading());
-      }
-    );
+    this.http
+      .get<Hotel>(BACKEND_URL + '/hotels/' + id)
+      .pipe(
+        map((hotel) => {
+          return {
+            id: hotel.id,
+            hotelName: hotel.hotelName,
+            mobileNo: hotel.mobileNo,
+            address: hotel.address,
+            picture:
+              hotel.image == null
+                ? '/assets/no-product-image-400x400_6.png'
+                : `data:${hotel.imageContentType};base64,${hotel.image}`,
+          };
+        })
+      )
+      .subscribe(
+        (hotel) => {
+          this.store.dispatch(new StopLoading());
+          this.store.dispatch(new LoadSelectedHotelSuccess(hotel));
+        },
+        () => {
+          this.store.dispatch(new StopLoading());
+        }
+      );
   }
 
   getOnlySelectedHotelMenu(id) {

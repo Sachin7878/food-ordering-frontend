@@ -13,7 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { HotelListComponent } from './hotels/hotel-list/hotel-list.component';
 import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list.component';
-import { ErrorInterceptor } from './error-interceptor';
+import { ErrorInterceptor } from './shared/error-interceptor';
 import { ErrorComponent } from './shared/error-page/error.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HeaderComponent } from './navigation/header/header.component';

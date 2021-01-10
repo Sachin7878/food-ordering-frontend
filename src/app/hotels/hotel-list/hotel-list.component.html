@@ -4,25 +4,6 @@
   </div>
   <div class="content">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
-      <!-- <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%">
-        <mat-card>
-          <mat-card-header>
-            <img
-              mat-card-avatar
-              src="https://png.pngtree.com/templates/20180809/restaurant-logos-png-png_25706.jpg"
-              alt="pizza"
-            />
-            <mat-card-title>Hotel Name</mat-card-title>
-            <mat-card-subtitle>Hotel Mobile No</mat-card-subtitle>
-          </mat-card-header>
-
-          <mat-card-actions>
-            <button type="button" mat-button>ORDER NOW</button>
-            <button type="button" mat-button>Manage Hotel</button>
-          </mat-card-actions>
-        </mat-card>
-      </div> -->
-
       <div
         fxFlex="25%"
         fxFlex.xs="100%"
@@ -31,6 +12,7 @@
       >
         <mat-card>
           <mat-card-header>
+            <img mat-card-avatar [src]="hotel.picture" />
             <mat-card-title>{{ hotel.hotelName }}</mat-card-title>
             <mat-card-subtitle>{{ hotel.mobileNo }}</mat-card-subtitle>
           </mat-card-header>
