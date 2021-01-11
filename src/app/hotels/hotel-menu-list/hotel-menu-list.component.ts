@@ -37,6 +37,8 @@ export class HotelMenuListComponent implements OnInit {
 
   hotelIdString: string;
   addressString: string;
+
+  selectedFile: File = null;
   constructor(
     private router: Router,
     public route: ActivatedRoute,
@@ -137,5 +139,16 @@ export class HotelMenuListComponent implements OnInit {
 
   openOrders(id) {
     this.vendorService.openHotelOrders(id);
+  }
+
+  //Image Handling
+  onFileChanged(event) {
+    console.log(event);
+    this.selectedFile = event.target.files[0];
+  }
+  onUpload(hotelId: number) {
+    this.hotelService
+      .uploadHotelImage(this.selectedFile, hotelId)
+      .subscribe((resp) => console.log('successful'));
   }
 }

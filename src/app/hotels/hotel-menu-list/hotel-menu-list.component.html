@@ -2,8 +2,18 @@
 <div id="heading">
   <mat-card *ngIf="selectedHotel$ | async as selHotel">
     <mat-card-header fxFlex fxLayoutAlign="start center">
-      <img (click)="upload.click()" mat-card-avatar [src]="selHotel.picture" />
-      <input #upload type="file" hidden />
+      <img
+        *ngIf="!(isAdmin$ | async) && !(isVendor$ | async)"
+        mat-card-avatar
+        [src]="selHotel.picture"
+      />
+      <img
+        *ngIf="(isAdmin$ | async) || (isVendor$ | async)"
+        (click)="upload.click()"
+        mat-card-avatar
+        [src]="selHotel.picture"
+      />
+      <input #upload type="file" hidden (change)="onFileChanged($event)" />
       <mat-card-title>{{ selHotel.hotelName }}</mat-card-title>
       <mat-card-subtitle>{{ addressString }}</mat-card-subtitle>
       <mat-card-subtitle>{{ selHotel.mobileNo }} </mat-card-subtitle>
@@ -12,7 +22,12 @@
         fxFlex.gt-md
         fxLayoutAlign.gt-md="end center"
       >
-        <button mat-button *ngIf="(isAdmin$ | async) || (isVendor$ | async)">
+        <button
+          mat-button
+          type="button"
+          (click)="onUpload(selHotel.id)"
+          value="Upload"
+        >
           Upload Image
         </button>
         <button

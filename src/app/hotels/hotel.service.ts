@@ -309,4 +309,13 @@ export class HotelService {
         }
       );
   }
+
+  uploadHotelImage(selectedFile: File, hotelId: number) {
+    const uploadData = new FormData();
+    uploadData.append('imageFile', selectedFile);
+    return this.http.post(
+      BACKEND_URL + '/hotels/' + hotelId + '/image',
+      uploadData
+    );
+  }
 }
