@@ -143,12 +143,14 @@ export class HotelMenuListComponent implements OnInit {
 
   //Image Handling
   onFileChanged(event) {
-    console.log(event);
     this.selectedFile = event.target.files[0];
   }
   onUpload(hotelId: number) {
     this.hotelService
       .uploadHotelImage(this.selectedFile, hotelId)
-      .subscribe((resp) => console.log('successful'));
+      .subscribe(() => {
+        // this.store.dispatch(new UploadImageSuccess(resp));
+        this.router.navigate(['/']);
+      });
   }
 }

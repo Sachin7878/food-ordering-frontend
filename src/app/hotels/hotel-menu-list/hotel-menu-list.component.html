@@ -24,6 +24,7 @@
       >
         <button
           mat-button
+          *ngIf="this.selectedFile"
           type="button"
           (click)="onUpload(selHotel.id)"
           value="Upload"
