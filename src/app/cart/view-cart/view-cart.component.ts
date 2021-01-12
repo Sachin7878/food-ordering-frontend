@@ -20,15 +20,10 @@ import { CartState } from '../store/cart.state';
 })
 export class ViewCartComponent implements OnInit {
   @Select(CartState.getCartItems) cartItems$: Observable<CartItem[]>;
-  // @Select(HotelState.getSelectedHotel) selectedHotel$: Observable<Hotel>;
   @Select(CartState.getTotalAmount) totalAmount$: Observable<number>;
 
   message = 'Cart is Empty!';
-  constructor(
-    private store: Store,
-    private router: Router,
-    private dialogService: DialogService
-  ) {}
+  constructor(private store: Store, private dialogService: DialogService) {}
 
   ngOnInit(): void {
     this.cartItems$.subscribe((res) => {
@@ -58,10 +53,5 @@ export class ViewCartComponent implements OnInit {
 
   removeSingleItem(id: number) {
     this.store.dispatch(new RemoveCartItem(id));
-  }
-
-  placeOrder() {
-    this.store.dispatch(new PlaceOrder());
-    this.router.navigate(['/']);
   }
 }

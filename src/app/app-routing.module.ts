@@ -18,6 +18,7 @@ import { VendorGuard } from './auth/vendor.guard';
 import { MasterGuard } from './auth/master.guard';
 import { ViewOrdersComponent } from './orders/view-orders/view-orders.component';
 import { EditOrdersComponent } from './orders/edit-orders/edit-orders.component';
+import { CheckoutComponent } from './cart/checkout/checkout.component';
 
 const routes: Routes = [
   { path: '', component: HotelListComponent },
@@ -72,6 +73,11 @@ const routes: Routes = [
   {
     path: 'orders',
     component: ViewOrdersComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'checkout',
+    component: CheckoutComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -133,27 +133,3 @@ export class AppState {
     patchState({ darkModeSwitch: action.payload });
   }
 }
-
-// {
-//   firstName: '',
-//   lastName: '',
-//   mobileNo: '',
-//   email: '',
-//   address: {
-//     addressLine1: '',
-//     addressLine2: '',
-//     id: null,
-//     pincode: '',
-//     city: '',
-//     state: '',
-//     country: '',
-//   },
-// }
-
-// @Action(GetUserAddress)
-// public getUserAddress(
-//   { patchState }: StateContext<AppStateModel>,
-//   action: GetUserAddress
-// ) {
-//   patchState({ user: action.payload });
-// }

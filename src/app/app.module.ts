@@ -39,6 +39,7 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
 import { ViewOrdersComponent } from './orders/view-orders/view-orders.component';
 import { OrderState } from './orders/store/order.state';
 import { EditOrdersComponent } from './orders/edit-orders/edit-orders.component';
+import { CheckoutComponent } from './cart/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { EditOrdersComponent } from './orders/edit-orders/edit-orders.component'
     ConfirmDialogComponent,
     ViewOrdersComponent,
     EditOrdersComponent,
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,

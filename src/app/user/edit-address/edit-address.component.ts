@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Select } from '@ngxs/store';
@@ -61,7 +62,7 @@ export class EditAddressComponent implements OnInit {
 
   @Select(AppState.userAddress) userAddress$: Observable<Address>;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private location: Location) {}
 
   ngOnInit(): void {
     this.userService.fetchUser();
@@ -111,5 +112,9 @@ export class EditAddressComponent implements OnInit {
       form.value.country,
       form.value.pincode
     );
+  }
+
+  cancel() {
+    this.location.back();
   }
 }
