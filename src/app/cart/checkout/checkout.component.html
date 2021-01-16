@@ -15,7 +15,7 @@
       fxLayoutAlign="space-evenly center"
     >
       <mat-card *ngIf="selUser$ | async as user"
-        ><mat-card-title style="font-size: 16px; text-align: center"
+        ><mat-card-title style="font-size: 19px; text-align: center"
           >Your Address</mat-card-title
         >
         <mat-radio-button checked></mat-radio-button>
@@ -41,10 +41,7 @@
         </mat-card-actions>
       </mat-card>
       <mat-card>
-        <mat-card-title
-          matCardTitle
-          style="font-size: 19px; text-align: center"
-        >
+        <mat-card-title style="font-size: 19px; text-align: center">
           Cart Items
         </mat-card-title>
         <mat-card-content>
@@ -57,11 +54,72 @@
             >
             <mat-divider> </mat-divider>
           </mat-list>
-          <p style="font-size: 16px; font-weight: bold; margin-top: 1rem">
+          <mat-card-title style="font-size: 17px; margin-top: 1rem">
             Total Amount : {{ totalAmount$ | async | currency: "INR" }}
-          </p></mat-card-content
+          </mat-card-title></mat-card-content
         >
       </mat-card>
+    </div>
+    <div style="margin: 1rem">
+      <mat-divider> </mat-divider>
+      <mat-card-title
+        style="font-size: 19px; text-align: center; margin-top: 1rem"
+        >Payment Method</mat-card-title
+      >
+      <mat-card-subtitle>Select a payment method from below</mat-card-subtitle>
+
+      <div>
+        <mat-radio-group
+          aria-label="Select Payment Option"
+          [(ngModel)]="hidden"
+        >
+          <mat-radio-button value="true">Cash On Delivery</mat-radio-button>
+          <mat-radio-button value="false">Card</mat-radio-button>
+        </mat-radio-group>
+
+        <div *ngIf="hidden == 'false'" style="margin: 1rem">
+          <form fxLayoutAlign="stretch" fxLayout="column" autocomplete="off">
+            <mat-form-field>
+              <input
+                matInput
+                name="cardNumber"
+                ngModel
+                type="text"
+                pattern="\d*"
+                minlength="16"
+                maxlength="16"
+                placeholder="Card Number"
+                required
+              />
+            </mat-form-field>
+
+            <mat-form-field>
+              <input
+                matInput
+                name="expiry"
+                required
+                ngModel
+                type="text"
+                placeholder="Expiry Date: MM/YY"
+              />
+            </mat-form-field>
+
+            <mat-form-field>
+              <input
+                matInput
+                name="cvv"
+                ngModel
+                type="text"
+                pattern="\d*"
+                minlength="3"
+                maxlength="3"
+                placeholder="CVV"
+                required
+              />
+            </mat-form-field>
+          </form>
+        </div>
+      </div>
     </div>
     <mat-dialog-actions
       ><button

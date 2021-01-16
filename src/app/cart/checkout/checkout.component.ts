@@ -19,6 +19,8 @@ export class CheckoutComponent implements OnInit {
   @Select(CartState.getCartItems) cartItems$: Observable<CartItem[]>;
   @Select(CartState.getTotalAmount) totalAmount$: Observable<number>;
 
+  hidden: string;
+
   constructor(
     private userService: UserService,
     private store: Store,

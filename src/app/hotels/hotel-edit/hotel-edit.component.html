@@ -36,11 +36,12 @@
           matInput
           name="mobileNo"
           [(ngModel)]="selHotel.mobileNo"
-          type="text"
           placeholder="Mobile No"
           required
-          maxlength="10"
+          type="text"
+          pattern="\d*"
           minlength="10"
+          maxlength="10"
         />
       </mat-form-field>
 

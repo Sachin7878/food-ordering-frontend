@@ -59,6 +59,9 @@
           name="mobileNo"
           [(ngModel)]="mobileNo"
           type="text"
+          pattern="\d*"
+          minlength="10"
+          maxlength="10"
           placeholder="Mobile No"
           required
         />
