@@ -20,26 +20,17 @@ import { HeaderComponent } from './navigation/header/header.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 
 import { environment } from '../environments/environment';
-import { ViewCartComponent } from './cart/view-cart/view-cart.component';
 import { AppState } from './shared/store/app.state';
 
 import { CommonModule } from '@angular/common';
-import { AuthCardComponent } from './auth/auth-card/auth-card.component';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
 import { HotelState } from './hotels/store/hotel.state';
 import { CartState } from './cart/store/cart.state';
 import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
 import { AddMenuItemComponent } from './hotels/add-menu-item/add-menu-item.component';
 import { EditMenuItemComponent } from './hotels/edit-menu-item/edit-menu-item.component';
-import { EditAddressComponent } from './user/edit-address/edit-address.component';
-import { EditAccountComponent } from './user/edit-account/edit-account.component';
 import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashboard.component';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
-import { ViewOrdersComponent } from './orders/view-orders/view-orders.component';
 import { OrderState } from './orders/store/order.state';
-import { EditOrdersComponent } from './orders/edit-orders/edit-orders.component';
-import { CheckoutComponent } from './cart/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -50,20 +41,11 @@ import { CheckoutComponent } from './cart/checkout/checkout.component';
     HotelCreateComponent,
     HotelListComponent,
     HotelMenuListComponent,
-    ViewCartComponent,
-    LoginComponent,
-    SignupComponent,
-    AuthCardComponent,
     HotelEditComponent,
     AddMenuItemComponent,
     EditMenuItemComponent,
-    EditAddressComponent,
-    EditAccountComponent,
     VendorDashboardComponent,
     ConfirmDialogComponent,
-    ViewOrdersComponent,
-    EditOrdersComponent,
-    CheckoutComponent,
   ],
   imports: [
     BrowserModule,

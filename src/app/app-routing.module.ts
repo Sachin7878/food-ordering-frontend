@@ -5,20 +5,13 @@ import { AuthGuard } from './auth/auth.guard';
 import { AdminGuard } from './auth/admin.guard';
 import { HotelListComponent } from './hotels/hotel-list/hotel-list.component';
 import { HotelMenuListComponent } from './hotels/hotel-menu-list/hotel-menu-list.component';
-import { ViewCartComponent } from './cart/view-cart/view-cart.component';
-import { AuthCardComponent } from './auth/auth-card/auth-card.component';
 import { HotelEditComponent } from './hotels/hotel-edit/hotel-edit.component';
 import { AddMenuItemComponent } from './hotels/add-menu-item/add-menu-item.component';
 import { EditMenuItemComponent } from './hotels/edit-menu-item/edit-menu-item.component';
-import { EditAccountComponent } from './user/edit-account/edit-account.component';
-import { EditAddressComponent } from './user/edit-address/edit-address.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashboard.component';
 import { VendorGuard } from './auth/vendor.guard';
 import { MasterGuard } from './auth/master.guard';
-import { ViewOrdersComponent } from './orders/view-orders/view-orders.component';
-import { EditOrdersComponent } from './orders/edit-orders/edit-orders.component';
-import { CheckoutComponent } from './cart/checkout/checkout.component';
 
 const routes: Routes = [
   { path: '', component: HotelListComponent },
@@ -47,24 +40,25 @@ const routes: Routes = [
     component: EditMenuItemComponent,
     canActivate: [MasterGuard],
   },
-  { path: 'cart', component: ViewCartComponent, canActivate: [AuthGuard] },
+  {
+    path: 'cart',
+    loadChildren: () => import('./cart/cart.module').then((m) => m.CartModule),
+  },
   {
     path: 'auth',
-    component: AuthCardComponent,
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: 'account',
+    loadChildren: () =>
+      import('./user/account.module').then((m) => m.AccountModule),
   },
   {
     path: 'vendorRegister',
     component: SignupComponent,
     canActivate: [AdminGuard],
   },
-  {
-    path: 'edit-account',
-    component: EditAccountComponent,
-  },
-  {
-    path: 'edit-address',
-    component: EditAddressComponent,
-  },
+
   {
     path: 'vendor-dashboard',
     component: VendorDashboardComponent,
@@ -72,18 +66,8 @@ const routes: Routes = [
   },
   {
     path: 'orders',
-    component: ViewOrdersComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'checkout',
-    component: CheckoutComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'orders/:hotelId',
-    component: EditOrdersComponent,
-    canActivate: [MasterGuard],
+    loadChildren: () =>
+      import('./orders/orders.module').then((m) => m.OrdersModule),
   },
 ];
 
