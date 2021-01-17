@@ -1,4 +1,4 @@
-import { Address } from '../address.model';
+import { Address } from '../shared/address.model';
 import { User } from '../user/user-model';
 import { MenuItem } from './menu-item.model';
 

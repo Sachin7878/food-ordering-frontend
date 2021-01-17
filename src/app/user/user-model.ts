@@ -1,4 +1,4 @@
-import { Address } from '../address.model';
+import { Address } from '../shared/address.model';
 
 export interface User {
   id: number;

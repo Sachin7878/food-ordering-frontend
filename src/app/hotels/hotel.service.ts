@@ -21,9 +21,9 @@ import {
   UpdateHotelSuccess,
 } from './store/hotel.actions';
 import { Location } from '@angular/common';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from 'src/environments/environment';
 
-const BACKEND_URL = 'http://localhost:8080';
+const BACKEND_URL = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root',

@@ -2,8 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Order } from './order.model';
 import { Location } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
-const BACKEND_URL = 'http://localhost:8080';
+const BACKEND_URL = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root',

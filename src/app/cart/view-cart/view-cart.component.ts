@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { PlaceOrder } from 'src/app/orders/store/order.action';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { CartItem } from '../cart-item.model';
 import {

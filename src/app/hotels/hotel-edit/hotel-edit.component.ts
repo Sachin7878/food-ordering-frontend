@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Address } from 'src/app/address.model';
+import { Address } from 'src/app/shared/address.model';
 
 import { Hotel } from '../hotel.model';
 import { HotelService } from '../hotel.service';

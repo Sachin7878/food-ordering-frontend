@@ -1,4 +1,4 @@
-import { Address } from '../address.model';
+import { Address } from '../shared/address.model';
 import { Hotel } from '../hotels/hotel.model';
 import { MenuItem } from '../hotels/menu-item.model';
 

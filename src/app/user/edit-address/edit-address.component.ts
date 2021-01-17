@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { Address } from 'src/app/address.model';
+import { Address } from 'src/app/shared/address.model';
 import { AppState } from 'src/app/shared/store/app.state';
 import { UserService } from '../user.service';
 

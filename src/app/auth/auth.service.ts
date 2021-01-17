@@ -16,12 +16,12 @@ import {
   StopLoading,
 } from '../shared/store/app.actions';
 import { ClearCart, LoadCartItems } from '../cart/store/cart.actions';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from 'src/environments/environment';
 
 export const ROLE_ADMIN = 'admin';
 export const ROLE_VENDOR = 'vendor';
 export const ROLE_USER = 'user';
-const BANKEND_URL = 'http://localhost:8080/api';
+const BANKEND_URL = environment.baseUrl + '/api';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -131,7 +131,7 @@ export class AuthService {
             this.router.navigate(['/']);
           }
         },
-        (error) => {
+        () => {
           this.store.dispatch(new StopLoading());
           console.log('Invalid Credentials');
           this.store.dispatch(new SetUnauthenticated());

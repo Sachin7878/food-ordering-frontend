@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
+import { environment } from 'src/environments/environment';
 import { Hotel } from '../hotels/hotel.model';
 import { LoadSelectedHotelSuccess } from '../hotels/store/hotel.actions';
 
-const BACKEND_URL = 'http://localhost:8080';
+const BACKEND_URL = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root',

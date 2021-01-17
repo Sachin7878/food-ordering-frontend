@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 import { CartItem } from './cart-item.model';
 
-const BACKEND_URL = 'http://localhost:8080';
+const BACKEND_URL = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root',

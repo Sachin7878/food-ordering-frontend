@@ -99,6 +99,7 @@
           color="primary"
           type="button"
           (click)="cancel()"
+          [disabled]="updateUserAdd.invalid"
         >
           Cancel
         </button>
@@ -206,6 +207,7 @@
           color="primary"
           type="button"
           routerLink="../"
+          [disabled]="addUserAdd.invalid"
         >
           Cancel
         </button>

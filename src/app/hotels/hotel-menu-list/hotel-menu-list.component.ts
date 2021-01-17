@@ -12,7 +12,7 @@ import {
   ClearCart,
   SetCurrentCartHotel,
 } from 'src/app/cart/store/cart.actions';
-import { Address } from 'src/app/address.model';
+import { Address } from 'src/app/shared/address.model';
 import { DialogService } from 'src/app/shared/dialog.service';
 import { CartState } from 'src/app/cart/store/cart.state';
 import { VendorService } from 'src/app/vendor/vendor.service';
@@ -149,7 +149,6 @@ export class HotelMenuListComponent implements OnInit {
     this.hotelService
       .uploadHotelImage(this.selectedFile, hotelId)
       .subscribe(() => {
-        // this.store.dispatch(new UploadImageSuccess(resp));
         this.router.navigate(['/']);
       });
   }
