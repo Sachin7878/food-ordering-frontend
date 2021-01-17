@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { State, Action, Selector, StateContext } from '@ngxs/store';
 import { User } from '../../user/user-model';
 import {
@@ -13,6 +14,7 @@ import {
   SetThemeStatus,
   SetVendorTrue,
   SetVendorFalse,
+  OpenSnackbar,
 } from './app.actions';
 
 export interface AppStateModel {
@@ -37,6 +39,8 @@ export interface AppStateModel {
 })
 @Injectable()
 export class AppState {
+  constructor(private _snackBar: MatSnackBar) {}
+
   @Selector()
   public static getState(state: AppStateModel) {
     return state;
@@ -131,5 +135,15 @@ export class AppState {
     action: SetThemeStatus
   ) {
     patchState({ darkModeSwitch: action.payload });
+  }
+
+  @Action(OpenSnackbar)
+  public openSnackbar(
+    { patchState }: StateContext<AppStateModel>,
+    action: OpenSnackbar
+  ) {
+    this._snackBar.open(action.payload, 'OK', {
+      duration: 2000,
+    });
   }
 }

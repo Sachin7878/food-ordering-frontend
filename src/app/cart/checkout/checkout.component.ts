@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { PlaceOrder } from 'src/app/orders/store/order.action';
+import { OpenSnackbar } from 'src/app/shared/store/app.actions';
 import { AppState } from 'src/app/shared/store/app.state';
 import { User } from 'src/app/user/user-model';
 import { UserService } from 'src/app/user/user.service';
@@ -33,6 +35,7 @@ export class CheckoutComponent implements OnInit {
 
   placeOrder() {
     this.store.dispatch(new PlaceOrder());
+    this.store.dispatch(new OpenSnackbar('Order placed successfully!'));
     this.router.navigate(['/']);
   }
 }

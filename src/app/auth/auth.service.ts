@@ -5,6 +5,7 @@ import { AuthLoginData } from './auth-login-data.model';
 import { AuthRegistrationData } from './auth-registration-data.model';
 import { Store } from '@ngxs/store';
 import {
+  OpenSnackbar,
   SetAdminFalse,
   SetAdminTrue,
   SetAuthenticated,
@@ -15,6 +16,7 @@ import {
   StopLoading,
 } from '../shared/store/app.actions';
 import { ClearCart, LoadCartItems } from '../cart/store/cart.actions';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export const ROLE_ADMIN = 'admin';
 export const ROLE_VENDOR = 'vendor';
@@ -55,6 +57,9 @@ export class AuthService {
       () => {
         this.store.dispatch(new StopLoading());
         this.login(authData.email, authData.password);
+        this.store.dispatch(
+          new OpenSnackbar('Registered & Logged in successfully!')
+        );
         this.router.navigate(['/']);
       },
       () => {
@@ -82,6 +87,7 @@ export class AuthService {
     this.http.post(BANKEND_URL + '/register/vendor', authData).subscribe(
       () => {
         this.store.dispatch(new StopLoading());
+        this.store.dispatch(new OpenSnackbar('Vendor created successfully!'));
         this.router.navigate(['/']);
       },
       () => {
@@ -116,6 +122,7 @@ export class AuthService {
 
             this.store.dispatch(new StopLoading());
             this.store.dispatch(new SetAuthenticated());
+            this.store.dispatch(new OpenSnackbar('Logged in successfully!'));
             const now = new Date();
             const expirationDate = new Date(
               now.getTime() + expiresInDuration * 1000
@@ -154,6 +161,7 @@ export class AuthService {
   logout() {
     this.token = null;
     this.store.dispatch(new SetUnauthenticated());
+    this.store.dispatch(new OpenSnackbar('Logged out successfully!'));
     this.router.navigate(['/']);
     this.clearAuthData();
     this.store.dispatch(new SetAdminFalse());

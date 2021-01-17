@@ -5,7 +5,11 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MenuItem } from './menu-item.model';
 import { Store } from '@ngxs/store';
-import { StartLoading, StopLoading } from '../shared/store/app.actions';
+import {
+  OpenSnackbar,
+  StartLoading,
+  StopLoading,
+} from '../shared/store/app.actions';
 
 import {
   AddHotelSuccess,
@@ -17,6 +21,7 @@ import {
   UpdateHotelSuccess,
 } from './store/hotel.actions';
 import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 const BACKEND_URL = 'http://localhost:8080';
 
@@ -67,6 +72,7 @@ export class HotelService {
         (result) => {
           this.store.dispatch(new AddHotelSuccess(result));
           this.store.dispatch(new StopLoading());
+          this.store.dispatch(new OpenSnackbar('Hotel created successfully!'));
           this.router.navigate(['/']);
         },
         (error) => {
@@ -208,6 +214,7 @@ export class HotelService {
         (updatedHotelFromDB) => {
           this.store.dispatch(new UpdateHotelSuccess(updatedHotelFromDB));
           this.store.dispatch(new StopLoading());
+          this.store.dispatch(new OpenSnackbar('Hotel updated successfully!'));
           this.router.navigate(['/']);
         },
         (error) => {
@@ -223,6 +230,7 @@ export class HotelService {
       () => {
         this.store.dispatch(new DeleteHotel(hotelIdString));
         this.store.dispatch(new StopLoading());
+        this.store.dispatch(new OpenSnackbar('Hotel deleted successfully!'));
         this.router.navigate(['/']);
       },
       (error) => {
@@ -238,6 +246,9 @@ export class HotelService {
       .subscribe(
         () => {
           this.store.dispatch(new DeleteMenuItem(menuId));
+          this.store.dispatch(
+            new OpenSnackbar('Menu Item deleted successfully!')
+          );
         },
         (error) => {
           console.log(error);
@@ -268,6 +279,9 @@ export class HotelService {
       .subscribe(
         () => {
           this.store.dispatch(new StopLoading());
+          this.store.dispatch(
+            new OpenSnackbar('Menu Item added successfully!')
+          );
           this.location.back();
         },
         (error) => {
@@ -301,6 +315,9 @@ export class HotelService {
       .subscribe(
         () => {
           this.store.dispatch(new StopLoading());
+          this.store.dispatch(
+            new OpenSnackbar('Menu Item updated successfully!')
+          );
           this.location.back();
         },
         (error) => {

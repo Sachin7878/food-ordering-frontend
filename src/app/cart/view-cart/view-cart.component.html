@@ -25,7 +25,7 @@
         color="warn"
         (click)="decreaseQuantity(cartItem.item.id)"
       >
-        -
+        <mat-icon>remove</mat-icon>
       </button>
       <span>{{ cartItem.quantity }}</span>
       <button
@@ -33,7 +33,7 @@
         color="primary"
         (click)="increaseQuantity(cartItem.item.id)"
       >
-        +
+        <mat-icon>add</mat-icon>
       </button>
       <button mat-button (click)="removeSingleItem(cartItem.id)">
         <mat-icon>clear</mat-icon>
@@ -55,8 +55,12 @@
       </div></mat-card-content
     >
     <mat-card-actions style="margin-bottom: 0">
-      <button mat-button color="warn" (click)="clearCart()">Clear Cart</button>
-      <button mat-button routerLink="checkout">Checkout</button>
+      <button mat-raised-button color="warn" (click)="clearCart()">
+        Clear Cart
+      </button>
+      <button mat-raised-button color="primary" routerLink="checkout">
+        Checkout
+      </button>
     </mat-card-actions>
   </mat-card>
 </div>

@@ -50,7 +50,7 @@ export class SetThemeStatus {
   constructor(public payload: boolean) {}
 }
 
-// export class GetUserAddress {
-//   public static readonly type = '[User] Get User Address';
-//   constructor(public payload: Address) {}
-// }
+export class OpenSnackbar {
+  public static readonly type = '[UI] Open Snackbar';
+  constructor(public payload: string) {}
+}

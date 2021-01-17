@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Action, StateContext, State, Selector, Store } from '@ngxs/store';
 import { RefreshCart } from 'src/app/cart/store/cart.actions';
-import { StartLoading, StopLoading } from 'src/app/shared/store/app.actions';
+import {
+  OpenSnackbar,
+  StartLoading,
+  StopLoading,
+} from 'src/app/shared/store/app.actions';
 import { Order } from '../order.model';
 import { OrderService } from '../order.service';
 import { FetchOrders, FetchOrdersByHotelId, PlaceOrder } from './order.action';
