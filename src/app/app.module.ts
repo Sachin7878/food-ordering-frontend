@@ -31,6 +31,7 @@ import { EditMenuItemComponent } from './hotels/edit-menu-item/edit-menu-item.co
 import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashboard.component';
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { OrderState } from './orders/store/order.state';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { OrderState } from './orders/store/order.state';
     EditMenuItemComponent,
     VendorDashboardComponent,
     ConfirmDialogComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

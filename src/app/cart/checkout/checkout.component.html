@@ -78,12 +78,7 @@
         </mat-radio-group>
 
         <div *ngIf="hidden == 'false'" style="margin: 1rem">
-          <form
-            fxLayoutAlign="stretch"
-            #cardForm="ngForm"
-            fxLayout="column"
-            autocomplete="off"
-          >
+          <form fxLayoutAlign="stretch" fxLayout="column" autocomplete="off">
             <mat-form-field>
               <input
                 matInput
@@ -132,7 +127,6 @@
         type="button"
         (click)="placeOrder()"
         color="primary"
-        [disabled]="cardForm.invalid"
       >
         Place Order
       </button></mat-dialog-actions

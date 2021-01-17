@@ -12,6 +12,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashboard.component';
 import { VendorGuard } from './auth/vendor.guard';
 import { MasterGuard } from './auth/master.guard';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', component: HotelListComponent },
@@ -69,6 +70,8 @@ const routes: Routes = [
     loadChildren: () =>
       import('./orders/orders.module').then((m) => m.OrdersModule),
   },
+  { path: '404', component: NotFoundComponent },
+  { path: '**', redirectTo: '/404' },
 ];
 
 @NgModule({
