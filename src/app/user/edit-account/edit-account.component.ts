@@ -12,7 +12,7 @@ import { UserService } from '../user.service';
   styleUrls: ['./edit-account.component.css'],
 })
 export class EditAccountComponent implements OnInit {
-  userId: number;
+  userId: string | number;
   firstName: string;
   lastName: string;
   email: string;

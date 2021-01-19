@@ -73,6 +73,7 @@
           mat-raised-button
           color="accent"
           type="submit"
+          [disabled]="updateUser.invalid"
         >
           Update Account
         </button>
@@ -82,7 +83,6 @@
           color="primary"
           type="button"
           routerLink="/"
-          [disabled]="updateUser.invalid"
         >
           Cancel
         </button>

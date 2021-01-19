@@ -262,11 +262,10 @@ export class HotelService {
     itemPrice: number,
     available: boolean
   ) {
-    const itemToBeAdded: MenuItem = {
-      id: null,
+    const itemToBeAdded = {
       itemName: itemName,
-      itemPrice: itemPrice,
-      available: available,
+      itemPrice: +itemPrice,
+      available: available ? true : false,
     };
 
     this.store.dispatch(new StartLoading());

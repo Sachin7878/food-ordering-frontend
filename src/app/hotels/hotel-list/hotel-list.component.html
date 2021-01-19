@@ -2,7 +2,7 @@
   <div fxFlex fxLayout fxFill fxLayoutAlign="center center">
     <mat-spinner *ngIf="isLoading$ | async"></mat-spinner>
   </div>
-  <div class="content">
+  <div class="content" *ngIf="!(isLoading$ | async)">
     <div fxLayout="row wrap" fxLayoutGap="16px grid">
       <div
         fxFlex="25%"

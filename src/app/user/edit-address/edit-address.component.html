@@ -90,6 +90,7 @@
           mat-raised-button
           color="accent"
           type="submit"
+          [disabled]="updateUserAdd.invalid"
         >
           Update Address
         </button>
@@ -99,7 +100,6 @@
           color="primary"
           type="button"
           (click)="cancel()"
-          [disabled]="updateUserAdd.invalid"
         >
           Cancel
         </button>
@@ -198,8 +198,9 @@
           mat-raised-button
           color="accent"
           type="submit"
+          [disabled]="addUserAdd.invalid"
         >
-          Update Address
+          Add Address
         </button>
         <button
           style="margin: 1rem"
@@ -207,7 +208,6 @@
           color="primary"
           type="button"
           routerLink="../"
-          [disabled]="addUserAdd.invalid"
         >
           Cancel
         </button>
