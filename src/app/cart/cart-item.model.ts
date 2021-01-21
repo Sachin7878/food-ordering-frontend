@@ -1,7 +1,7 @@
 import { MenuItem } from '../hotels/menu-item.model';
 
 export interface CartItem {
-  id: number;
+  id?: number;
   item: MenuItem;
   quantity: number;
 }

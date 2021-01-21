@@ -82,9 +82,7 @@ export class HotelMenuListComponent implements OnInit {
 
     if (currentHotel == null) {
       this.store.dispatch(new SetCurrentCartHotel(currentSelectHotel));
-      this.store.dispatch(
-        new AddItemToCart({ id: null, item: menuItem, quantity: 1 })
-      );
+      this.store.dispatch(new AddItemToCart({ item: menuItem, quantity: 1 }));
     } else if (currentHotel.id != currentSelectHotel.id) {
       this.dialogService
         .openConfirmDialog(
@@ -97,9 +95,7 @@ export class HotelMenuListComponent implements OnInit {
           }
         });
     } else {
-      this.store.dispatch(
-        new AddItemToCart({ id: null, item: menuItem, quantity: 1 })
-      );
+      this.store.dispatch(new AddItemToCart({ item: menuItem, quantity: 1 }));
     }
   }
 
