@@ -62,7 +62,7 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
     NgxsModule.forRoot([AppState, HotelState, CartState, OrderState], {
       developmentMode: !environment.production,
     }),
-    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
