@@ -63,7 +63,6 @@ export class HotelService {
     let emailParams = new HttpParams();
     emailParams = emailParams.append('email', vendorEmail);
 
-    this.store.dispatch(new StartLoading());
     this.http
       .post<Hotel>(BACKEND_URL + '/hotels', hotelRegData, {
         params: emailParams,
@@ -71,19 +70,17 @@ export class HotelService {
       .subscribe(
         (result) => {
           this.store.dispatch(new AddHotelSuccess(result));
-          this.store.dispatch(new StopLoading());
+
           this.store.dispatch(new OpenSnackbar('Hotel created successfully!'));
           this.router.navigate(['/']);
         },
         (error) => {
-          this.store.dispatch(new StopLoading());
           console.log(error);
         }
       );
   }
 
   fetchAllHotels() {
-    this.store.dispatch(new StartLoading());
     this.http
       .get<{ content: Hotel[] }>(BACKEND_URL + '/hotels')
       .pipe(
@@ -105,7 +102,6 @@ export class HotelService {
         })
       )
       .subscribe((transformedHotelData) => {
-        this.store.dispatch(new StopLoading());
         this.store.dispatch(new LoadHotelsSuccess(transformedHotelData.hotels));
       });
   }
@@ -115,7 +111,6 @@ export class HotelService {
   }
 
   getOnlyHotelById(id) {
-    this.store.dispatch(new StartLoading());
     this.http
       .get<Hotel>(BACKEND_URL + '/hotels/' + id)
       .pipe(
@@ -134,29 +129,22 @@ export class HotelService {
       )
       .subscribe(
         (hotel) => {
-          this.store.dispatch(new StopLoading());
           this.store.dispatch(new LoadSelectedHotelSuccess(hotel));
         },
-        () => {
-          this.store.dispatch(new StopLoading());
-        }
+        () => {}
       );
   }
 
   getOnlySelectedHotelMenu(id) {
-    this.store.dispatch(new StartLoading());
     this.http
       .get<{ content: MenuItem[] }>(BACKEND_URL + '/hotels/' + id + '/menu')
       .subscribe(
         (hotelMenu) => {
-          this.store.dispatch(new StopLoading());
           this.store.dispatch(
             new LoadSelectedHotelMenuSuccess(hotelMenu.content)
           );
         },
-        () => {
-          this.store.dispatch(new StopLoading());
-        }
+        () => {}
       );
   }
 
@@ -195,7 +183,6 @@ export class HotelService {
     let emailParam = new HttpParams();
     emailParam = emailParam.append('email', vendorEmail);
 
-    this.store.dispatch(new StartLoading());
     this.http
       .put<Hotel>(BACKEND_URL + '/hotels/' + id, hotelUpdateData, {
         params: emailParam,
@@ -213,29 +200,26 @@ export class HotelService {
       .subscribe(
         (updatedHotelFromDB) => {
           this.store.dispatch(new UpdateHotelSuccess(updatedHotelFromDB));
-          this.store.dispatch(new StopLoading());
+
           this.store.dispatch(new OpenSnackbar('Hotel updated successfully!'));
           this.router.navigate(['/']);
         },
         (error) => {
-          this.store.dispatch(new StopLoading());
           console.log(error);
         }
       );
   }
 
   deleteHotel(hotelIdString: string) {
-    this.store.dispatch(new StartLoading());
     this.http.delete(BACKEND_URL + '/hotels/' + hotelIdString).subscribe(
       () => {
         this.store.dispatch(new DeleteHotel(hotelIdString));
-        this.store.dispatch(new StopLoading());
+
         this.store.dispatch(new OpenSnackbar('Hotel deleted successfully!'));
         this.router.navigate(['/']);
       },
       (error) => {
         console.log(error);
-        this.store.dispatch(new StopLoading());
       }
     );
   }
@@ -268,8 +252,6 @@ export class HotelService {
       available: available ? true : false,
     };
 
-    this.store.dispatch(new StartLoading());
-
     this.http
       .post<MenuItem>(
         BACKEND_URL + '/hotels/' + hotelId + '/menu/',
@@ -277,14 +259,12 @@ export class HotelService {
       )
       .subscribe(
         () => {
-          this.store.dispatch(new StopLoading());
           this.store.dispatch(
             new OpenSnackbar('Menu Item added successfully!')
           );
           this.location.back();
         },
         (error) => {
-          this.store.dispatch(new StopLoading());
           console.log(error);
         }
       );
@@ -304,8 +284,6 @@ export class HotelService {
       available: available,
     };
 
-    this.store.dispatch(new StartLoading());
-
     this.http
       .put<MenuItem>(
         BACKEND_URL + '/hotels/' + hotelId + '/menu/' + menuId,
@@ -313,14 +291,12 @@ export class HotelService {
       )
       .subscribe(
         () => {
-          this.store.dispatch(new StopLoading());
           this.store.dispatch(
             new OpenSnackbar('Menu Item updated successfully!')
           );
           this.location.back();
         },
         (error) => {
-          this.store.dispatch(new StopLoading());
           console.log(error);
         }
       );

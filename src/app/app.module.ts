@@ -32,6 +32,7 @@ import { VendorDashboardComponent } from './vendor/vendor-dashboard/vendor-dashb
 import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.component';
 import { OrderState } from './orders/store/order.state';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { NetworkInterceptor } from './shared/network.interceptor';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { NotFoundComponent } from './shared/not-found/not-found.component';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: NetworkInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
   entryComponents: [ErrorComponent, ConfirmDialogComponent],

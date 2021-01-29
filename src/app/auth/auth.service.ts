@@ -52,10 +52,10 @@ export class AuthService {
       mobileNo: mobileNo,
       password: password,
     };
-    this.store.dispatch(new StartLoading());
+    // this.store.dispatch(new StartLoading());
     this.http.post(BANKEND_URL + '/register', authData).subscribe(
       () => {
-        this.store.dispatch(new StopLoading());
+        // this.store.dispatch(new StopLoading());
         this.login(authData.email, authData.password);
         this.store.dispatch(
           new OpenSnackbar('Registered & Logged in successfully!')
@@ -63,7 +63,7 @@ export class AuthService {
         this.router.navigate(['/']);
       },
       () => {
-        this.store.dispatch(new StopLoading());
+        // this.store.dispatch(new StopLoading());
         this.store.dispatch(new SetUnauthenticated());
       }
     );
@@ -83,15 +83,15 @@ export class AuthService {
       mobileNo: mobileNo,
       password: password,
     };
-    this.store.dispatch(new StartLoading());
+    // this.store.dispatch(new StartLoading());
     this.http.post(BANKEND_URL + '/register/vendor', authData).subscribe(
       () => {
-        this.store.dispatch(new StopLoading());
+        // this.store.dispatch(new StopLoading());
         this.store.dispatch(new OpenSnackbar('Vendor created successfully!'));
         this.router.navigate(['/']);
       },
       () => {
-        this.store.dispatch(new StopLoading());
+        // this.store.dispatch(new StopLoading());
         this.store.dispatch(new SetUnauthenticated());
       }
     );
@@ -102,7 +102,7 @@ export class AuthService {
       email: email,
       password: password,
     };
-    this.store.dispatch(new StartLoading());
+
     this.http
       .post<{ token: string; expiresIn: number; role: string }>(
         BANKEND_URL + '/login',
@@ -120,7 +120,6 @@ export class AuthService {
 
             this.roleHandling(roleCheck);
 
-            this.store.dispatch(new StopLoading());
             this.store.dispatch(new SetAuthenticated());
             this.store.dispatch(new OpenSnackbar('Logged in successfully!'));
             const now = new Date();
@@ -132,7 +131,6 @@ export class AuthService {
           }
         },
         () => {
-          this.store.dispatch(new StopLoading());
           console.log('Invalid Credentials');
           this.store.dispatch(new SetUnauthenticated());
         }
@@ -140,7 +138,6 @@ export class AuthService {
   }
 
   autoAuthUser() {
-    this.store.dispatch(new StartLoading());
     const authInfo = this.getAuthData();
     if (!authInfo) {
       return;
@@ -154,8 +151,6 @@ export class AuthService {
       this.store.dispatch(new SetAuthenticated());
       this.setAuthTimer(expiresIn / 1000);
     }
-
-    this.store.dispatch(new StopLoading());
   }
 
   logout() {

@@ -38,23 +38,20 @@ export class OrderState {
 
   @Action(FetchOrders)
   public loadOrdersForUser({ patchState }: StateContext<OrderStateModel>) {
-    this.store.dispatch(new StartLoading());
     return this.orderService.fetchOrders().subscribe((result) => {
       patchState({
         orders: result,
       });
-      this.store.dispatch(new StopLoading());
     });
   }
 
   @Action(PlaceOrder)
   public placeOrder({ patchState, getState }: StateContext<OrderStateModel>) {
-    this.store.dispatch(new StartLoading());
     const state = getState();
     return this.orderService.placeOrder().subscribe((result) => {
       const orderList: Order[] = [...state.orders, result];
       patchState({ orders: orderList });
-      this.store.dispatch(new StopLoading());
+
       this.store.dispatch(new RefreshCart());
     });
   }
@@ -64,14 +61,12 @@ export class OrderState {
     { patchState }: StateContext<OrderStateModel>,
     action: FetchOrdersByHotelId
   ) {
-    this.store.dispatch(new StartLoading());
     return this.orderService
       .fetchOrdersByHotelId(action.payload)
       .subscribe((result) => {
         patchState({
           orders: result,
         });
-        this.store.dispatch(new StopLoading());
       });
   }
 }

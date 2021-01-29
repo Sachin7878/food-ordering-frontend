@@ -23,15 +23,11 @@ export class UserService {
   ) {}
 
   fetchUser() {
-    this.store.dispatch(new StartLoading());
-
     this.http.get<User>(BACKEND_URL + '/api/account').subscribe(
       (user) => {
-        this.store.dispatch(new StopLoading());
         this.store.dispatch(new GetUserDetails(user));
       },
       (error) => {
-        this.store.dispatch(new StopLoading());
         console.log(error);
       }
     );
@@ -56,12 +52,9 @@ export class UserService {
       pincode: pincode,
     };
 
-    this.store.dispatch(new StartLoading());
-
     this.http
       .put(BACKEND_URL + '/api/account/address', userUpdateAddData)
       .subscribe((res) => {
-        this.store.dispatch(new StopLoading());
         this.router.navigate(['/']);
       });
   }
@@ -75,12 +68,9 @@ export class UserService {
       email: email,
     };
 
-    this.store.dispatch(new StartLoading());
-
     this.http
       .put(BACKEND_URL + '/api/account', userUpdateData)
       .subscribe((res) => {
-        this.store.dispatch(new StopLoading());
         this.router.navigate(['/']);
       });
   }
@@ -102,12 +92,9 @@ export class UserService {
       pincode: pincode,
     };
 
-    this.store.dispatch(new StartLoading());
-
     this.http
       .post(BACKEND_URL + '/api/account/address', userAddressAdd)
       .subscribe((res) => {
-        this.store.dispatch(new StopLoading());
         this.router.navigate(['/']);
       });
   }
