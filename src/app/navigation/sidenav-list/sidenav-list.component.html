@@ -30,7 +30,7 @@
 
   <a
     mat-list-item
-    routerLink="/edit-account"
+    routerLink="/account/edit-account"
     (click)="onClose()"
     *ngIf="(isAuth$ | async) && !(isAdmin$ | async) && !(isVendor$ | async)"
   >
@@ -39,11 +39,20 @@
 
   <a
     mat-list-item
-    routerLink="/edit-address"
+    routerLink="/account/edit-address"
     (click)="onClose()"
     *ngIf="(isAuth$ | async) && !(isAdmin$ | async) && !(isVendor$ | async)"
   >
     <span class="nav-caption">Add/Edit Address</span>
+  </a>
+
+  <a
+    mat-list-item
+    routerLink="/orders"
+    (click)="onClose()"
+    *ngIf="(isAuth$ | async) && !(isAdmin$ | async) && !(isVendor$ | async)"
+  >
+    <span class="nav-caption">Orders</span>
   </a>
 
   <a mat-list-item (click)="onLogout()" *ngIf="isAuth$ | async">

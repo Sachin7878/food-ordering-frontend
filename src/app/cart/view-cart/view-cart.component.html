@@ -9,7 +9,12 @@
     <h2 style="margin: auto; text-align: center">Cart Items</h2>
   </div>
 
-  <mat-card class="card" *ngFor="let cartItem of cartItems$ | async">
+  <!-- Cart Items card -->
+  <mat-card
+    fxLayoutAlign="space-between center"
+    class="card"
+    *ngFor="let cartItem of cartItems$ | async"
+  >
     <div>
       <mat-card-content style="font-weight: 400">{{
         cartItem.item.itemName
@@ -19,7 +24,7 @@
       }}</mat-card-content>
     </div>
 
-    <div>
+    <div fxLayout.xs="row" fxLayoutAlign.xs="end center">
       <button
         mat-button
         color="warn"
@@ -41,7 +46,14 @@
     </div>
   </mat-card>
 
-  <mat-card class="card" *ngIf="message == null">
+  <!-- Amount and cart actions -->
+  <mat-card
+    fxLayout.xs="column center"
+    fxLayout.gt-xs="row center"
+    fxLayoutAlign.gt-xs="space-between center"
+    class="card"
+    *ngIf="message == null"
+  >
     <mat-card-content>
       <div
         fxLayout="row"
@@ -54,7 +66,11 @@
         </h3>
       </div></mat-card-content
     >
-    <mat-card-actions style="margin-bottom: 0">
+    <mat-card-actions
+      style="margin-bottom: 0"
+      fxLayout.xs="row"
+      fxLayoutAlign.xs="space-evenly center"
+    >
       <button mat-raised-button color="warn" (click)="clearCart()">
         Clear Cart
       </button>
