@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 
 import { Select } from '@ngxs/store';
 import { AppState } from 'src/app/shared/store/app.state';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth-card',
@@ -12,14 +11,7 @@ import { Router } from '@angular/router';
 })
 export class AuthCardComponent implements OnInit {
   @Select(AppState.isLoading) isLoading$: Observable<boolean>;
-  @Select(AppState.isAuthenticated) isAuth$: Observable<boolean>;
-  constructor(private router: Router) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.isAuth$.subscribe((res) => {
-      if (res) {
-        this.router.navigate(['/']);
-      }
-    });
-  }
+  ngOnInit(): void {}
 }
