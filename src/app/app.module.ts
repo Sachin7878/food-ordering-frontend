@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
@@ -33,6 +33,7 @@ import { ConfirmDialogComponent } from './shared/confirm-dialog/confirm-dialog.c
 import { OrderState } from './orders/store/order.state';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { NetworkInterceptor } from './shared/network.interceptor';
+import { AppConfig, initConfig } from './app-config';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,13 @@ import { NetworkInterceptor } from './shared/network.interceptor';
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: NetworkInterceptor, multi: true },
+    AppConfig,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initConfig,
+      deps: [AppConfig],
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
   entryComponents: [ErrorComponent, ConfirmDialogComponent],

@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
 import { Hotel } from '../hotels/hotel.model';
 import { LoadSelectedHotelSuccess } from '../hotels/store/hotel.actions';
 
-const BACKEND_URL = environment.baseUrl;
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root',

@@ -23,7 +23,7 @@ import {
 import { Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
 
-const BACKEND_URL = environment.baseUrl;
+const BACKEND_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root',

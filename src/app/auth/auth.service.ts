@@ -21,7 +21,7 @@ import { environment } from 'src/environments/environment';
 export const ROLE_ADMIN = 'admin';
 export const ROLE_VENDOR = 'vendor';
 export const ROLE_USER = 'user';
-const BANKEND_URL = environment.baseUrl + '/api';
+const BANKEND_URL = environment.apiUrl + '/api';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
