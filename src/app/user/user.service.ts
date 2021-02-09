@@ -2,15 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { environment } from 'src/environments/environment';
-import {
-  GetUserDetails,
-  StartLoading,
-  StopLoading,
-} from '../shared/store/app.actions';
+import { AppConfig } from '../app-config';
+import { GetUserDetails } from '../shared/store/app.actions';
 import { User } from './user-model';
 
-const BACKEND_URL = environment.apiUrl;
+// const BACKEND_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root',
@@ -19,11 +15,14 @@ export class UserService {
   constructor(
     private http: HttpClient,
     private store: Store,
-    private router: Router
+    private router: Router,
+    private appConfig: AppConfig
   ) {}
 
+  private BACKEND_URL: string = this.appConfig.baseUrl;
+
   fetchUser() {
-    this.http.get<User>(BACKEND_URL + '/api/account').subscribe(
+    this.http.get<User>(this.BACKEND_URL + '/api/account').subscribe(
       (user) => {
         this.store.dispatch(new GetUserDetails(user));
       },
@@ -53,8 +52,8 @@ export class UserService {
     };
 
     this.http
-      .put(BACKEND_URL + '/api/account/address', userUpdateAddData)
-      .subscribe((res) => {
+      .put(this.BACKEND_URL + '/api/account/address', userUpdateAddData)
+      .subscribe(() => {
         this.router.navigate(['/']);
       });
   }
@@ -69,8 +68,8 @@ export class UserService {
     };
 
     this.http
-      .put(BACKEND_URL + '/api/account', userUpdateData)
-      .subscribe((res) => {
+      .put(this.BACKEND_URL + '/api/account', userUpdateData)
+      .subscribe(() => {
         this.router.navigate(['/']);
       });
   }
@@ -93,8 +92,8 @@ export class UserService {
     };
 
     this.http
-      .post(BACKEND_URL + '/api/account/address', userAddressAdd)
-      .subscribe((res) => {
+      .post(this.BACKEND_URL + '/api/account/address', userAddressAdd)
+      .subscribe(() => {
         this.router.navigate(['/']);
       });
   }

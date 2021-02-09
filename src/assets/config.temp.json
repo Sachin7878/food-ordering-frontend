@@ -1,0 +1,3 @@
+{
+  "url": "http://${SERVER_NAME}:${PORT_BACK_SSL}"
+}

@@ -2,11 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { environment } from 'src/environments/environment';
+import { AppConfig } from '../app-config';
 import { Hotel } from '../hotels/hotel.model';
 import { LoadSelectedHotelSuccess } from '../hotels/store/hotel.actions';
 
-const BACKEND_URL = environment.apiUrl;
+// const BACKEND_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root',
@@ -15,11 +15,14 @@ export class VendorService {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private appConfig: AppConfig
   ) {}
 
+  private BACKEND_URL: string = this.appConfig.baseUrl;
+
   getVendorHotel() {
-    this.http.get<Hotel>(BACKEND_URL + '/vendor').subscribe((hotel) => {
+    this.http.get<Hotel>(this.BACKEND_URL + '/vendor').subscribe((hotel) => {
       this.store.dispatch(new LoadSelectedHotelSuccess(hotel));
     });
   }

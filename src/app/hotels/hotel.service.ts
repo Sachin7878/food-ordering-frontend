@@ -5,11 +5,7 @@ import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { MenuItem } from './menu-item.model';
 import { Store } from '@ngxs/store';
-import {
-  OpenSnackbar,
-  StartLoading,
-  StopLoading,
-} from '../shared/store/app.actions';
+import { OpenSnackbar } from '../shared/store/app.actions';
 
 import {
   AddHotelSuccess,
@@ -21,9 +17,9 @@ import {
   UpdateHotelSuccess,
 } from './store/hotel.actions';
 import { Location } from '@angular/common';
-import { environment } from 'src/environments/environment';
+import { AppConfig } from '../app-config';
 
-const BACKEND_URL = environment.apiUrl;
+// const BACKEND_URL = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root',
@@ -33,8 +29,11 @@ export class HotelService {
     private http: HttpClient,
     private router: Router,
     private store: Store,
-    private location: Location
+    private location: Location,
+    private appConfig: AppConfig
   ) {}
+
+  private BACKEND_URL: string = this.appConfig.baseUrl;
 
   createHotel(
     hotelName: string,
@@ -64,7 +63,7 @@ export class HotelService {
     emailParams = emailParams.append('email', vendorEmail);
 
     this.http
-      .post<Hotel>(BACKEND_URL + '/hotels', hotelRegData, {
+      .post<Hotel>(this.BACKEND_URL + '/hotels', hotelRegData, {
         params: emailParams,
       })
       .subscribe(
@@ -82,7 +81,7 @@ export class HotelService {
 
   fetchAllHotels() {
     this.http
-      .get<{ content: Hotel[] }>(BACKEND_URL + '/hotels')
+      .get<{ content: Hotel[] }>(this.BACKEND_URL + '/hotels')
       .pipe(
         map((hotelData) => {
           return {
@@ -112,7 +111,7 @@ export class HotelService {
 
   getOnlyHotelById(id) {
     this.http
-      .get<Hotel>(BACKEND_URL + '/hotels/' + id)
+      .get<Hotel>(this.BACKEND_URL + '/hotels/' + id)
       .pipe(
         map((hotel) => {
           return {
@@ -137,7 +136,9 @@ export class HotelService {
 
   getOnlySelectedHotelMenu(id) {
     this.http
-      .get<{ content: MenuItem[] }>(BACKEND_URL + '/hotels/' + id + '/menu')
+      .get<{ content: MenuItem[] }>(
+        this.BACKEND_URL + '/hotels/' + id + '/menu'
+      )
       .subscribe(
         (hotelMenu) => {
           this.store.dispatch(
@@ -184,7 +185,7 @@ export class HotelService {
     emailParam = emailParam.append('email', vendorEmail);
 
     this.http
-      .put<Hotel>(BACKEND_URL + '/hotels/' + id, hotelUpdateData, {
+      .put<Hotel>(this.BACKEND_URL + '/hotels/' + id, hotelUpdateData, {
         params: emailParam,
       })
       .pipe(
@@ -211,7 +212,7 @@ export class HotelService {
   }
 
   deleteHotel(hotelIdString: string) {
-    this.http.delete(BACKEND_URL + '/hotels/' + hotelIdString).subscribe(
+    this.http.delete(this.BACKEND_URL + '/hotels/' + hotelIdString).subscribe(
       () => {
         this.store.dispatch(new DeleteHotel(hotelIdString));
 
@@ -226,7 +227,7 @@ export class HotelService {
 
   deleteMenuItem(hotelId, menuId) {
     this.http
-      .delete(BACKEND_URL + '/hotels/' + hotelId + '/menu/' + menuId)
+      .delete(this.BACKEND_URL + '/hotels/' + hotelId + '/menu/' + menuId)
       .subscribe(
         () => {
           this.store.dispatch(new DeleteMenuItem(menuId));
@@ -254,7 +255,7 @@ export class HotelService {
 
     this.http
       .post<MenuItem>(
-        BACKEND_URL + '/hotels/' + hotelId + '/menu/',
+        this.BACKEND_URL + '/hotels/' + hotelId + '/menu/',
         itemToBeAdded
       )
       .subscribe(
@@ -286,7 +287,7 @@ export class HotelService {
 
     this.http
       .put<MenuItem>(
-        BACKEND_URL + '/hotels/' + hotelId + '/menu/' + menuId,
+        this.BACKEND_URL + '/hotels/' + hotelId + '/menu/' + menuId,
         updatedMenuItem
       )
       .subscribe(
@@ -306,7 +307,7 @@ export class HotelService {
     const uploadData = new FormData();
     uploadData.append('imageFile', selectedFile);
     return this.http.post(
-      BACKEND_URL + '/hotels/' + hotelId + '/image',
+      this.BACKEND_URL + '/hotels/' + hotelId + '/image',
       uploadData
     );
   }

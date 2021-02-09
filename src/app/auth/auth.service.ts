@@ -12,26 +12,26 @@ import {
   SetUnauthenticated,
   SetVendorFalse,
   SetVendorTrue,
-  StartLoading,
-  StopLoading,
 } from '../shared/store/app.actions';
 import { ClearCart, LoadCartItems } from '../cart/store/cart.actions';
-import { environment } from 'src/environments/environment';
+import { AppConfig } from '../app-config';
 
 export const ROLE_ADMIN = 'admin';
 export const ROLE_VENDOR = 'vendor';
 export const ROLE_USER = 'user';
-const BANKEND_URL = environment.apiUrl + '/api';
+// const BACKEND_URL = environment.apiUrl + '/api';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private token: string;
   private tokenTimer: any;
+  private BACKEND_URL: string = this.appConfig.baseUrl + '/api';
 
   constructor(
     private http: HttpClient,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private appConfig: AppConfig
   ) {}
 
   getToken() {
@@ -52,10 +52,9 @@ export class AuthService {
       mobileNo: mobileNo,
       password: password,
     };
-    // this.store.dispatch(new StartLoading());
-    this.http.post(BANKEND_URL + '/register', authData).subscribe(
+
+    this.http.post(this.BACKEND_URL + '/register', authData).subscribe(
       () => {
-        // this.store.dispatch(new StopLoading());
         this.login(authData.email, authData.password);
         this.store.dispatch(
           new OpenSnackbar('Registered & Logged in successfully!')
@@ -63,7 +62,6 @@ export class AuthService {
         this.router.navigate(['/']);
       },
       () => {
-        // this.store.dispatch(new StopLoading());
         this.store.dispatch(new SetUnauthenticated());
       }
     );
@@ -83,15 +81,13 @@ export class AuthService {
       mobileNo: mobileNo,
       password: password,
     };
-    // this.store.dispatch(new StartLoading());
-    this.http.post(BANKEND_URL + '/register/vendor', authData).subscribe(
+
+    this.http.post(this.BACKEND_URL + '/register/vendor', authData).subscribe(
       () => {
-        // this.store.dispatch(new StopLoading());
         this.store.dispatch(new OpenSnackbar('Vendor created successfully!'));
         this.router.navigate(['/']);
       },
       () => {
-        // this.store.dispatch(new StopLoading());
         this.store.dispatch(new SetUnauthenticated());
       }
     );
@@ -105,7 +101,7 @@ export class AuthService {
 
     this.http
       .post<{ token: string; expiresIn: number; role: string }>(
-        BANKEND_URL + '/login',
+        this.BACKEND_URL + '/login',
         authData
       )
       .subscribe(
