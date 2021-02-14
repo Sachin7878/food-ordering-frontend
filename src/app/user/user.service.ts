@@ -10,7 +10,7 @@ import {
 } from '../shared/store/app.actions';
 import { User } from './user-model';
 
-const BACKEND_URL = environment.apiUrl;
+const BACKEND_URL = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root',

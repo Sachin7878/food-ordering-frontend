@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CartItem } from './cart-item.model';
 
-const BACKEND_URL = environment.apiUrl;
+const BACKEND_URL = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root',
